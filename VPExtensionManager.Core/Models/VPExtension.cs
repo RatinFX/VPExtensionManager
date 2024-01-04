@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Octokit;
 
 namespace VPExtensionManager.Core.Models;
 
@@ -25,39 +21,41 @@ public class VPExtension
 
     public string InstalledVersion { get; set; } = "not installed";
     public string LatestVersion { get; set; } = string.Empty;
-    public bool UpdateAvailable => !string.IsNullOrEmpty(LatestVersion);
+    public bool UpdateAvailable => !InstalledVersion.Equals(LatestVersion);
     public string Version => UpdateAvailable
         ? $"{InstalledVersion} -> {LatestVersion}"
         : InstalledVersion;
 
-    public List<Install> Installs { get; set; } = new();
+    public string WebsiteSlug { get; set; }
+    public string RepositoryName => WebsiteSlug.Replace("-", "");
 
-    public string Slug { get; set; }
-    public string GithubSlug => Slug.Replace("-", "");
+    public List<ReleaseAsset> Assets { get; set; } = new();
+
+    public List<Install> Installs { get; set; } = new();
 
     public ExtensionType Type { get; set; }
     public string TypeName => Type.ToString("G");
 
     public VPExtension() { }
 
-    public VPExtension(string creator, string extensionName, string slug, ExtensionType type)
+    public VPExtension(string creator, string extensionName, string websiteSlug, ExtensionType type)
     {
         Creator = creator;
         ExtensionName = extensionName;
-        Slug = slug;
+        WebsiteSlug = websiteSlug;
         Type = type;
     }
 
-    public string DownloadLink(string vpVersion)
+    public string GetDownloadLink(string vpVersion)
     {
         if (string.IsNullOrEmpty(LatestVersion))
             return string.Empty;
 
-        var tag = LatestVersion.Remove(LatestVersion.Length - 1);
+        var assets = Assets.Where(x => x.Name.ToLower().Contains(RepositoryName.ToLower() + vpVersion));
+        var extension = Type is ExtensionType.Extension ? ".zip" : ".dll";
+        var result = assets.FirstOrDefault(x => x.Name.EndsWith(extension))?.BrowserDownloadUrl
+            ?? "Download link not found";
 
-        if (Type is ExtensionType.Extension)
-            return $@"https://github.com/RatinFX/{GithubSlug}/releases/download/{tag}/{GithubSlug}{vpVersion}-{tag}.zip";
-
-        return $@"https://github.com/RatinFX/{GithubSlug}/releases/download/{tag}/{GithubSlug}{vpVersion}.dll";
+        return result;
     }
 }

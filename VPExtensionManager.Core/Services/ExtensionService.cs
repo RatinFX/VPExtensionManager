@@ -10,9 +10,9 @@ public class ExtensionService : IExtensionService
 {
     public static string VersionPattern => @"(?<=\[version=)(.*?)(?=\])";
 
-    public VPExtension CreateExtension(string creator, string extensionName, string slug, ExtensionType type)
+    public VPExtension CreateExtension(string creator, string extensionName, string websiteSlug, ExtensionType type)
     {
-        var extension = new VPExtension(creator, extensionName, slug, type);
+        var extension = new VPExtension(creator, extensionName, websiteSlug, type);
 
         CheckUpdateFor(extension, error => { /* Handle erros */ });
 
@@ -39,31 +39,12 @@ public class ExtensionService : IExtensionService
     {
         try
         {
-            ServicePointManager.Expect100Continue = true;
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
-            //       | SecurityProtocolType.Tls11
-            //       | SecurityProtocolType.Tls12
-            //       | SecurityProtocolType.Ssl3;
+            var release = GitHubService.GetLatestRelease(extension.RepositoryName);
+            var latestVersion = release.TagName;
+            var assets = release.Assets.Where(x => x.BrowserDownloadUrl.EndsWith(".dll") || x.BrowserDownloadUrl.EndsWith(".zip")).ToList();
 
-            using var newClient = new HttpClient();
-
-            var content = newClient.GetStringAsync($"https://ratinfx.github.io/version/{extension.Slug}").Result;
-
-            var githubTest = newClient.GetStringAsync($"https://github.com/ratinfx/{extension.GithubSlug}/releases/latest").Result;
-
-            var latestVersion = Regex.Match(content, VersionPattern).Value;
-
-            if (string.IsNullOrEmpty(latestVersion) || latestVersion.Length < 6)
-            {
-                error?.Invoke("Failed to check for Update.");
-                return;
-            }
-
-            var updateAvailable = !extension.InstalledVersion.Equals(latestVersion);
-            if (updateAvailable)
-            {
-                extension.LatestVersion = latestVersion;
-            }
+            extension.LatestVersion = latestVersion;
+            extension.Assets = assets;
         }
         catch (Exception ex)
         {
@@ -77,14 +58,14 @@ public class ExtensionService : IExtensionService
         // test install locations
         extension.Installs.Add(new Install
         {
-            VPVersion = "14",
+            VPVersion = "13",
             InstallPath = @"D:\Folder-14\somewhere\else\on\this\pc"
         });
 
         extension.Installs.Add(new Install
         {
-            VPVersion = "18",
-            InstallPath = extension.DownloadLink("18")
+            VPVersion = "14",
+            InstallPath = extension.GetDownloadLink("14")
         });
     }
 
