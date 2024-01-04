@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPExtensionManager", "VPExtensionManager\VPExtensionManager.csproj", "{296ED384-D87F-4D85-A327-1487E6E23EAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPExtensionManager.Core", "VPExtensionManager.Core\VPExtensionManager.Core.csproj", "{AB06046F-143A-4723-8C8F-06C909120C33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{296ED384-D87F-4D85-A327-1487E6E23EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296ED384-D87F-4D85-A327-1487E6E23EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296ED384-D87F-4D85-A327-1487E6E23EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296ED384-D87F-4D85-A327-1487E6E23EAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB06046F-143A-4723-8C8F-06C909120C33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB06046F-143A-4723-8C8F-06C909120C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB06046F-143A-4723-8C8F-06C909120C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB06046F-143A-4723-8C8F-06C909120C33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12B2234E-050F-4624-BD61-73106F93E83E}
+	EndGlobalSection
+EndGlobal

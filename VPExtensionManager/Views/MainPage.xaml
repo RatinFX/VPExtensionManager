@@ -1,0 +1,169 @@
+﻿<Page
+    x:Class="VPExtensionManager.Views.MainPage"
+    Style="{DynamicResource MahApps.Styles.Page}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:properties="clr-namespace:VPExtensionManager.Properties"
+    mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="800">
+    <Page.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <Grid Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="{StaticResource SmallLeftMargin}"
+                    VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource ListTitleStyle}" Text="{Binding ExtensionName}" />
+                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{Binding Version}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DetailTemplate">
+            <ScrollViewer
+                Name="ForegroundElement"
+                IsTabStop="True"
+                HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource MediumLeftRightBottomMargin}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="{StaticResource SmallRightMargin}"
+                                Style="{StaticResource PageTitleStyle}"
+                                FontWeight="Bold"
+                                Text="{Binding ExtensionName, Mode=OneWay}" />
+                            
+                            <TextBlock
+                                Margin="0"
+                                Style="{StaticResource PageTitleStyle}"
+                                Text="{Binding TypeName, StringFormat=({0}), Mode=OneWay}" />
+                        </StackPanel>
+                        
+                        <TextBlock
+                            Style="{StaticResource BodyTextStyle}"
+                            Text="{Binding Version, Mode=OneWay}" />
+
+                        <TextBlock
+                            Style="{StaticResource BodyTextStyle}"
+                            Text="{Binding Creator, StringFormat=by {0}, Mode=OneWay}" />
+
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="{StaticResource SmallTopMargin}">
+                            <Button
+                                x:Name="btnUpdate"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Margin="{StaticResource SmallRightMargin}"
+                                Padding="12,6"
+                                Click="btnUpdate_Click">
+                                Update
+                            </Button>
+                            <Button
+                                x:Name="btnInstall"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Margin="{StaticResource SmallRightMargin}"
+                                Padding="12,6" 
+                                Click="btnInstall_Click">
+                                Install
+                            </Button>
+                            <Button
+                                x:Name="btnUninstall"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Margin="{StaticResource SmallRightMargin}"
+                                Padding="12,6" 
+                                Click="btnUninstall_Click">
+                                Uninstall
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock
+                            Margin="{StaticResource SmallTopMargin}"
+                            Style="{StaticResource SubtitleTextStyle}"
+                            Text="Install Paths" />
+                        <ListView
+                            Margin="{StaticResource SmallTopMargin}"
+                            ItemsSource="{Binding Installs}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button 
+                                            Grid.Column="0"
+                                            x:Name="btnEditInstallPath"
+                                            Style="{StaticResource MahApps.Styles.Button}"
+                                            Margin="8"
+                                            Padding="12,6">
+                                            Edit
+                                        </Button>
+
+                                        <Button 
+                                            Grid.Column="1"
+                                            x:Name="btnRemoveInstallPath"
+                                            Style="{StaticResource MahApps.Styles.Button}"
+                                            Margin="8"
+                                            Padding="12,6">
+                                            Remove
+                                        </Button>
+
+                                        <TextBlock 
+                                            VerticalAlignment="Center"
+                                            Grid.Column="2"
+                                            Style="{StaticResource BodyTextStyle}"
+                                            Margin="8"
+                                            Text="{Binding VPVersion, StringFormat=Vegas Pro {0}.0, Mode=OneWay}" />
+
+                                        <TextBlock 
+                                            VerticalAlignment="Center"
+                                            Grid.Column="3"
+                                            Style="{StaticResource BodyTextStyle}"
+                                            Margin="8"
+                                            Text="{Binding InstallPath, Mode=OneWay}"
+                                            ToolTip="{Binding InstallPath}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="180" MaxWidth="200" Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Style="{StaticResource PageTitleStyle}"
+                Margin="{StaticResource MediumLeftMargin}"
+                Text="{x:Static properties:Resources.MainPageTitle}" />
+            <ListView
+                Grid.Row="1"
+                ItemsSource="{Binding ExtensionItems}"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                SelectedItem="{Binding Selected, Mode=TwoWay}" />
+        </Grid>
+        <ContentControl
+            Grid.Column="1"
+            IsTabStop="False"
+            Content="{Binding Selected}"
+            ContentTemplate="{StaticResource DetailTemplate}" />
+    </Grid>
+</Page>
