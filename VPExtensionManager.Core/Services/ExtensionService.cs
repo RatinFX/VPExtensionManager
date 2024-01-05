@@ -46,7 +46,9 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            error?.Invoke("Failed to check for Update.\n" + ex.Message);
+            extension.RepositoryWasFound = false;
+            extension.LatestVersion = "GitHub was not found";
+            error?.Invoke("Failed to get the Latest version.\n" + ex.Message);
             return;
         }
     }
@@ -68,6 +70,11 @@ public class ExtensionService : IExtensionService
     }
 
     public void UpdateExtension(VPExtension extension)
+    {
+
+    }
+
+    public void RefreshExtensions()
     {
 
     }

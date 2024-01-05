@@ -19,15 +19,19 @@ public class VPExtension
     public string Creator { get; set; } = "creator";
     public string ExtensionName { get; set; } = "name";
 
-    public string InstalledVersion { get; set; } = "not installed";
-    public string LatestVersion { get; set; } = string.Empty;
-    public bool UpdateAvailable => !InstalledVersion.Equals(LatestVersion);
-    public string Version => UpdateAvailable
-        ? $"{InstalledVersion} -> {LatestVersion}"
-        : InstalledVersion;
-
     public string WebsiteSlug { get; set; }
     public string RepositoryName => WebsiteSlug.Replace("-", "");
+    public bool RepositoryWasFound { get; set; } = true;
+
+    public string InstalledVersion { get; set; } = "not installed";
+    public string LatestVersion { get; set; } = string.Empty;
+    public bool UpdateAvailable => RepositoryWasFound
+        && !string.IsNullOrEmpty(LatestVersion)
+        && !InstalledVersion.Equals(LatestVersion);
+
+    public string Version => !RepositoryWasFound ? LatestVersion
+        : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
+        : InstalledVersion;
 
     public List<ReleaseAsset> Assets { get; set; } = new();
 
