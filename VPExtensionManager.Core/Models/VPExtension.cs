@@ -16,13 +16,18 @@ public enum ExtensionType
 
 public class VPExtension
 {
+    // General
     public string Creator { get; set; } = "creator";
     public string ExtensionName { get; set; } = "name";
+    public ExtensionType Type { get; set; }
+    public string TypeName => Type.ToString("G");
 
+    // GitHub
     public string WebsiteSlug { get; set; }
     public string RepositoryName => WebsiteSlug.Replace("-", "");
     public bool RepositoryWasFound { get; set; } = true;
 
+    // Release
     public string InstalledVersion { get; set; } = "not installed";
     public string LatestVersion { get; set; } = string.Empty;
     public bool UpdateAvailable => RepositoryWasFound
@@ -35,19 +40,22 @@ public class VPExtension
 
     public List<ReleaseAsset> Assets { get; set; } = new();
 
+    // Installed instances
     public List<Install> Installs { get; set; } = new();
 
-    public ExtensionType Type { get; set; }
-    public string TypeName => Type.ToString("G");
+    // Buttons
+    public bool UpdateEnabled => UpdateAvailable;
+    public bool InstallEnabled => UpdateAvailable;
+    public bool UninstallEnabled => UpdateAvailable && Installs.Any();
 
     public VPExtension() { }
 
-    public VPExtension(string creator, string extensionName, string websiteSlug, ExtensionType type)
+    public VPExtension(string creator, string extensionName, ExtensionType type, string websiteSlug)
     {
         Creator = creator;
         ExtensionName = extensionName;
-        WebsiteSlug = websiteSlug;
         Type = type;
+        WebsiteSlug = websiteSlug;
     }
 
     public string GetDownloadLink(string vpVersion)

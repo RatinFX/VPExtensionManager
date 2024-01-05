@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Text.RegularExpressions;
-using VPExtensionManager.Core.Contracts.Services;
+﻿using VPExtensionManager.Core.Contracts.Services;
 using VPExtensionManager.Core.Models;
 
 namespace VPExtensionManager.Core.Services;
@@ -12,24 +9,21 @@ public class ExtensionService : IExtensionService
     {
         var extensions = new List<VPExtension>
         {
-            CreateExtension("RatinFX", "VPConsole", "vpconsole", ExtensionType.Extension),
-            CreateExtension("RatinFX", "VPFlow", "vegas-pro-flow", ExtensionType.Extension),
-            CreateExtension("RatinFX", "ShortenExtendMedia", "shorten-extend-media", ExtensionType.Script),
-            CreateExtension("RatinFX", "CustomFades", "custom-fades", ExtensionType.Script),
+            CreateExtension("RatinFX", "VPConsole", ExtensionType.Extension, "vpconsole"),
+            CreateExtension("RatinFX", "VPFlow", ExtensionType.Extension, "vegas-pro-flow"),
+            CreateExtension("RatinFX", "ShortenExtendMedia", ExtensionType.Script, "shorten-extend-media"),
+            CreateExtension("RatinFX", "CustomFades", ExtensionType.Script, "custom-fades"),
         };
 
         await Task.CompletedTask;
         return extensions;
     }
 
-    public VPExtension CreateExtension(string creator, string extensionName, string websiteSlug, ExtensionType type)
+    public VPExtension CreateExtension(string creator, string extensionName, ExtensionType type, string websiteSlug)
     {
-        var extension = new VPExtension(creator, extensionName, websiteSlug, type);
-
+        var extension = new VPExtension(creator, extensionName, type, websiteSlug);
         GetLatest(extension, error => { /* Handle erros */ });
-
         LocateInstallsFor(extension);
-
         return extension;
     }
 
@@ -55,7 +49,7 @@ public class ExtensionService : IExtensionService
 
     public void LocateInstallsFor(VPExtension extension)
     {
-        // test install locations
+        // placeholder install locations
         extension.Installs.Add(new Install
         {
             VPVersion = "13",
@@ -65,6 +59,7 @@ public class ExtensionService : IExtensionService
         extension.Installs.Add(new Install
         {
             VPVersion = "14",
+            // DL link test in the mean time
             InstallPath = extension.GetDownloadLink("14")
         });
     }

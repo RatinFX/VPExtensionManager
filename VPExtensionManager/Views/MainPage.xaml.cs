@@ -18,11 +18,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     public VPExtension Selected
     {
         get { return _selected; }
-        set
-        {
-            Set(ref _selected, value);
-            // TODO: set interactability for: btnEdit, btnUpdate, btnInstall, btnUninstall
-        }
+        set { Set(ref _selected, value); }
     }
 
     public ObservableCollection<VPExtension> ExtensionItems { get; private set; } = new ObservableCollection<VPExtension>();
@@ -52,24 +48,29 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     {
     }
 
-    private void btnEdit_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        // Edit(Selected)
-    }
-
     private void btnUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        // Update(Selected)
+        // Update(Selected) - select-install window -> download zip/dll, extract, get path via installs.vpversion
     }
 
     private void btnInstall_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        // Install(Selected)
+        // Install(Selected) - install window -> [vegas version] [install path], OK + Cancel | enter + esc
     }
 
     private void btnUninstall_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        // Uninstall(Selected)
+        // Uninstall(Selected) - select-install window
+    }
+
+    private void btnEditInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // Edit(SelectedInstall) - edit window
+    }
+
+    private void btnRemoveInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // Remove(SelectedInstall) - confirmation window
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
