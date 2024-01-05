@@ -5,5 +5,5 @@ namespace VPExtensionManager.Core.Contracts.Services;
 public interface IExtensionService
 {
     Task<IEnumerable<VPExtension>> GetListDetailsDataAsync();
-    void CheckUpdateFor(VPExtension extension, Action<string> error = null);
+    void GetLatest(VPExtension extension, Action<string> error = null);
 }

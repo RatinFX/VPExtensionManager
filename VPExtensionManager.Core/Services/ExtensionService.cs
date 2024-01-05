@@ -8,19 +8,6 @@ namespace VPExtensionManager.Core.Services;
 
 public class ExtensionService : IExtensionService
 {
-    public static string VersionPattern => @"(?<=\[version=)(.*?)(?=\])";
-
-    public VPExtension CreateExtension(string creator, string extensionName, string websiteSlug, ExtensionType type)
-    {
-        var extension = new VPExtension(creator, extensionName, websiteSlug, type);
-
-        CheckUpdateFor(extension, error => { /* Handle erros */ });
-
-        LocateInstallsFor(extension);
-
-        return extension;
-    }
-
     public async Task<IEnumerable<VPExtension>> GetListDetailsDataAsync()
     {
         var extensions = new List<VPExtension>
@@ -35,7 +22,18 @@ public class ExtensionService : IExtensionService
         return extensions;
     }
 
-    public void CheckUpdateFor(VPExtension extension, Action<string> error = null)
+    public VPExtension CreateExtension(string creator, string extensionName, string websiteSlug, ExtensionType type)
+    {
+        var extension = new VPExtension(creator, extensionName, websiteSlug, type);
+
+        GetLatest(extension, error => { /* Handle erros */ });
+
+        LocateInstallsFor(extension);
+
+        return extension;
+    }
+
+    public void GetLatest(VPExtension extension, Action<string> error = null)
     {
         try
         {
