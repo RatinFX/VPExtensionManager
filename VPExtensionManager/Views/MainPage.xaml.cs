@@ -11,7 +11,7 @@ namespace VPExtensionManager.Views;
 
 public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 {
-    private readonly IExtensionService _extensionDataService;
+    private readonly IExtensionService _extensionService;
 
     private VPExtension _selected;
 
@@ -23,9 +23,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 
     public ObservableCollection<VPExtension> ExtensionItems { get; private set; } = new ObservableCollection<VPExtension>();
 
-    public MainPage(IExtensionService extensionDataService)
+    public MainPage(IExtensionService extensionService)
     {
-        _extensionDataService = extensionDataService;
+        _extensionService = extensionService;
         InitializeComponent();
         DataContext = this;
     }
@@ -34,7 +34,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     {
         ExtensionItems.Clear();
 
-        var data = await _extensionDataService.GetListDetailsDataAsync();
+        var data = await _extensionService.InitializeExtensions();
 
         foreach (var item in data)
         {
@@ -56,6 +56,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void btnInstall_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         // Install(Selected) - install window -> [vegas version] [install path], OK + Cancel | enter + esc
+        // extension.GetDownloadLink(vpver)
     }
 
     private void btnUninstall_Click(object sender, System.Windows.RoutedEventArgs e)

@@ -41,7 +41,7 @@
                             <TextBlock
                                 Margin="0"
                                 Style="{StaticResource PageTitleStyle}"
-                                Text="{Binding TypeName, StringFormat=({0}), Mode=OneWay}" />
+                                Text="{Binding Type.Name, StringFormat=({0}), Mode=OneWay}" />
                         </StackPanel>
                         
                         <TextBlock
@@ -125,7 +125,7 @@
                                             VerticalAlignment="Center"
                                             Style="{StaticResource BodyTextStyle}"
                                             Margin="8"
-                                            Text="{Binding VPVersion, StringFormat=Vegas Pro {0}.0, Mode=OneWay}" />
+                                            Text="{Binding VPVersionName, Mode=OneWay}" />
 
                                         <TextBlock 
                                             Grid.Column="3"

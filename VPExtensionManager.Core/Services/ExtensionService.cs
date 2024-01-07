@@ -1,76 +1,90 @@
-﻿using VPExtensionManager.Core.Contracts.Services;
+﻿using System.Diagnostics;
+using VPExtensionManager.Core.Contracts.Services;
 using VPExtensionManager.Core.Models;
 
 namespace VPExtensionManager.Core.Services;
 
 public class ExtensionService : IExtensionService
 {
-    public async Task<IEnumerable<VPExtension>> GetListDetailsDataAsync()
+    public static List<VPExtension> Extensions = new();
+
+    public async Task<IEnumerable<VPExtension>> InitializeExtensions()
     {
-        var extensions = new List<VPExtension>
+        if (Extensions.Any())
         {
-            CreateExtension("RatinFX", "VPConsole", ExtensionType.Extension, "vpconsole"),
-            CreateExtension("RatinFX", "VPFlow", ExtensionType.Extension, "vegas-pro-flow"),
-            CreateExtension("RatinFX", "ShortenExtendMedia", ExtensionType.Script, "shorten-extend-media"),
-            CreateExtension("RatinFX", "CustomFades", ExtensionType.Script, "custom-fades"),
-        };
+            RefreshExtensionInfo();
+            return Extensions;
+        }
+
+        Extensions =
+        [
+            new VPExtension(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Zip, RFXStrings.VPConsoleRefs),
+            new VPExtension(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Zip, RFXStrings.VegasProFlowRefs),
+            new VPExtension(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Dll, []),
+            new VPExtension(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Dll, []),
+        ];
+
+        RefreshExtensionInfo();
 
         await Task.CompletedTask;
-        return extensions;
+        return Extensions;
     }
 
-    public VPExtension CreateExtension(string creator, string extensionName, ExtensionType type, string websiteSlug)
+    private void RefreshExtensionInfo()
     {
-        var extension = new VPExtension(creator, extensionName, type, websiteSlug);
-        GetLatest(extension, error => { /* Handle erros */ });
-        LocateInstallsFor(extension);
-        return extension;
+        foreach (var extension in Extensions)
+        {
+            GetLatestRelease(extension);
+            LocateInstalls(extension);
+        }
     }
 
-    public void GetLatest(VPExtension extension, Action<string> error = null)
+    private void GetLatestRelease(VPExtension extension)
     {
         try
         {
-            var release = GitHubService.GetLatestRelease(extension.RepositoryName);
-            var latestVersion = release.TagName;
-            var assets = release.Assets.Where(x => x.BrowserDownloadUrl.EndsWith(".dll") || x.BrowserDownloadUrl.EndsWith(".zip")).ToList();
+            var release = GitHubService.GetLatestRelease(extension.ExtensionName);
 
-            extension.LatestVersion = latestVersion;
-            extension.Assets = assets;
+            extension.LatestVersion = release.TagName;
+
+            extension.Assets = release.Assets
+                .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Zip.Extension) || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Dll.Extension))
+                .Select(x => new ShortReleaseAsset(x, ShortReleaseAsset.GetVersion(x.Name, release.TagName)))
+                .ToList();
         }
         catch (Exception ex)
         {
             extension.RepositoryWasFound = false;
-            extension.LatestVersion = "GitHub was not found";
-            error?.Invoke("Failed to get the Latest version.\n" + ex.Message);
+            extension.LatestVersion = "GitHub lookup error";
+            Debug.WriteLine($"Exception with the extension \"{extension.ExtensionName}\": {ex.Message}");
             return;
         }
     }
 
-    public void LocateInstallsFor(VPExtension extension)
+    private void LocateInstalls(VPExtension extension)
     {
-        // placeholder install locations
-        extension.Installs.Add(new Install
+        try
         {
-            VPVersion = "13",
-            InstallPath = @"D:\Folder-14\somewhere\else\on\this\pc"
-        });
+            extension.Installs.Clear();
 
-        extension.Installs.Add(new Install
+            // placeholder install locations
+            extension.Installs.Add(new VPInstall
+            {
+                VPVersion = VPVersion.Sony,
+                InstallPath = @"D:\Folder-14\somewhere\else\on\this\pc"
+            });
+
+            extension.Installs.Add(new VPInstall
+            {
+                VPVersion = VPVersion.Magix,
+                // DL link test in the mean time
+                InstallPath = extension.GetDownloadLink(VPVersion.Magix)
+            });
+        }
+        catch (Exception ex)
         {
-            VPVersion = "14",
-            // DL link test in the mean time
-            InstallPath = extension.GetDownloadLink("14")
-        });
-    }
-
-    public void UpdateExtension(VPExtension extension)
-    {
-
-    }
-
-    public void RefreshExtensions()
-    {
-
+            Debug.WriteLine($"Exception with locating the extension \"{extension.ExtensionName}\": {ex.Message}");
+            return;
+        }
     }
 }
