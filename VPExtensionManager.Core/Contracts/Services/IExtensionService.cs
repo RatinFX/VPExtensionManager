@@ -4,5 +4,7 @@ namespace VPExtensionManager.Core.Contracts.Services;
 
 public interface IExtensionService
 {
-    Task<IEnumerable<VPExtension>> InitializeExtensions();
+    IEnumerable<VPExtension> InitializeExtensions();
+    void RefreshLatestRelease(VPExtension extension);
+    void RefreshInstallFolders(VPExtension extension);
 }

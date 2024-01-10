@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace VPExtensionManager.Core.Models;
 
-public class VPExtension
+public class VPExtension : INotifyPropertyChanged
 {
     // General
     public string Creator { get; set; } = "creator";
@@ -12,18 +14,44 @@ public class VPExtension
     // GitHub / latest Release
     [JsonIgnore]
     public bool RepositoryWasFound { get; set; } = true;
-    public string InstalledVersion { get; set; } = "not installed";
-    [JsonIgnore]
-    public string LatestVersion { get; set; } = string.Empty;
-    [JsonIgnore]
-    public bool UpdateAvailable => RepositoryWasFound
-        && !string.IsNullOrEmpty(LatestVersion)
-        && !InstalledVersion.Equals(LatestVersion);
+
+    private string _installedVersion = "not installed";
+    public string InstalledVersion
+    {
+        get => _installedVersion;
+        set
+        {
+            Set(ref _installedVersion, value);
+            OnPropertyChanged(nameof(InstalledVersion));
+            OnPropertyChanged(nameof(UpdateAvailable));
+            OnPropertyChanged(nameof(VersionDisplay));
+        }
+    }
 
     [JsonIgnore]
-    public string Version => !RepositoryWasFound ? LatestVersion
-        : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
-        : InstalledVersion;
+    public string _latestVersion = string.Empty;
+    [JsonIgnore]
+    public string LatestVersion
+    {
+        get => _latestVersion;
+        set
+        {
+            Set(ref _latestVersion, value);
+            OnPropertyChanged(nameof(LatestVersion));
+            OnPropertyChanged(nameof(UpdateAvailable));
+            OnPropertyChanged(nameof(VersionDisplay));
+        }
+    }
+
+    [JsonIgnore]
+    public bool UpdateAvailable => RepositoryWasFound
+                && !string.IsNullOrEmpty(LatestVersion)
+                && !InstalledVersion.Equals(LatestVersion);
+
+    [JsonIgnore]
+    public string VersionDisplay => !RepositoryWasFound ? $"{InstalledVersion} ({LatestVersion})"
+                : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
+                : InstalledVersion;
 
     [JsonIgnore]
     public List<ShortReleaseAsset> Assets { get; set; } = new();
@@ -32,14 +60,6 @@ public class VPExtension
     public List<VPInstall> Installs { get; set; } = new();
 
     public string[] ReferenceFiles { get; set; }
-
-    // Buttons
-    [JsonIgnore]
-    public bool UpdateEnabled => UpdateAvailable;
-    [JsonIgnore]
-    public bool InstallEnabled => UpdateAvailable;
-    [JsonIgnore]
-    public bool UninstallEnabled => UpdateAvailable && Installs.Any();
 
     public VPExtension() { }
     public VPExtension(string creator, string extensionName, VPExtensionType type, string[] refereceFiles)
@@ -56,9 +76,20 @@ public class VPExtension
             return string.Empty;
 
         var assets = Assets.Where(x => x.Name.ToLower().Contains(ExtensionName.ToLower()) && x.VP == vp);
-        var result = assets.FirstOrDefault(x => x.Name.EndsWith(Type.Extension))?.BrowserDownloadUrl
+        var result = assets.FirstOrDefault(x => x.Name.EndsWith(Type.DownloadFileExtension))?.BrowserDownloadUrl
             ?? "Download link not found";
 
         return result;
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (Equals(storage, value))
+            return;
+
+        storage = value;
+        OnPropertyChanged(propertyName);
     }
 }

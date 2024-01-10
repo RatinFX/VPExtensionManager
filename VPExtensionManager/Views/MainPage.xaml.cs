@@ -14,14 +14,51 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private readonly IExtensionService _extensionService;
 
     private VPExtension _selected;
-
     public VPExtension Selected
     {
-        get { return _selected; }
-        set { Set(ref _selected, value); }
+        get => _selected;
+        set
+        {
+            Set(ref _selected, value);
+            ResetInstallPaths();
+            OnPropertyChanged(nameof(CheckForUpdateEnabled));
+            OnPropertyChanged(nameof(InstallEnabled));
+        }
     }
 
-    public ObservableCollection<VPExtension> ExtensionItems { get; private set; } = new ObservableCollection<VPExtension>();
+    public bool CheckForUpdateEnabled => Selected.RepositoryWasFound;
+    public bool InstallEnabled => Selected.RepositoryWasFound || Selected.UpdateAvailable;
+
+    private VPInstall _selectedInstall;
+    public VPInstall SelectedInstall
+    {
+        get => _selectedInstall;
+        set
+        {
+            Set(ref _selectedInstall, value);
+            OnPropertyChanged(nameof(UpdateEnabled));
+            OnPropertyChanged(nameof(EditEnabled));
+            OnPropertyChanged(nameof(UninstallEnabled));
+        }
+    }
+
+    public bool UpdateEnabled => SelectedInstall != null && _selected.UpdateAvailable && _selected.Installs.Any();
+    public bool EditEnabled => SelectedInstall != null;
+    public bool UninstallEnabled => SelectedInstall != null;
+
+    private ObservableCollection<VPExtension> _extensionItems = new();
+    public ObservableCollection<VPExtension> ExtensionItems
+    {
+        get => _extensionItems;
+        set => Set(ref _extensionItems, value);
+    }
+
+    private ObservableCollection<VPInstall> _installPaths = new();
+    public ObservableCollection<VPInstall> InstallPaths
+    {
+        get => _installPaths;
+        set => Set(ref _installPaths, value);
+    }
 
     public MainPage(IExtensionService extensionService)
     {
@@ -30,11 +67,24 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         DataContext = this;
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public event PropertyChangedEventHandler PropertyChanged;
+    private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (Equals(storage, value))
+            return;
+
+        storage = value;
+        OnPropertyChanged(propertyName);
+    }
+
+    public void OnNavigatedFrom() { }
+
+    public void OnNavigatedTo(object parameter)
     {
         ExtensionItems.Clear();
 
-        var data = await _extensionService.InitializeExtensions();
+        var data = _extensionService.InitializeExtensions();
 
         foreach (var item in data)
         {
@@ -44,13 +94,21 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         Selected = ExtensionItems.First();
     }
 
-    public void OnNavigatedFrom()
+    private void ResetInstallPaths()
     {
+        InstallPaths.Clear();
+        Selected.Installs.ForEach(x => InstallPaths.Add(x));
     }
 
-    private void btnUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnCheckForUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        // Update(Selected) - select-install window -> download zip/dll, extract, get path via installs.vpversion
+        _extensionService.RefreshLatestRelease(Selected);
+    }
+
+    private void btnFindInstalls_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        _extensionService.RefreshInstallFolders(Selected);
+        ResetInstallPaths();
     }
 
     private void btnInstall_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -59,9 +117,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         // extension.GetDownloadLink(vpver)
     }
 
-    private void btnUninstall_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        // Uninstall(Selected) - select-install window
+        // Update(Selected) - select-install window -> download zip/dll, extract, get path via installs.vpversion
     }
 
     private void btnEditInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -69,23 +127,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         // Edit(SelectedInstall) - edit window
     }
 
-    private void btnRemoveInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnUninstallInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        // Remove(SelectedInstall) - confirmation window
+        // Uninstall(SelectedInstall) - confirmation window
     }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-    {
-        if (Equals(storage, value))
-        {
-            return;
-        }
-
-        storage = value;
-        OnPropertyChanged(propertyName);
-    }
-
-    private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

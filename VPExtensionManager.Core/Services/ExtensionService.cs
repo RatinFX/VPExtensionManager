@@ -8,38 +8,49 @@ public class ExtensionService : IExtensionService
 {
     public static List<VPExtension> Extensions = new();
 
-    public async Task<IEnumerable<VPExtension>> InitializeExtensions()
+    public IEnumerable<VPExtension> InitializeExtensions()
     {
         if (Extensions.Any())
         {
-            RefreshExtensionInfo();
+            var shouldLocateInstalls = Extensions.All(x => !x.Installs.Any());
+
+            foreach (var extension in Extensions)
+            {
+                SetLatestRelease(extension);
+                SetInstallFolders(extension, false);
+            }
+
             return Extensions;
         }
 
         Extensions =
         [
-            new VPExtension(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Zip, RFXStrings.VPConsoleRefs),
-            new VPExtension(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Zip, RFXStrings.VegasProFlowRefs),
-            new VPExtension(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Dll, []),
-            new VPExtension(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Dll, []),
+            new(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Extension, RFXStrings.VPConsoleRefs),
+            new(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Extension, RFXStrings.VegasProFlowRefs),
+            new(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Script, []),
+            new(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Script, []),
         ];
 
-        RefreshExtensionInfo();
+        foreach (var extension in Extensions)
+        {
+            SetLatestRelease(extension);
+            SetInstallFolders(extension, true);
+        }
 
-        await Task.CompletedTask;
         return Extensions;
     }
 
-    private void RefreshExtensionInfo()
+    public void RefreshLatestRelease(VPExtension extension)
     {
-        foreach (var extension in Extensions)
-        {
-            GetLatestRelease(extension);
-            LocateInstalls(extension);
-        }
+        SetLatestRelease(extension);
     }
 
-    private void GetLatestRelease(VPExtension extension)
+    public void RefreshInstallFolders(VPExtension extension)
+    {
+        SetInstallFolders(extension, true);
+    }
+
+    private void SetLatestRelease(VPExtension extension)
     {
         try
         {
@@ -48,43 +59,105 @@ public class ExtensionService : IExtensionService
             extension.LatestVersion = release.TagName;
 
             extension.Assets = release.Assets
-                .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Zip.Extension) || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Dll.Extension))
+                .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.FileExtension) || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Script.FileExtension))
                 .Select(x => new ShortReleaseAsset(x, ShortReleaseAsset.GetVersion(x.Name, release.TagName)))
                 .ToList();
         }
         catch (Exception ex)
         {
             extension.RepositoryWasFound = false;
-            extension.LatestVersion = "GitHub lookup error";
+            extension.LatestVersion = "GitHub error";
             Debug.WriteLine($"Exception with the extension \"{extension.ExtensionName}\": {ex.Message}");
             return;
         }
     }
 
-    private void LocateInstalls(VPExtension extension)
+    private void SetInstallFolders(VPExtension extension, bool shouldLocateInstalls)
     {
+        if (!extension.RepositoryWasFound)
+            return;
+
         try
         {
-            extension.Installs.Clear();
-
-            // placeholder install locations
-            extension.Installs.Add(new VPInstall
+            if (shouldLocateInstalls)
             {
-                VPVersion = VPVersion.Sony,
-                InstallPath = @"D:\Folder-14\somewhere\else\on\this\pc"
-            });
+                extension.Installs.Clear();
 
-            extension.Installs.Add(new VPInstall
+                // TODO: properly look/ask for installed vegas versions
+                //int[] localVersions = [14, 18, 19];
+                //extension.Installs = GetInstallPaths(extension, localVersions);
+
+                extension.Installs = GetInstallPaths(extension, []);
+            }
+
+            if (extension.Installs.Count > 1)
             {
-                VPVersion = VPVersion.Magix,
-                // DL link test in the mean time
-                InstallPath = extension.GetDownloadLink(VPVersion.Magix)
-            });
+                extension.InstalledVersion = "Multiple installs";
+            }
+            else if (extension.Installs.Count == 1)
+            {
+                extension.InstalledVersion = extension.Installs.First().Version;
+            }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception with locating the extension \"{extension.ExtensionName}\": {ex.Message}");
+            Debug.WriteLine($"Exception while locating \"{extension.ExtensionName}\": {ex.Message}");
             return;
         }
+    }
+
+    public List<VPInstall> GetInstallPaths(VPExtension extension, int[] localVersions)
+    {
+        var installs = new List<VPInstall>();
+
+        var paths = extension.Type.Equals(VPExtensionType.Script) ? VPFolders.ScriptFolders(localVersions)
+            : extension.Type.Equals(VPExtensionType.Extension) ? VPFolders.ExtensionFolders(localVersions)
+            : [];
+
+        foreach (var path in paths)
+        {
+            try
+            {
+                var filePaths = Directory
+                    .GetFiles(path, "*" + RFXStrings.Dll, SearchOption.AllDirectories)
+                    .Where(x => x.Contains(extension.ExtensionName)
+                );
+
+                foreach (var filePath in filePaths)
+                {
+                    var parent = Directory.GetParent(filePath);
+
+                    // TODO: Find a reliable way to check or mark the VEGAS version of and Extension
+                    // - this only matters when we want to call Update:
+                    //   > extension.GetDownloadLink(VPVersion..)
+                    // - maybe add "for Sony/Magix" or "13/14" in the File Description or smth
+                    var ver = localVersions.FirstOrDefault(x => path.Contains(x.ToString()));
+
+                    var vpver = ver == 0 ? VPVersion.Unknown
+                        : ver >= (int)VPVersion.Magix ? VPVersion.Magix
+                        : VPVersion.Sony;
+
+                    //// TODO: We could also check if Dependencies are present in the given folder
+                    //// and present information to the user if something is missing
+                    // > || extension.ReferenceFiles.Any(r => x.Contains(r))
+                    // 
+                    // - Directory.GetFiles(filePath)
+                    // if (files.Count() == extension.ReferenceFiles.Count() + 1)
+                    // {
+                    // }
+
+                    var vInfo = FileVersionInfo.GetVersionInfo(filePath);
+                    var version = $"{vInfo.ProductMajorPart}.{vInfo.ProductMinorPart}.{vInfo.ProductBuildPart}";
+
+                    installs.Add(new VPInstall(version, filePath));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception while locating \"{extension.ExtensionName}\" in: {path} - {ex.Message}");
+            }
+        }
+
+        return installs;
     }
 }

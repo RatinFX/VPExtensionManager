@@ -6,10 +6,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
+    xmlns:local="clr-namespace:VPExtensionManager.Views"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="900">
     <Page.Resources>
-        <DataTemplate x:Key="ItemTemplate">
+        <DataTemplate x:Key="ExtensionItemTemplate">
             <Grid Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -19,15 +20,36 @@
                     Margin="{StaticResource SmallLeftMargin}"
                     VerticalAlignment="Center">
                     <TextBlock Style="{StaticResource ListTitleStyle}" Text="{Binding ExtensionName}" />
-                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{Binding Version}" />
+                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{Binding VersionDisplay}" />
                 </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="InstallPathItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyTextStyle}"
+                    Margin="8"
+                    Text="{Binding Version}" />
+                <TextBlock 
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyTextStyle}"
+                    Margin="8"
+                    Text="{Binding InstallPath}"
+                    ToolTip="{Binding InstallPath}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="DetailTemplate">
             <ScrollViewer
                 Name="ForegroundElement"
-                IsTabStop="True"
                 HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource MediumLeftRightBottomMargin}">
                     <StackPanel>
@@ -36,21 +58,57 @@
                                 Margin="{StaticResource SmallRightMargin}"
                                 Style="{StaticResource PageTitleStyle}"
                                 FontWeight="Bold"
-                                Text="{Binding ExtensionName, Mode=OneWay}" />
-                            
+                                Text="{Binding ExtensionName}" />
+
                             <TextBlock
                                 Margin="0"
                                 Style="{StaticResource PageTitleStyle}"
-                                Text="{Binding Type.Name, StringFormat=({0}), Mode=OneWay}" />
+                                Text="{Binding Type.Name, StringFormat=({0})}" />
                         </StackPanel>
-                        
-                        <TextBlock
-                            Style="{StaticResource BodyTextStyle}"
-                            Text="{Binding Version, Mode=OneWay}" />
 
                         <TextBlock
                             Style="{StaticResource BodyTextStyle}"
-                            Text="{Binding Creator, StringFormat=by {0}, Mode=OneWay}" />
+                            Text="{Binding VersionDisplay}" />
+
+                        <TextBlock
+                            Style="{StaticResource BodyTextStyle}"
+                            Text="{Binding Creator, StringFormat=by {0}}" />
+
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="{StaticResource SmallTopMargin}">
+                            <Button
+                                x:Name="btnCheckForUpdate"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Margin="{StaticResource SmallRightMargin}"
+                                Padding="12,6"
+                                IsEnabled="{Binding DataContext.CheckForUpdateEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                                Click="btnCheckForUpdate_Click" >
+                                Check for Update
+                            </Button>
+                            <Button
+                                x:Name="btnFindInstalls"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Margin="{StaticResource SmallRightMargin}"
+                                Padding="12,6"
+                                Click="btnFindInstalls_Click" >
+                                Find Installs
+                            </Button>
+                            <Button
+                                x:Name="btnInstall"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Margin="{StaticResource SmallRightMargin}"
+                                Padding="12,6" 
+                                IsEnabled="{Binding DataContext.InstallEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                                Click="btnInstall_Click">
+                                Install
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock
+                            Margin="{StaticResource SmallTopMargin}"
+                            Style="{StaticResource SubtitleTextStyle}"
+                            Text="Install Paths" />
 
                         <StackPanel
                             Orientation="Horizontal"
@@ -60,84 +118,35 @@
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
-                                IsEnabled="{Binding UpdateEnabled}"
+                                IsEnabled="{Binding DataContext.UpdateEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
                                 Click="btnUpdate_Click">
                                 Update
                             </Button>
                             <Button
-                                x:Name="btnInstall"
+                                x:Name="btnEditInstallPath"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6" 
-                                IsEnabled="{Binding InstallEnabled}"
-                                Click="btnInstall_Click">
-                                Install
+                                Padding="12,6"
+                                Click="btnEditInstallPath_Click"
+                                IsEnabled="{Binding DataContext.EditEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}" >
+                                Edit
                             </Button>
                             <Button
-                                x:Name="btnUninstall"
+                                x:Name="btnUninstallInstallPath"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6" 
-                                IsEnabled="{Binding UninstallEnabled}"
-                                Click="btnUninstall_Click">
+                                Click="btnUninstallInstallPath_Click"
+                                IsEnabled="{Binding DataContext.UninstallEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}" >
                                 Uninstall
                             </Button>
                         </StackPanel>
 
-                        <TextBlock
-                            Margin="{StaticResource SmallTopMargin}"
-                            Style="{StaticResource SubtitleTextStyle}"
-                            Text="Install Paths" />
                         <ListView
                             Margin="{StaticResource SmallTopMargin}"
-                            ItemsSource="{Binding Installs}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Button 
-                                            x:Name="btnEditInstallPath"
-                                            Style="{StaticResource MahApps.Styles.Button}"
-                                            Margin="8"
-                                            Padding="12,6"
-                                            Click="btnEditInstallPath_Click">
-                                            Edit
-                                        </Button>
-
-                                        <Button 
-                                            Grid.Column="1"
-                                            x:Name="btnRemoveInstallPath"
-                                            Style="{StaticResource MahApps.Styles.Button}"
-                                            Margin="8"
-                                            Padding="12,6"
-                                            Click="btnRemoveInstallPath_Click">
-                                            Remove
-                                        </Button>
-
-                                        <TextBlock 
-                                            Grid.Column="2"
-                                            VerticalAlignment="Center"
-                                            Style="{StaticResource BodyTextStyle}"
-                                            Margin="8"
-                                            Text="{Binding VPVersionName, Mode=OneWay}" />
-
-                                        <TextBlock 
-                                            Grid.Column="3"
-                                            VerticalAlignment="Center"
-                                            Style="{StaticResource BodyTextStyle}"
-                                            Margin="8"
-                                            Text="{Binding InstallPath, Mode=OneWay}"
-                                            ToolTip="{Binding InstallPath}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            ItemsSource="{Binding DataContext.InstallPaths, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                            ItemTemplate="{StaticResource InstallPathItemTemplate}"
+                            SelectedItem="{Binding DataContext.SelectedInstall, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}, Mode=TwoWay}" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -161,12 +170,11 @@
             <ListView
                 Grid.Row="1"
                 ItemsSource="{Binding ExtensionItems}"
-                ItemTemplate="{StaticResource ItemTemplate}"
+                ItemTemplate="{StaticResource ExtensionItemTemplate}"
                 SelectedItem="{Binding Selected, Mode=TwoWay}" />
         </Grid>
         <ContentControl
             Grid.Column="1"
-            IsTabStop="False"
             Content="{Binding Selected}"
             ContentTemplate="{StaticResource DetailTemplate}" />
     </Grid>
