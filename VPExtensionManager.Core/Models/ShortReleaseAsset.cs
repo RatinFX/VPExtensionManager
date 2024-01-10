@@ -17,5 +17,5 @@ public class ShortReleaseAsset
     }
 
     public static VPVersion GetVersion(string name, string tag)
-        => name.Replace(tag, "").Contains(VPVersion.Sony.ToString()) ? VPVersion.Sony : VPVersion.Magix;
+        => name.Replace(tag, "").Contains(VPVersion.Sony.ToString("D")) ? VPVersion.Sony : VPVersion.Magix;
 }
