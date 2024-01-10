@@ -4,6 +4,10 @@
     {
         // General
         public const string RatinFX = "RatinFX";
+        public const string VegasPro = "Vegas Pro";
+
+        public const string Zip = ".zip";
+        public const string Dll = ".dll";
 
         // Extensions
         public const string VPConsole = "VPConsole";
