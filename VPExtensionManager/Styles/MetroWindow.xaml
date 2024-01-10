@@ -9,6 +9,6 @@
         BasedOn="{StaticResource {x:Type controls:MetroWindow}}">
         <Setter Property="ShowTitleBar" Value="True" />
         <Setter Property="Height" Value="450" />
-        <Setter Property="Width" Value="800" />
+        <Setter Property="Width" Value="900" />
     </Style>
 </ResourceDictionary>
