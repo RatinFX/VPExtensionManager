@@ -28,8 +28,7 @@ public class VPExtension : INotifyPropertyChanged
         }
     }
 
-    [JsonIgnore]
-    public string _latestVersion = string.Empty;
+    private string _latestVersion = string.Empty;
     [JsonIgnore]
     public string LatestVersion
     {
