@@ -83,10 +83,9 @@ public class ExtensionService : IExtensionService
             {
                 extension.Installs.Clear();
 
-                // TODO: properly look/ask for installed vegas versions
-                //int[] localVersions = [14, 18, 19];
-                //extension.Installs = GetInstallPaths(extension, localVersions);
-
+                /// TODO: properly look/ask for installed vegas versions
+                // int[] localVersions = [14, 18, 19];
+                // extension.Installs = GetInstallPaths(extension, localVersions);
                 extension.Installs = GetInstallPaths(extension, []);
             }
 
@@ -125,26 +124,24 @@ public class ExtensionService : IExtensionService
 
                 foreach (var filePath in filePaths)
                 {
-                    var parent = Directory.GetParent(filePath);
-
-                    // TODO: Find a reliable way to check or mark the VEGAS version of and Extension
-                    // - this only matters when we want to call Update:
+                    /// TODO: Find a reliable way to check or mark the VEGAS version of and Extension
+                    /// - this only matters when we want to call Update:
                     //   > extension.GetDownloadLink(VPVersion..)
-                    // - maybe add "for Sony/Magix" or "13/14" in the File Description or smth
-                    var ver = localVersions.FirstOrDefault(x => path.Contains(x.ToString()));
+                    /// - maybe add "for Sony/Magix" or "13/14" in the File Description or smth
 
-                    var vpver = ver == 0 ? VPVersion.Unknown
-                        : ver >= (int)VPVersion.Magix ? VPVersion.Magix
-                        : VPVersion.Sony;
+                    /// TODO: Find or Ask for installed versions of Vegas Pro for Folders
+                    // var ver = localVersions.FirstOrDefault(x => path.Contains(x.ToString()));
+                    // var vpver = ver == 0 ? VPVersion.Unknown
+                    //     : ver >= (int)VPVersion.Magix ? VPVersion.Magix
+                    //     : VPVersion.Sony;
 
-                    //// TODO: We could also check if Dependencies are present in the given folder
-                    //// and present information to the user if something is missing
-                    // > || extension.ReferenceFiles.Any(r => x.Contains(r))
+                    /// TODO: We could also check if Dependencies are present in the given folder
+                    /// and present information to the user when something is missing
+                    // var files = Directory.GetFiles(Directory.GetParent(filePath))
+                    //      .Where(x => extension.ReferenceFiles.Any(r => x.Contains(r));
                     // 
-                    // - Directory.GetFiles(filePath)
-                    // if (files.Count() == extension.ReferenceFiles.Count() + 1)
-                    // {
-                    // }
+                    /// Show error
+                    // if (files.Count() != extension.ReferenceFiles.Count()) { }
 
                     var vInfo = FileVersionInfo.GetVersionInfo(filePath);
                     var version = $"{vInfo.ProductMajorPart}.{vInfo.ProductMinorPart}.{vInfo.ProductBuildPart}";
