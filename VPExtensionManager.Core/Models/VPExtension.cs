@@ -43,14 +43,17 @@ public class VPExtension : INotifyPropertyChanged
     }
 
     [JsonIgnore]
-    public bool UpdateAvailable => RepositoryWasFound
-                && !string.IsNullOrEmpty(LatestVersion)
-                && !InstalledVersion.Equals(LatestVersion);
+    public bool UpdateAvailable =>
+        RepositoryWasFound
+        && !string.IsNullOrEmpty(LatestVersion)
+        && InstalledVersion != LatestVersion
+        && Installs.Any(x => x.Version != LatestVersion);
 
     [JsonIgnore]
-    public string VersionDisplay => !RepositoryWasFound ? $"{InstalledVersion} ({LatestVersion})"
-                : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
-                : InstalledVersion;
+    public string VersionDisplay =>
+        !RepositoryWasFound ? $"{InstalledVersion} ({LatestVersion})"
+        : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
+        : InstalledVersion;
 
     [JsonIgnore]
     public List<ShortReleaseAsset> Assets { get; set; } = new();
