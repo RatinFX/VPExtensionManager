@@ -32,7 +32,7 @@ public class WindowManagerService : IWindowManagerService
         {
             window = new MetroWindow()
             {
-                Title = "VPExtensionManager",
+                Title = "VP Extension Manager",
                 Style = Application.Current.FindResource("CustomMetroWindow") as Style
             };
             var frame = new Frame()

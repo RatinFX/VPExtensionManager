@@ -61,7 +61,7 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vegas Pro Extension Manager.
+        ///   Looks up a localized string similar to VP Extension Manager.
         /// </summary>
         public static string AppDisplayName {
             get {
