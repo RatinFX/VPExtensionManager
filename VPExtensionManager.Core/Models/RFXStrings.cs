@@ -20,7 +20,7 @@
         public const string RatinFXVP = "RatinFX.VP";
         public const string NewtonsoftJson = "Newtonsoft.Json";
 
-        public static string[] VPConsoleRefs = [VegasProData, RatinFXVP, NewtonsoftJson];
-        public static string[] VegasProFlowRefs = [VegasProData, RatinFXVP, NewtonsoftJson];
+        public static List<string> VPConsoleRefs { get; } = [VegasProData, RatinFXVP, NewtonsoftJson];
+        public static List<string> VegasProFlowRefs { get; } = [VegasProData, RatinFXVP, NewtonsoftJson];
     }
 }

@@ -58,10 +58,10 @@ public class VPExtension : INotifyPropertyChanged
     // Installed instances
     public List<VPInstall> Installs { get; set; } = new();
 
-    public string[] ReferenceFiles { get; set; }
+    public List<string> ReferenceFiles { get; set; } = [];
 
     public VPExtension() { }
-    public VPExtension(string creator, string extensionName, VPExtensionType type, string[] refereceFiles)
+    public VPExtension(string creator, string extensionName, VPExtensionType type, List<string> refereceFiles)
     {
         Creator = creator;
         ExtensionName = extensionName;
