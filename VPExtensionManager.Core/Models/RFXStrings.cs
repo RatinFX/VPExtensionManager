@@ -15,7 +15,7 @@
         public const string ShortenExtendMedia = "ShortenExtendMedia";
         public const string CustomFades = "CustomFades";
 
-        // References
+        // Dependencies
         public const string VegasProData = "VegasProData";
         public const string RatinFXVP = "RatinFX.VP";
         public const string NewtonsoftJson = "Newtonsoft.Json";

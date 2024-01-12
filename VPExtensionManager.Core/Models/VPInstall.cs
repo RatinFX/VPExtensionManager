@@ -1,7 +1,7 @@
 ﻿namespace VPExtensionManager.Core.Models;
 
 /// <summary>
-/// TODO: Add warning if some reference files are missing via a ToolTip
+/// TODO: Add warning if some of the Dependency files are missing via a ToolTip
 /// </summary>
 public class VPInstall
 {

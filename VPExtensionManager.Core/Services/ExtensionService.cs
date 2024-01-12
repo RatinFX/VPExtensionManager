@@ -89,14 +89,7 @@ public class ExtensionService : IExtensionService
                 extension.Installs = GetInstallPaths(extension, []);
             }
 
-            if (extension.Installs.Count > 1)
-            {
-                extension.InstalledVersion = "Multiple installs";
-            }
-            else if (extension.Installs.Count == 1)
-            {
-                extension.InstalledVersion = extension.Installs.First().Version;
-            }
+            extension.SetInstalledVersion();
         }
         catch (Exception ex)
         {
@@ -138,10 +131,10 @@ public class ExtensionService : IExtensionService
                     /// TODO: We could also check if Dependencies are present in the given folder
                     /// and present information to the user when something is missing
                     // var files = Directory.GetFiles(Directory.GetParent(filePath))
-                    //      .Where(x => extension.ReferenceFiles.Any(r => x.Contains(r));
+                    //      .Where(x => extension.Dependencies.Any(r => x.Contains(r));
                     // 
                     /// Show error
-                    // if (files.Count() != extension.ReferenceFiles.Count()) { }
+                    // if (files.Count() != extension.Dependencies.Count()) { }
 
                     var vInfo = FileVersionInfo.GetVersionInfo(filePath);
                     var version = $"{vInfo.ProductMajorPart}.{vInfo.ProductMinorPart}.{vInfo.ProductBuildPart}";
@@ -151,10 +144,49 @@ public class ExtensionService : IExtensionService
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception while locating \"{extension.ExtensionName}\" in: {path} - {ex.Message}");
+                Debug.WriteLine($"Exception while locating \"{extension.ExtensionName}\" at: {path} - {ex.Message}");
             }
         }
 
         return installs;
+    }
+
+    public void Uninstall(VPExtension selected, VPInstall selectedInstall)
+    {
+        try
+        {
+            var parent = Directory.GetParent(selectedInstall.InstallPath);
+
+            if (File.Exists(selectedInstall.InstallPath))
+            {
+                File.Delete(selectedInstall.InstallPath);
+            }
+
+            var hasNoConflictingInstalls = Extensions
+                .Where(x => x.ExtensionName != selected.ExtensionName)
+                .All(x => x.Installs.All(y =>
+                Directory.GetParent(y.InstallPath).FullName != parent.FullName)
+            );
+
+            if (hasNoConflictingInstalls)
+            {
+                foreach (var d in selected.Dependencies)
+                {
+                    var path = Path.Combine(parent.FullName, $"{d}{RFXStrings.Dll}");
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                }
+            }
+
+            selected.Installs.Remove(selectedInstall);
+
+            selected.SetInstalledVersion();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception while uninstalling \"{selected.ExtensionName} ({selectedInstall.Version})\" from: {selectedInstall.InstallPath} - {ex.Message}");
+        }
     }
 }

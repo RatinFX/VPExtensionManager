@@ -15,7 +15,7 @@ public class VPExtension : INotifyPropertyChanged
     [JsonIgnore]
     public bool RepositoryWasFound { get; set; } = true;
 
-    private string _installedVersion = "not installed";
+    private string _installedVersion = "Not installed";
     public string InstalledVersion
     {
         get => _installedVersion;
@@ -61,15 +61,23 @@ public class VPExtension : INotifyPropertyChanged
     // Installed instances
     public List<VPInstall> Installs { get; set; } = new();
 
-    public List<string> ReferenceFiles { get; set; } = [];
+    public List<string> Dependencies { get; set; } = [];
 
     public VPExtension() { }
-    public VPExtension(string creator, string extensionName, VPExtensionType type, List<string> refereceFiles)
+    public VPExtension(string creator, string extensionName, VPExtensionType type, List<string> dependencies)
     {
         Creator = creator;
         ExtensionName = extensionName;
         Type = type;
-        ReferenceFiles = refereceFiles;
+        Dependencies = dependencies;
+    }
+
+    public void SetInstalledVersion()
+    {
+        InstalledVersion =
+            Installs.Count > 1 ? "Multiple installs"
+            : Installs.Count == 1 ? Installs.First().Version
+            : "Not installed";
     }
 
     public string GetDownloadLink(VPVersion vp)

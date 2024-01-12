@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 
 using VPExtensionManager.Contracts.Views;
@@ -100,35 +101,50 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         Selected.Installs.ForEach(x => InstallPaths.Add(x));
     }
 
-    private void btnCheckForUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnCheckForUpdate_Click(object sender, RoutedEventArgs e)
     {
         _extensionService.RefreshLatestRelease(Selected);
     }
 
-    private void btnFindInstalls_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnFindInstalls_Click(object sender, RoutedEventArgs e)
     {
         _extensionService.RefreshInstallFolders(Selected);
         ResetInstallPaths();
     }
 
-    private void btnInstall_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnInstall_Click(object sender, RoutedEventArgs e)
     {
         // Install(Selected) - install window -> [vegas version] [install path], OK + Cancel | enter + esc
         // extension.GetDownloadLink(vpver)
     }
 
-    private void btnUpdate_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
         // Update(Selected) - select-install window -> download zip/dll, extract, get path via installs.vpversion
     }
 
-    private void btnEditInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnEditInstallPath_Click(object sender, RoutedEventArgs e)
     {
         // Edit(SelectedInstall) - edit window
     }
 
-    private void btnUninstallInstallPath_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void btnUninstallInstallPath_Click(object sender, RoutedEventArgs e)
     {
-        // Uninstall(SelectedInstall) - confirmation window
+        var result = MessageBox.Show(
+            $"Are you sure you want to uninstall {Selected.ExtensionName} from the following path?\n\n{SelectedInstall.InstallPath}",
+            $"Uninstall {Selected.ExtensionName} from selected path",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning,
+            MessageBoxResult.No
+        );
+
+        if (result == MessageBoxResult.No)
+            return;
+
+        if (result == MessageBoxResult.Yes)
+        {
+            _extensionService.Uninstall(Selected, SelectedInstall);
+            ResetInstallPaths();
+        }
     }
 }
