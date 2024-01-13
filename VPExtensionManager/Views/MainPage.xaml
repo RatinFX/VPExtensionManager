@@ -175,6 +175,7 @@
         </Grid>
         <ContentControl
             Grid.Column="1"
+            IsTabStop="False"
             Content="{Binding Selected}"
             ContentTemplate="{StaticResource DetailTemplate}" />
     </Grid>
