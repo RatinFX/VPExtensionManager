@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -39,13 +40,13 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         {
             Set(ref _selectedInstall, value);
             OnPropertyChanged(nameof(UpdateEnabled));
-            OnPropertyChanged(nameof(EditEnabled));
+            OnPropertyChanged(nameof(OpenFolderEnabled));
             OnPropertyChanged(nameof(UninstallEnabled));
         }
     }
 
-    public bool UpdateEnabled => SelectedInstall != null && _selected.UpdateAvailable && _selected.Installs.Any();
-    public bool EditEnabled => SelectedInstall != null;
+    public bool UpdateEnabled => Selected.UpdateAvailable && SelectedInstall != null && Selected.LatestVersion != SelectedInstall.Version;
+    public bool OpenFolderEnabled => SelectedInstall != null && !string.IsNullOrEmpty(SelectedInstall.InstallPath);
     public bool UninstallEnabled => SelectedInstall != null;
 
     private ObservableCollection<VPExtension> _extensionItems = new();
@@ -113,6 +114,16 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         ResetInstallPaths();
     }
 
+    private void btnOpenFolder_Click(object sender, RoutedEventArgs e)
+    {
+        var path = Directory.GetParent(SelectedInstall.InstallPath).FullName;
+
+        if (string.IsNullOrEmpty(path))
+            return;
+
+        Process.Start("explorer.exe", path);
+    }
+
     private void btnInstall_Click(object sender, RoutedEventArgs e)
     {
         var window = new InstallWindow(Selected, _extensionService.GetAvailableFolders(Selected));
@@ -137,12 +148,6 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
         // Update(Selected) - select-install window -> download zip/dll, extract, get path via installs.vpversion
-    }
-
-    private void btnEditInstallPath_Click(object sender, RoutedEventArgs e)
-    {
-        // TODO: Reconsider if we need Edit or not
-        // Edit(SelectedInstall) - edit window
     }
 
     private void btnUninstallInstallPath_Click(object sender, RoutedEventArgs e)
