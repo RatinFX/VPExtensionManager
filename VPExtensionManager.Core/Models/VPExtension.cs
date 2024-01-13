@@ -56,7 +56,7 @@ public class VPExtension : INotifyPropertyChanged
         : InstalledVersion;
 
     [JsonIgnore]
-    public List<ShortReleaseAsset> Assets { get; set; } = new();
+    public List<ShortReleaseAsset> ReleaseAssets { get; set; } = new();
 
     // Installed instances
     public List<VPInstall> Installs { get; set; } = new();
@@ -85,7 +85,7 @@ public class VPExtension : INotifyPropertyChanged
         if (string.IsNullOrEmpty(LatestVersion))
             return string.Empty;
 
-        var assets = Assets.Where(x => x.Name.ToLower().Contains(ExtensionName.ToLower()) && x.VP == vp);
+        var assets = ReleaseAssets.Where(x => x.Name.ToLower().Contains(ExtensionName.ToLower()) && x.VP == vp);
         var result = assets.FirstOrDefault(x => x.Name.EndsWith(Type.DownloadFileExtension))?.BrowserDownloadUrl
             ?? "Download link not found";
 

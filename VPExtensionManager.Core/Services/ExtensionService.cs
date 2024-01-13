@@ -73,8 +73,9 @@ public class ExtensionService : IExtensionService
 
             extension.LatestVersion = release.TagName;
 
-            extension.Assets = release.Assets
-                .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.FileExtension) || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Script.FileExtension))
+            extension.ReleaseAssets = release.Assets
+                .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.DownloadFileExtension)
+                || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Script.DownloadFileExtension))
                 .Select(x => new ShortReleaseAsset(x, ShortReleaseAsset.GetVersion(x.Name, release.TagName)))
                 .ToList();
         }
@@ -164,7 +165,7 @@ public class ExtensionService : IExtensionService
 
     public List<string> GetAvailableFolders(VPExtension extension)
     {
-        return extension.Type == VPExtensionType.Extension
+        return extension.Type.Equals(VPExtensionType.Extension)
             ? ExtensionFolders
             : ScriptFolders;
     }
@@ -176,9 +177,7 @@ public class ExtensionService : IExtensionService
             var parent = Directory.GetParent(selectedInstall.InstallPath);
 
             if (File.Exists(selectedInstall.InstallPath))
-            {
                 File.Delete(selectedInstall.InstallPath);
-            }
 
             var hasNoConflictingInstalls = Extensions
                 .Where(x => x.ExtensionName != selected.ExtensionName)
@@ -199,7 +198,6 @@ public class ExtensionService : IExtensionService
             }
 
             selected.Installs.Remove(selectedInstall);
-
             selected.SetInstalledVersion();
         }
         catch (Exception ex)
