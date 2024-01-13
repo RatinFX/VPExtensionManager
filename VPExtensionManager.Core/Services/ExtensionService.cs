@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
+using System.IO.Compression;
 using VPExtensionManager.Core.Contracts.Services;
 using VPExtensionManager.Core.Models;
 
@@ -14,7 +15,10 @@ public class ExtensionService : IExtensionService
 
     public void SetConfigPath(string configPath)
     {
-        _downloadPath = configPath;
+        _downloadPath = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.LocalApplicationData),
+            configPath
+        );
     }
 
     public void SetPossibleFolders(List<int> localVersions)
@@ -168,6 +172,66 @@ public class ExtensionService : IExtensionService
         return extension.Type.Equals(VPExtensionType.Extension)
             ? ExtensionFolders
             : ScriptFolders;
+    }
+
+    /// <summary>
+    /// TODO: Potentially generalize all of these
+    /// and let the Extension handle Install, etc.
+    /// This way it could have "Custom" extensions
+    /// </summary>
+    public VPInstall Install(VPExtension selected, VPVersion vp, string installPath, bool forceDownload)
+    {
+        try
+        {
+            var downloadLink = selected.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
+            if (downloadLink == null)
+            {
+                // TODO: notification - download link to {selected.Type.Name} was not found
+                return null;
+            }
+
+            var fileName = Path.GetFileName(downloadLink);
+            var downloadPath = Path.Combine(_downloadPath, fileName);
+
+            // Download
+            if (!File.Exists(downloadPath) || forceDownload)
+            {
+                using var client = new HttpClient();
+                var bytes = client.GetByteArrayAsync(downloadLink).Result;
+
+                Directory.CreateDirectory(_downloadPath);
+
+                File.WriteAllBytes(downloadPath, bytes);
+            }
+
+            // Extract
+            Directory.CreateDirectory(installPath);
+
+            List<string> filesToOverwrite = [selected.ExtensionName, .. selected.Dependencies];
+
+            // - delete existing files as `ZipFile.ExtractToDirectory` cannot overwrite them
+            foreach (var item in filesToOverwrite)
+            {
+                var file = Path.Combine(installPath, $"{item}{RFXStrings.Dll}");
+
+                if (File.Exists(file))
+                    File.Delete(file);
+            }
+
+            ZipFile.ExtractToDirectory(downloadPath, installPath);
+
+            // Add to Installs
+            var version = selected.LatestVersion;
+            var filePath = Path.Combine(installPath, $"{selected.ExtensionName}{RFXStrings.Dll}");
+
+            return new VPInstall(version, filePath);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception while downloading \"{selected.ExtensionName} ({selected.LatestVersion})\": {ex.Message}");
+            // TODO: notification
+            return null;
+        }
     }
 
     public void Uninstall(VPExtension selected, VPInstall selectedInstall)

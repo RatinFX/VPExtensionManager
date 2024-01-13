@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -114,8 +115,23 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 
     private void btnInstall_Click(object sender, RoutedEventArgs e)
     {
-        // Install(Selected) - install window -> [vegas version] [install path], OK + Cancel | enter + esc
-        // extension.GetDownloadLink(vpver)
+        var window = new InstallWindow(Selected, _extensionService.GetAvailableFolders(Selected));
+        var res = window.ShowDialog();
+
+        if (res is null or false)
+            return;
+
+        var (vpver, installPath, forceDownload) = window.GetSelectedValues();
+        if (vpver is VPVersion.Unknown || installPath is null)
+            return;
+
+        var newInstall = _extensionService.Install(Selected, vpver, installPath, forceDownload);
+        if (newInstall == null)
+            return;
+
+        Selected.Installs.Add(newInstall);
+        Selected.SetInstalledVersion();
+        ResetInstallPaths();
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -125,6 +141,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 
     private void btnEditInstallPath_Click(object sender, RoutedEventArgs e)
     {
+        // TODO: Reconsider if we need Edit or not
         // Edit(SelectedInstall) - edit window
     }
 

@@ -10,5 +10,6 @@ public interface IExtensionService
     void RefreshLatestRelease(VPExtension extension);
     void RefreshInstallFolders(VPExtension extension);
     List<string> GetAvailableFolders(VPExtension extension);
+    VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
     void Uninstall(VPExtension selected, VPInstall selectedInstall);
 }
