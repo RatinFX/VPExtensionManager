@@ -1,31 +1,48 @@
 ﻿using Microsoft.Extensions.Hosting;
-
+using Microsoft.Extensions.Options;
+using System.IO;
 using VPExtensionManager.Contracts.Activation;
 using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Core.Contracts.Services;
+using VPExtensionManager.Models;
 using VPExtensionManager.Views;
 
 namespace VPExtensionManager.Services;
 
 public class ApplicationHostService : IHostedService
 {
+    private readonly AppConfig _appConfig;
     private readonly IServiceProvider _serviceProvider;
-    private readonly INavigationService _navigationService;
-    private readonly IPersistAndRestoreService _persistAndRestoreService;
-    private readonly IThemeSelectorService _themeSelectorService;
-    private readonly IRightPaneService _rightPaneService;
     private readonly IEnumerable<IActivationHandler> _activationHandlers;
+    private readonly INavigationService _navigationService;
+    private readonly IThemeSelectorService _themeSelectorService;
+    private readonly ILocalVPVersionService _localVPVersionService;
+    private readonly IRightPaneService _rightPaneService;
+    private readonly IPersistAndRestoreService _persistAndRestoreService;
+    private readonly IExtensionService _extensionService;
     private IShellWindow _shellWindow;
     private bool _isInitialized;
 
-    public ApplicationHostService(IServiceProvider serviceProvider, IEnumerable<IActivationHandler> activationHandlers, INavigationService navigationService, IRightPaneService rightPaneService, IThemeSelectorService themeSelectorService, IPersistAndRestoreService persistAndRestoreService)
+    public ApplicationHostService(IOptions<AppConfig> appConfig,
+        IServiceProvider serviceProvider,
+        IEnumerable<IActivationHandler> activationHandlers,
+        INavigationService navigationService,
+        IThemeSelectorService themeSelectorService,
+        ILocalVPVersionService localVPVersionService,
+        IRightPaneService rightPaneService,
+        IPersistAndRestoreService persistAndRestoreService,
+        IExtensionService extensionService)
     {
+        _appConfig = appConfig.Value;
         _serviceProvider = serviceProvider;
         _activationHandlers = activationHandlers;
         _navigationService = navigationService;
-        _rightPaneService = rightPaneService;
         _themeSelectorService = themeSelectorService;
+        _localVPVersionService = localVPVersionService;
+        _rightPaneService = rightPaneService;
         _persistAndRestoreService = persistAndRestoreService;
+        _extensionService = extensionService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -52,6 +69,10 @@ public class ApplicationHostService : IHostedService
         {
             _persistAndRestoreService.RestoreData();
             _themeSelectorService.InitializeTheme();
+
+            _extensionService.SetConfigPath(Path.Combine(_appConfig.MainFolder, _appConfig.DownloadsFolder));
+            _extensionService.SetPossibleFolders(_localVPVersionService.GetLocalVersions());
+
             await Task.CompletedTask;
         }
     }

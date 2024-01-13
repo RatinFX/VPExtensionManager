@@ -49,7 +49,7 @@
                             FontSize="{StaticResource MediumFontSize}"
                             Checked="OnDarkChecked"
                             IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark}" />
-                            <RadioButton
+                        <RadioButton
                             GroupName="AppTheme"
                             Content="{x:Static properties:Resources.SettingsPageRadioButtonWindowsDefaultTheme}"
                             Margin="{StaticResource XSmallTopMargin}"
@@ -58,6 +58,37 @@
                             IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default}" />
                     </StackPanel>
                 </StackPanel>
+
+                <Grid>
+                    <ComboBox 
+                        Name="cbxVPVersions" 
+                        VerticalAlignment="Center"
+                        Margin="2,2,6,0"
+                        SelectionChanged="OnVPVersionsSelectionChanged"
+                        ItemsSource="{Binding VPVersionsSource, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox 
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                        Width="20" 
+                                        VerticalAlignment="Center"
+                                        Unchecked="OnVPVersionCheckBoxChecked"
+                                        Checked="OnVPVersionCheckBoxChecked" />
+                                    <TextBlock
+                                        Text="{Binding Data, StringFormat=Version {0}.0}" 
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock 
+                        IsHitTestVisible="False"
+                        Name="tbxVPVersions" 
+                        Text="Select your installed VP versions..." 
+                        VerticalAlignment="Center" 
+                        Margin="6,2,6,0" />
+                </Grid>
 
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"

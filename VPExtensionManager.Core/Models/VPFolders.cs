@@ -47,11 +47,11 @@ public class VPFolders
     public static string ScriptProgramData(int vp = 0)
         => GetVPFolderPath(Environment.SpecialFolder.CommonApplicationData, ScriptMenu, vp);
 
-    public static string[] ScriptLocalAppData(params int[] vps) => vps.Select(ScriptLocalAppData).ToArray();
-    public static string[] ScriptRoamingAppData(params int[] vps) => vps.Select(ScriptRoamingAppData).ToArray();
-    public static string[] ScriptProgramData(params int[] vps) => vps.Select(ScriptProgramData).ToArray();
+    public static List<string> ScriptLocalAppData(params int[] vps) => vps.Select(ScriptLocalAppData).ToList();
+    public static List<string> ScriptRoamingAppData(params int[] vps) => vps.Select(ScriptRoamingAppData).ToList();
+    public static List<string> ScriptProgramData(params int[] vps) => vps.Select(ScriptProgramData).ToList();
 
-    public static string[] ScriptFolders(params int[] vps) => [
+    public static List<string> ScriptFolders(params int[] vps) => [
         ScriptDocuments,
         ScriptLocalAppData(),
         .. ScriptLocalAppData(vps),
@@ -87,11 +87,11 @@ public class VPFolders
     public static string ExtensionProgramData(int vp = 0)
         => GetVPFolderPath(Environment.SpecialFolder.CommonApplicationData, ApplicationExtensions, vp);
 
-    public static string[] ExtensionLocalAppData(params int[] vps) => vps.Select(ExtensionLocalAppData).ToArray();
-    public static string[] ExtensionRoamingAppData(params int[] vps) => vps.Select(ExtensionRoamingAppData).ToArray();
-    public static string[] ExtensionProgramData(params int[] vps) => vps.Select(ExtensionProgramData).ToArray();
+    public static List<string> ExtensionLocalAppData(params int[] vps) => vps.Select(ExtensionLocalAppData).ToList();
+    public static List<string> ExtensionRoamingAppData(params int[] vps) => vps.Select(ExtensionRoamingAppData).ToList();
+    public static List<string> ExtensionProgramData(params int[] vps) => vps.Select(ExtensionProgramData).ToList();
 
-    public static string[] ExtensionFolders(int[] vps) => [
+    public static List<string> ExtensionFolders(int[] vps) => [
         ExtensionDocuments,
         ExtensionLocalAppData(),
         .. ExtensionLocalAppData(vps),

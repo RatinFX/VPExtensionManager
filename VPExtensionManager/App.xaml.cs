@@ -71,6 +71,7 @@ public partial class App : Application
         services.AddSingleton<IRightPaneService, RightPaneService>();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IExtensionService, ExtensionService>();
+        services.AddSingleton<ILocalVPVersionService, LocalVPVersionService>();
 
         // Views
         services.AddTransient<IShellWindow, ShellWindow>();

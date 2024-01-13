@@ -8,6 +8,21 @@ public class ExtensionService : IExtensionService
 {
     public static List<VPExtension> Extensions = new();
 
+    private string _downloadPath = string.Empty;
+    public List<string> ScriptFolders = new();
+    public List<string> ExtensionFolders = new();
+
+    public void SetConfigPath(string configPath)
+    {
+        _downloadPath = configPath;
+    }
+
+    public void SetPossibleFolders(List<int> localVersions)
+    {
+        ScriptFolders = VPFolders.ScriptFolders([.. localVersions]);
+        ExtensionFolders = VPFolders.ExtensionFolders([.. localVersions]);
+    }
+
     public IEnumerable<VPExtension> InitializeExtensions()
     {
         if (Extensions.Any())
@@ -17,7 +32,7 @@ public class ExtensionService : IExtensionService
             foreach (var extension in Extensions)
             {
                 SetLatestRelease(extension);
-                SetInstallFolders(extension, false);
+                SetInstallFolders(extension, shouldLocateInstalls);
             }
 
             return Extensions;
@@ -82,11 +97,7 @@ public class ExtensionService : IExtensionService
             if (shouldLocateInstalls)
             {
                 extension.Installs.Clear();
-
-                /// TODO: properly look/ask for installed vegas versions
-                // int[] localVersions = [14, 18, 19];
-                // extension.Installs = GetInstallPaths(extension, localVersions);
-                extension.Installs = GetInstallPaths(extension, []);
+                extension.Installs = GetInstallPaths(extension);
             }
 
             extension.SetInstalledVersion();
@@ -98,12 +109,12 @@ public class ExtensionService : IExtensionService
         }
     }
 
-    public List<VPInstall> GetInstallPaths(VPExtension extension, int[] localVersions)
+    private List<VPInstall> GetInstallPaths(VPExtension extension)
     {
         var installs = new List<VPInstall>();
 
-        var paths = extension.Type.Equals(VPExtensionType.Script) ? VPFolders.ScriptFolders(localVersions)
-            : extension.Type.Equals(VPExtensionType.Extension) ? VPFolders.ExtensionFolders(localVersions)
+        var paths = extension.Type.Equals(VPExtensionType.Script) ? ScriptFolders
+            : extension.Type.Equals(VPExtensionType.Extension) ? ExtensionFolders
             : [];
 
         foreach (var path in paths)
@@ -149,6 +160,13 @@ public class ExtensionService : IExtensionService
         }
 
         return installs;
+    }
+
+    public List<string> GetAvailableFolders(VPExtension extension)
+    {
+        return extension.Type == VPExtensionType.Extension
+            ? ExtensionFolders
+            : ScriptFolders;
     }
 
     public void Uninstall(VPExtension selected, VPInstall selectedInstall)
