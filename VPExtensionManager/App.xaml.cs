@@ -68,9 +68,9 @@ public partial class App : Application
         services.AddSingleton<ISystemService, SystemService>();
         services.AddSingleton<IPersistAndRestoreService, PersistAndRestoreService>();
         services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
-        services.AddSingleton<IExtensionService, ExtensionService>();
         services.AddSingleton<IRightPaneService, RightPaneService>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IExtensionService, ExtensionService>();
 
         // Views
         services.AddTransient<IShellWindow, ShellWindow>();

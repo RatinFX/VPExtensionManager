@@ -25,7 +25,7 @@ public class PersistAndRestoreService : IPersistAndRestoreService
 
     public void PersistData()
     {
-        var folderPath = Path.Combine(_localAppData, _appConfig.ConfigurationsFolder);
+        var folderPath = Path.Combine(_localAppData, _appConfig.MainFolder, _appConfig.ConfigurationsFolder);
 
         if (App.Current.Properties != null)
         {
@@ -42,7 +42,7 @@ public class PersistAndRestoreService : IPersistAndRestoreService
 
     public void RestoreData()
     {
-        var folderPath = Path.Combine(_localAppData, _appConfig.ConfigurationsFolder);
+        var folderPath = Path.Combine(_localAppData, _appConfig.MainFolder, _appConfig.ConfigurationsFolder);
         var appPropertiesName = _appConfig.AppPropertiesFileName;
         var properties = _fileService.Read<IDictionary>(folderPath, appPropertiesName);
         if (properties != null)

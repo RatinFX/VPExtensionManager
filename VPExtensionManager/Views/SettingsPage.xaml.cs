@@ -50,9 +50,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _isInitialized = true;
     }
 
-    public void OnNavigatedFrom()
-    {
-    }
+    public void OnNavigatedFrom() { }
 
     private void OnLightChecked(object sender, RoutedEventArgs e)
     {

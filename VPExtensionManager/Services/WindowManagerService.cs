@@ -13,8 +13,7 @@ public class WindowManagerService : IWindowManagerService
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public Window MainWindow
-        => Application.Current.MainWindow;
+    public Window MainWindow => Application.Current.MainWindow;
 
     public WindowManagerService(IServiceProvider serviceProvider)
     {
