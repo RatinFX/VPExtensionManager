@@ -147,7 +147,20 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
-        // Update(Selected) - select-install window -> download zip/dll, extract, get path via installs.vpversion
+        var window = new InstallWindow(Selected, SelectedInstall);
+        var res = window.ShowDialog();
+
+        if (res is null or false)
+            return;
+
+        var (vpver, installPath, forceDownload) = window.GetSelectedValues();
+        if (vpver is VPVersion.Unknown || installPath is null)
+            return;
+
+        _extensionService.Update(Selected, vpver, installPath, forceDownload);
+        _extensionService.RefreshInstallFolders(Selected);
+        Selected.SetInstalledVersion();
+        ResetInstallPaths();
     }
 
     private void btnUninstallInstallPath_Click(object sender, RoutedEventArgs e)

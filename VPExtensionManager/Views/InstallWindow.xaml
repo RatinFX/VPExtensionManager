@@ -1,4 +1,4 @@
-<controls:MetroWindow
+﻿<controls:MetroWindow
     x:Class="VPExtensionManager.Views.InstallWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -73,6 +73,7 @@
                     SelectedItem="{Binding InstallPath, Mode=TwoWay}"
                     ItemsSource="{Binding InstallPathsSource, Mode=TwoWay}"
                     ToolTip="{Binding InstallPath}"
+                    IsEnabled="{Binding InstallPathEnabled}"
                     Margin="{StaticResource SmallLeftTopRightMargin}" />
             </Grid>
 

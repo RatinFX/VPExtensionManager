@@ -45,6 +45,35 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         set => Set(ref _forceDownload, value);
     }
 
+    public bool InstallPathEnabled { get; set; } = true;
+
+    public InstallWindow(VPExtension extension, VPInstall selectedInstall)
+    {
+        InitializeComponent();
+        DataContext = this;
+
+        Title = $"Install {extension.ExtensionName}";
+
+        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Magix))
+            VPVersionsSource.Add(VPVersion.Magix);
+
+        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Sony))
+            VPVersionsSource.Add(VPVersion.Sony);
+
+        var installFolder = Directory.GetParent(selectedInstall.InstallPath).FullName;
+        InstallPathsSource.Add(installFolder);
+
+        VPVersion = VPVersionsSource.FirstOrDefault();
+        InstallPath = InstallPathsSource.FirstOrDefault();
+
+        InstallPathEnabled = false;
+        OnPropertyChanged(nameof(InstallPathEnabled));
+
+        ForceDownload = App.Current.Properties.Contains("ForceDownload")
+            ? bool.Parse(App.Current.Properties["ForceDownload"].ToString())
+            : false;
+    }
+
     public InstallWindow(VPExtension extension, List<string> availableFolders)
     {
         InitializeComponent();
@@ -60,7 +89,9 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
 
         foreach (var folder in availableFolders)
         {
-            // Skip already existing paths
+            // Skip already existing paths - is this an issue?
+            // one would probably not want to install 2 different
+            // versions of the same extension in the same folder
             if (extension.Installs.Any(x => Directory.GetParent(x.InstallPath).FullName == folder))
                 continue;
 

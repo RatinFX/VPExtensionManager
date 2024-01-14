@@ -174,20 +174,13 @@ public class ExtensionService : IExtensionService
             : ScriptFolders;
     }
 
-    /// <summary>
-    /// TODO: Potentially generalize all of these
-    /// and let the Extension handle Install, etc.
-    /// This way it could have "Custom" extensions
-    /// </summary>
-    public VPInstall Install(VPExtension selected, VPVersion vp, string installPath, bool forceDownload)
+    private bool PerformInstallOrUpdate(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
     {
-        try
-        {
-            var downloadLink = selected.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
+        var downloadLink = extension.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
             if (downloadLink == null)
             {
                 // TODO: notification - download link to {selected.Type.Name} was not found
-                return null;
+            return false;
             }
 
             var fileName = Path.GetFileName(downloadLink);
@@ -207,9 +200,11 @@ public class ExtensionService : IExtensionService
             // Extract
             Directory.CreateDirectory(installPath);
 
-            List<string> filesToOverwrite = [selected.ExtensionName, .. selected.Dependencies];
+        List<string> filesToOverwrite = [extension.ExtensionName, .. extension.Dependencies];
 
             // - delete existing files as `ZipFile.ExtractToDirectory` cannot overwrite them
+        if (extension.Type.DownloadFileExtension == RFXStrings.Zip)
+        {
             foreach (var item in filesToOverwrite)
             {
                 var file = Path.Combine(installPath, $"{item}{RFXStrings.Dll}");
@@ -218,8 +213,6 @@ public class ExtensionService : IExtensionService
                     File.Delete(file);
             }
 
-            if (selected.Type.DownloadFileExtension == RFXStrings.Zip)
-            {
                 ZipFile.ExtractToDirectory(downloadPath, installPath);
             }
             else
@@ -227,21 +220,50 @@ public class ExtensionService : IExtensionService
                 File.Copy(downloadPath, Path.Combine(installPath, fileName), true);
             }
 
+        return true;
+    }
+
+    /// <summary>
+    /// TODO: Potentially generalize all of these
+    /// and let the Extension handle Install, etc.
+    /// This way it could have "Custom" extensions
+    /// </summary>
+    public VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    {
+        try
+        {
+            var success = PerformInstallOrUpdate(extension, vp, installPath, forceDownload);
+
+            if (!success)
+                return null;
+
             // Add to Installs
-            var version = selected.LatestVersion;
-            var filePath = Path.Combine(installPath, $"{selected.ExtensionName}{RFXStrings.Dll}");
+            var version = extension.LatestVersion;
+            var filePath = Path.Combine(installPath, $"{extension.ExtensionName}{RFXStrings.Dll}");
 
             return new VPInstall(version, filePath);
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception while downloading \"{selected.ExtensionName} ({selected.LatestVersion})\": {ex.Message}");
+            Debug.WriteLine($"Exception while installing \"{extension.ExtensionName} ({extension.LatestVersion})\": {ex.Message}");
             // TODO: notification
             return null;
         }
     }
 
-    public void Uninstall(VPExtension selected, VPInstall selectedInstall)
+    public void Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    {
+        try
+        {
+            PerformInstallOrUpdate(extension, vp, installPath, forceDownload);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception while updating \"{extension.ExtensionName} ({extension.LatestVersion})\": {ex.Message}");
+        }
+    }
+
+    public void Uninstall(VPExtension extension, VPInstall selectedInstall)
     {
         try
         {
@@ -251,29 +273,28 @@ public class ExtensionService : IExtensionService
                 File.Delete(selectedInstall.InstallPath);
 
             var hasNoConflictingInstalls = Extensions
-                .Where(x => x.ExtensionName != selected.ExtensionName)
+                .Where(x => x.ExtensionName != extension.ExtensionName)
                 .All(x => x.Installs.All(y =>
                 Directory.GetParent(y.InstallPath).FullName != parent.FullName)
             );
 
             if (hasNoConflictingInstalls)
             {
-                foreach (var d in selected.Dependencies)
+                foreach (var d in extension.Dependencies)
                 {
                     var path = Path.Combine(parent.FullName, $"{d}{RFXStrings.Dll}");
+
                     if (File.Exists(path))
-                    {
                         File.Delete(path);
-                    }
                 }
             }
 
-            selected.Installs.Remove(selectedInstall);
-            selected.SetInstalledVersion();
+            extension.Installs.Remove(selectedInstall);
+            extension.SetInstalledVersion();
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception while uninstalling \"{selected.ExtensionName} ({selectedInstall.Version})\" from: {selectedInstall.InstallPath} - {ex.Message}");
+            Debug.WriteLine($"Exception while uninstalling \"{extension.ExtensionName} ({selectedInstall.Version})\" from: {selectedInstall.InstallPath} - {ex.Message}");
         }
     }
 }

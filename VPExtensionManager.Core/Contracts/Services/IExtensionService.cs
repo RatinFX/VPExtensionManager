@@ -1,4 +1,4 @@
-﻿using VPExtensionManager.Core.Models;
+using VPExtensionManager.Core.Models;
 
 namespace VPExtensionManager.Core.Contracts.Services;
 
@@ -11,5 +11,6 @@ public interface IExtensionService
     void RefreshInstallFolders(VPExtension extension);
     List<string> GetAvailableFolders(VPExtension extension);
     VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
-    void Uninstall(VPExtension selected, VPInstall selectedInstall);
+    void Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
+    void Uninstall(VPExtension extension, VPInstall selectedInstall);
 }
