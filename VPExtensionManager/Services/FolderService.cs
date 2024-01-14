@@ -19,18 +19,18 @@ public class FolderService : IFolderService
 
     public string GetDownloadsFolder()
     {
-        if (!App.Current.Properties.Contains("DownloadsFolder"))
+        if (AppProperties.Get(AppProperties.DownloadsFolder, out string downloadsFolder))
         {
-            ResetDownloadsFolder();
-            return _defaultDownloadsFolder;
+            return downloadsFolder;
         }
 
-        return App.Current.Properties["DownloadsFolder"].ToString();
+        ResetDownloadsFolder();
+        return _defaultDownloadsFolder;
     }
 
     public void SaveDownloadsFolder(string path)
     {
-        App.Current.Properties["DownloadsFolder"] = path;
+        AppProperties.Set(AppProperties.DownloadsFolder, path);
     }
 
     public void ResetDownloadsFolder()

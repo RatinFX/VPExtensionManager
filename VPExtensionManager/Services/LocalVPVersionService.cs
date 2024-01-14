@@ -1,5 +1,6 @@
 ﻿using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Core.Contracts.Services;
+using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;
 
@@ -14,22 +15,17 @@ public class LocalVPVersionService : ILocalVPVersionService
 
     public List<int> GetLocalVersions()
     {
-        if (!App.Current.Properties.Contains("VPVersions"))
-            return [];
+        if (AppProperties.Get(AppProperties.VPVersions, out string versions))
+        {
+            return versions.Split(",").Select(int.Parse).ToList();
+        }
 
-        var localVersions = App.Current.Properties["VPVersions"]
-                .ToString()
-                .Split(",")
-                .Select(x => int.Parse(x.Trim()))
-                .ToList();
-
-        return localVersions;
+        return [];
     }
 
     public void SetLocalVersions(List<int> versions)
     {
-        App.Current.Properties["VPVersions"] = string.Join(",", versions);
-
+        AppProperties.Set(AppProperties.VPVersions, string.Join(",", versions));
         _extensionService.SetPossibleFolders(versions);
     }
 }

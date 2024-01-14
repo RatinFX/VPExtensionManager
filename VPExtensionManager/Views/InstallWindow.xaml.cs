@@ -100,9 +100,8 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
 
         VPVersion = VPVersionsSource.FirstOrDefault();
         InstallPath = InstallPathsSource.FirstOrDefault();
-
-        ForceDownload = App.Current.Properties.Contains("ForceDownload")
-            ? bool.Parse(App.Current.Properties["ForceDownload"].ToString())
+        ForceDownload = AppProperties.Get(AppProperties.ForceDownload, out string forceDownload)
+            ? bool.Parse(forceDownload)
             : false;
     }
 
