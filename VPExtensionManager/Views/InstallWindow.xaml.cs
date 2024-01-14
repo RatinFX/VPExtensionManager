@@ -52,7 +52,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         InitializeComponent();
         DataContext = this;
 
-        Title = $"Install {extension.ExtensionName}";
+        Title = $"Update {extension.ExtensionName}";
 
         if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Magix))
             VPVersionsSource.Add(VPVersion.Magix);
