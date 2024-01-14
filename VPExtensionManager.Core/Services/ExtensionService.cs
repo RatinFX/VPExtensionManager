@@ -218,7 +218,14 @@ public class ExtensionService : IExtensionService
                     File.Delete(file);
             }
 
-            ZipFile.ExtractToDirectory(downloadPath, installPath);
+            if (selected.Type.DownloadFileExtension == RFXStrings.Zip)
+            {
+                ZipFile.ExtractToDirectory(downloadPath, installPath);
+            }
+            else
+            {
+                File.Copy(downloadPath, Path.Combine(installPath, fileName), true);
+            }
 
             // Add to Installs
             var version = selected.LatestVersion;
