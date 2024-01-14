@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Core.Contracts.Services;
 using VPExtensionManager.Core.Models;
 using VPExtensionManager.Models;
 
@@ -18,6 +19,8 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private readonly ILocalVPVersionService _localVPVersionService;
     private readonly ISystemService _systemService;
     private readonly IApplicationInfoService _applicationInfoService;
+    private readonly IFolderService _folderService;
+    private readonly IExtensionService _extensionService;
     private bool _isInitialized;
 
     private AppTheme _theme;
@@ -41,17 +44,29 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         set => Set(ref _vpVersionsSource, value);
     }
 
+    private string _downloadsFolder;
+    public string DownloadsFolder
+    {
+        get => _downloadsFolder;
+        set => Set(ref _downloadsFolder, value);
+    }
+
     public SettingsPage(IOptions<AppConfig> appConfig,
         IThemeSelectorService themeSelectorService,
         ILocalVPVersionService localVPVersionService,
         ISystemService systemService,
-        IApplicationInfoService applicationInfoService)
+        IApplicationInfoService applicationInfoService,
+        IFolderService folderService,
+        IExtensionService extensionService)
     {
         _appConfig = appConfig.Value;
         _themeSelectorService = themeSelectorService;
         _localVPVersionService = localVPVersionService;
         _systemService = systemService;
         _applicationInfoService = applicationInfoService;
+        _folderService = folderService;
+        _extensionService = extensionService;
+
         InitializeComponent();
         DataContext = this;
     }
@@ -83,6 +98,8 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         }
 
         UpdateVPVersionText();
+
+        DownloadsFolder = _folderService.GetDownloadsFolder();
 
         _isInitialized = true;
     }
@@ -162,5 +179,25 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
             return;
 
         _localVPVersionService.SetLocalVersions(sb);
+    }
+
+    private void OnChangeDownloadsFolderClick(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+        var result = dialog.ShowDialog() ?? false;
+
+        if (!result || string.IsNullOrEmpty(dialog.SelectedPath))
+            return;
+
+        DownloadsFolder = dialog.SelectedPath;
+        _folderService.SaveDownloadsFolder(DownloadsFolder);
+        _extensionService.SetDownloadsPath(DownloadsFolder);
+    }
+
+    private void OnResetDownloadsFolderClick(object sender, RoutedEventArgs e)
+    {
+        _folderService.ResetDownloadsFolder();
+        DownloadsFolder = _folderService.GetDownloadsFolder();
+        _extensionService.SetDownloadsPath(DownloadsFolder);
     }
 }

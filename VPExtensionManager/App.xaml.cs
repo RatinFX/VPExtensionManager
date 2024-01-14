@@ -72,6 +72,7 @@ public partial class App : Application
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IExtensionService, ExtensionService>();
         services.AddSingleton<ILocalVPVersionService, LocalVPVersionService>();
+        services.AddSingleton<IFolderService, FolderService>();
 
         // Views
         services.AddTransient<IShellWindow, ShellWindow>();

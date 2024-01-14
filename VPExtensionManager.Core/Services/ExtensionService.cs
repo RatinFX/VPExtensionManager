@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO.Compression;
 using VPExtensionManager.Core.Contracts.Services;
 using VPExtensionManager.Core.Models;
@@ -9,16 +9,13 @@ public class ExtensionService : IExtensionService
 {
     public static List<VPExtension> Extensions = new();
 
-    private string _downloadPath = string.Empty;
+    private string _downloadsPath = string.Empty;
     public List<string> ScriptFolders = new();
     public List<string> ExtensionFolders = new();
 
-    public void SetConfigPath(string configPath)
+    public void SetDownloadsPath(string downloadsPath)
     {
-        _downloadPath = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.LocalApplicationData),
-            configPath
-        );
+        _downloadsPath = downloadsPath;
     }
 
     public void SetPossibleFolders(List<int> localVersions)
@@ -177,32 +174,32 @@ public class ExtensionService : IExtensionService
     private bool PerformInstallOrUpdate(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
     {
         var downloadLink = extension.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
-            if (downloadLink == null)
-            {
-                // TODO: notification - download link to {selected.Type.Name} was not found
+        if (downloadLink == null)
+        {
+            // TODO: notification - download link to {selected.Type.Name} was not found
             return false;
-            }
+        }
 
-            var fileName = Path.GetFileName(downloadLink);
-            var downloadPath = Path.Combine(_downloadPath, fileName);
+        var fileName = Path.GetFileName(downloadLink);
+        var downloadPath = Path.Combine(_downloadsPath, fileName);
 
-            // Download
-            if (!File.Exists(downloadPath) || forceDownload)
-            {
-                using var client = new HttpClient();
-                var bytes = client.GetByteArrayAsync(downloadLink).Result;
+        // Download
+        if (!File.Exists(downloadPath) || forceDownload)
+        {
+            using var client = new HttpClient();
+            var bytes = client.GetByteArrayAsync(downloadLink).Result;
 
-                Directory.CreateDirectory(_downloadPath);
+            Directory.CreateDirectory(_downloadsPath);
 
-                File.WriteAllBytes(downloadPath, bytes);
-            }
+            File.WriteAllBytes(downloadPath, bytes);
+        }
 
-            // Extract
-            Directory.CreateDirectory(installPath);
+        // Extract
+        Directory.CreateDirectory(installPath);
 
         List<string> filesToOverwrite = [extension.ExtensionName, .. extension.Dependencies];
 
-            // - delete existing files as `ZipFile.ExtractToDirectory` cannot overwrite them
+        // - delete existing files as `ZipFile.ExtractToDirectory` cannot overwrite them
         if (extension.Type.DownloadFileExtension == RFXStrings.Zip)
         {
             foreach (var item in filesToOverwrite)
@@ -213,12 +210,12 @@ public class ExtensionService : IExtensionService
                     File.Delete(file);
             }
 
-                ZipFile.ExtractToDirectory(downloadPath, installPath);
-            }
-            else
-            {
-                File.Copy(downloadPath, Path.Combine(installPath, fileName), true);
-            }
+            ZipFile.ExtractToDirectory(downloadPath, installPath);
+        }
+        else
+        {
+            File.Copy(downloadPath, Path.Combine(installPath, fileName), true);
+        }
 
         return true;
     }

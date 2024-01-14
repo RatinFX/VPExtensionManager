@@ -21,6 +21,7 @@ public class ApplicationHostService : IHostedService
     private readonly IRightPaneService _rightPaneService;
     private readonly IPersistAndRestoreService _persistAndRestoreService;
     private readonly IExtensionService _extensionService;
+    private readonly IFolderService _folderService;
     private IShellWindow _shellWindow;
     private bool _isInitialized;
 
@@ -32,7 +33,8 @@ public class ApplicationHostService : IHostedService
         ILocalVPVersionService localVPVersionService,
         IRightPaneService rightPaneService,
         IPersistAndRestoreService persistAndRestoreService,
-        IExtensionService extensionService)
+        IExtensionService extensionService,
+        IFolderService folderService)
     {
         _appConfig = appConfig.Value;
         _serviceProvider = serviceProvider;
@@ -43,6 +45,7 @@ public class ApplicationHostService : IHostedService
         _rightPaneService = rightPaneService;
         _persistAndRestoreService = persistAndRestoreService;
         _extensionService = extensionService;
+        _folderService = folderService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -70,7 +73,7 @@ public class ApplicationHostService : IHostedService
             _persistAndRestoreService.RestoreData();
             _themeSelectorService.InitializeTheme();
 
-            _extensionService.SetConfigPath(Path.Combine(_appConfig.MainFolder, _appConfig.DownloadsFolder));
+            _extensionService.SetDownloadsPath(_folderService.GetDownloadsFolder());
             _extensionService.SetPossibleFolders(_localVPVersionService.GetLocalVersions());
 
             await Task.CompletedTask;

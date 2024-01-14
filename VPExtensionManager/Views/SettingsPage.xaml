@@ -63,7 +63,6 @@
                     <ComboBox 
                         Name="cbxVPVersions" 
                         VerticalAlignment="Center"
-                        Margin="2,2,6,0"
                         SelectionChanged="OnVPVersionsSelectionChanged"
                         ItemsSource="{Binding VPVersionsSource, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
@@ -87,7 +86,39 @@
                         Name="tbxVPVersions" 
                         Text="Select your installed VP versions..." 
                         VerticalAlignment="Center" 
-                        Margin="6,2,6,0" />
+                        Margin="6,0,6,0" />
+                </Grid>
+
+                <Grid Margin="{StaticResource SmallTopBottomMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="{StaticResource SmallRightMargin}"
+                        Style="{StaticResource BodyTextStyle}"
+                        VerticalAlignment="Center">
+                        Downloads
+                    </TextBlock>
+                    <Button 
+                        Grid.Column="1"
+                        Margin="{StaticResource SmallRightMargin}"
+                        Style="{StaticResource MahApps.Styles.Button}"
+                        Padding="12,6"
+                        HorizontalContentAlignment="Left"
+                        Content="{Binding DownloadsFolder}"
+                        ToolTip="{Binding DownloadsFolder}"
+                        Click="OnChangeDownloadsFolderClick" />
+                    <Button 
+                        Grid.Column="2"
+                        Style="{StaticResource MahApps.Styles.Button}"
+                        Padding="12,6"
+                        HorizontalContentAlignment="Left"
+                        Content="Reset" 
+                        Click="OnResetDownloadsFolderClick" />
                 </Grid>
 
                 <TextBlock

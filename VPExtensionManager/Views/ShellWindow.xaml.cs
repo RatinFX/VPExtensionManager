@@ -76,17 +76,13 @@ public partial class ShellWindow : MetroWindow, IShellWindow, INotifyPropertyCha
         => _rightPaneService.OpenInRightPane(typeof(SettingsPage));
 
     public event PropertyChangedEventHandler PropertyChanged;
-
-    private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+    private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(storage, value))
-        {
             return;
-        }
 
         storage = value;
         OnPropertyChanged(propertyName);
     }
-
-    private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }
