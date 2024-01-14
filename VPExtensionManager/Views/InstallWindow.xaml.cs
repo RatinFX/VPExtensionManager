@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using VPExtensionManager.Core.Models;
+using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Views;
 
@@ -45,47 +46,28 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         set => Set(ref _forceDownload, value);
     }
 
-    public bool InstallPathEnabled { get; set; } = true;
+    private bool _installPathEnabled = true;
+    public bool InstallPathEnabled
+    {
+        get => _installPathEnabled;
+        set => Set(ref _installPathEnabled, value);
+    }
 
     public InstallWindow(VPExtension extension, VPInstall selectedInstall)
     {
-        InitializeComponent();
-        DataContext = this;
-
-        Title = $"Update {extension.ExtensionName}";
-
-        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Magix))
-            VPVersionsSource.Add(VPVersion.Magix);
-
-        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Sony))
-            VPVersionsSource.Add(VPVersion.Sony);
+        Init($"Update {extension.ExtensionName}", extension);
 
         var installFolder = Directory.GetParent(selectedInstall.InstallPath).FullName;
         InstallPathsSource.Add(installFolder);
 
-        VPVersion = VPVersionsSource.FirstOrDefault();
-        InstallPath = InstallPathsSource.FirstOrDefault();
+        SetDefaults();
 
         InstallPathEnabled = false;
-        OnPropertyChanged(nameof(InstallPathEnabled));
-
-        ForceDownload = App.Current.Properties.Contains("ForceDownload")
-            ? bool.Parse(App.Current.Properties["ForceDownload"].ToString())
-            : false;
     }
 
     public InstallWindow(VPExtension extension, List<string> availableFolders)
     {
-        InitializeComponent();
-        DataContext = this;
-
-        Title = $"Install {extension.ExtensionName}";
-
-        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Magix))
-            VPVersionsSource.Add(VPVersion.Magix);
-
-        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Sony))
-            VPVersionsSource.Add(VPVersion.Sony);
+        Init($"Install {extension.ExtensionName}", extension);
 
         foreach (var folder in availableFolders)
         {
@@ -98,6 +80,25 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
             InstallPathsSource.Add(folder);
         }
 
+        SetDefaults();
+    }
+
+    private void Init(string title, VPExtension extension)
+    {
+        InitializeComponent();
+        DataContext = this;
+
+        Title = title;
+
+        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Magix))
+            VPVersionsSource.Add(VPVersion.Magix);
+
+        if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Sony))
+            VPVersionsSource.Add(VPVersion.Sony);
+    }
+
+    private void SetDefaults()
+    {
         VPVersion = VPVersionsSource.FirstOrDefault();
         InstallPath = InstallPathsSource.FirstOrDefault();
         ForceDownload = AppProperties.Get(AppProperties.ForceDownload, out string forceDownload)
