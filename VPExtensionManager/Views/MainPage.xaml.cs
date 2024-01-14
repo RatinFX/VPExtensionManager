@@ -163,11 +163,19 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         ResetInstallPaths();
     }
 
-    private void btnUninstallInstallPath_Click(object sender, RoutedEventArgs e)
+    private void btnUninstall_Click(object sender, RoutedEventArgs e)
     {
+        // TODO: Create a custom window and make them toggleable
+        // in case someone knows X.dll is used for another Extension
+        var dependencies = string.Join("\n", Selected.Dependencies.Select(x => $"- {x}{RFXStrings.Dll}"));
+        var dependencyText = string.IsNullOrEmpty(dependencies)
+            ? ""
+            : $"\n\nThis might also remove the following items:\n{dependencies}";
+
         var result = MessageBox.Show(
-            $"Are you sure you want to uninstall {Selected.ExtensionName} from the following path?\n\n{SelectedInstall.InstallPath}",
-            $"Uninstall {Selected.ExtensionName} from selected path",
+            $"Are you sure you want to remove {Selected.ExtensionName} from the following path?\n\n"
+            + $"{SelectedInstall.InstallPath}" + dependencyText,
+            $"Uninstall {Selected.ExtensionName} {SelectedInstall.Version}",
             MessageBoxButton.YesNo,
             MessageBoxImage.Warning,
             MessageBoxResult.No

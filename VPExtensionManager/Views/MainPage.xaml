@@ -78,7 +78,6 @@
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
                             <Button
-                                x:Name="btnCheckForUpdate"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
@@ -87,7 +86,6 @@
                                 Check for Update
                             </Button>
                             <Button
-                                x:Name="btnFindInstalls"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
@@ -95,7 +93,6 @@
                                 Find Installs
                             </Button>
                             <Button
-                                x:Name="btnInstall"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6" 
@@ -114,7 +111,6 @@
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
                             <Button
-                                x:Name="btnOpenFolder"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
@@ -123,7 +119,6 @@
                                 Open folder
                             </Button>
                             <Button
-                                x:Name="btnUpdate"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
@@ -132,11 +127,10 @@
                                 Update
                             </Button>
                             <Button
-                                x:Name="btnUninstallInstallPath"
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6" 
-                                Click="btnUninstallInstallPath_Click"
+                                Click="btnUninstall_Click"
                                 IsEnabled="{Binding DataContext.UninstallEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}" >
                                 Uninstall
                             </Button>
