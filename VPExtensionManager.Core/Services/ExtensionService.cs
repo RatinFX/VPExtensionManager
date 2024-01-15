@@ -130,22 +130,17 @@ public class ExtensionService : IExtensionService
 
                 foreach (var filePath in filePaths)
                 {
-                    /// TODO: Find a reliable way to check or mark the VEGAS version of and Extension
-                    /// - this only matters when we want to call Update:
+                    /// TODO: Find/Create a reliable way to check the VEGAS version of and Extension
+                    /// (hint: there is none)
+                    /// - this only matters when the user wants to Update:
                     //   > extension.GetDownloadLink(VPVersion..)
-                    /// - maybe add "for Sony/Magix" or "13/14" in the File Description or smth
-
-                    /// TODO: Find or Ask for installed versions of Vegas Pro for Folders
-                    // var ver = localVersions.FirstOrDefault(x => path.Contains(x.ToString()));
-                    // var vpver = ver == 0 ? VPVersion.Unknown
-                    //     : ver >= (int)VPVersion.Magix ? VPVersion.Magix
-                    //     : VPVersion.Sony;
+                    /// - could add "for Sony/Magix" or "13/14" in the Dll File's Description
 
                     /// TODO: We could also check if Dependencies are present in the given folder
                     /// and present information to the user when something is missing
                     // var files = Directory.GetFiles(Directory.GetParent(filePath))
                     //      .Where(x => extension.Dependencies.Any(r => x.Contains(r));
-                    // 
+
                     /// Show error
                     // if (files.Count() != extension.Dependencies.Count()) { }
 
@@ -171,12 +166,12 @@ public class ExtensionService : IExtensionService
             : ScriptFolders;
     }
 
-    private bool PerformInstallOrUpdate(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    private bool PerformInstall(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
     {
         var downloadLink = extension.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
         if (downloadLink == null)
         {
-            // TODO: notification - download link to {selected.Type.Name} was not found
+            // TODO: notification - "download link to {selected.Type.Name} was not found"
             return false;
         }
 
@@ -229,12 +224,11 @@ public class ExtensionService : IExtensionService
     {
         try
         {
-            var success = PerformInstallOrUpdate(extension, vp, installPath, forceDownload);
+            var success = PerformInstall(extension, vp, installPath, forceDownload);
 
             if (!success)
                 return null;
 
-            // Add to Installs
             var version = extension.LatestVersion;
             var filePath = Path.Combine(installPath, $"{extension.ExtensionName}{RFXStrings.Dll}");
 
@@ -243,7 +237,7 @@ public class ExtensionService : IExtensionService
         catch (Exception ex)
         {
             Debug.WriteLine($"Exception while installing \"{extension.ExtensionName} ({extension.LatestVersion})\": {ex.Message}");
-            // TODO: notification
+            // TODO: notification - "failed to install - reason: ..."
             return null;
         }
     }
@@ -252,7 +246,7 @@ public class ExtensionService : IExtensionService
     {
         try
         {
-            PerformInstallOrUpdate(extension, vp, installPath, forceDownload);
+            PerformInstall(extension, vp, installPath, forceDownload);
         }
         catch (Exception ex)
         {
