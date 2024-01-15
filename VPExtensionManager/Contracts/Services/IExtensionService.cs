@@ -1,6 +1,6 @@
-﻿using VPExtensionManager.Core.Models;
+﻿using VPExtensionManager.Models;
 
-namespace VPExtensionManager.Core.Contracts.Services;
+namespace VPExtensionManager.Contracts.Services;
 
 public interface IExtensionService
 {

@@ -4,7 +4,6 @@ using System.IO;
 using VPExtensionManager.Contracts.Activation;
 using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
-using VPExtensionManager.Core.Contracts.Services;
 using VPExtensionManager.Models;
 using VPExtensionManager.Views;
 

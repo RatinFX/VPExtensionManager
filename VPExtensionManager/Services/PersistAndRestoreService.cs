@@ -4,9 +4,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 
 using VPExtensionManager.Contracts.Services;
-using VPExtensionManager.Core.Contracts.Services;
-using VPExtensionManager.Core.Models;
-using VPExtensionManager.Core.Services;
+using VPExtensionManager.Core.Interfaces;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;

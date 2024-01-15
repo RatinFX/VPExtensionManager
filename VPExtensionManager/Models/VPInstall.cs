@@ -1,4 +1,4 @@
-﻿namespace VPExtensionManager.Core.Models;
+﻿namespace VPExtensionManager.Models;
 
 /// <summary>
 /// TODO: Add warning if some of the Dependency files are missing via a ToolTip

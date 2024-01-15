@@ -1,4 +1,6 @@
-﻿namespace VPExtensionManager.Core.Models;
+﻿using System.IO;
+
+namespace VPExtensionManager.Models;
 
 /// <summary>
 /// These paths are from the official VEGASScriptFAQ.html

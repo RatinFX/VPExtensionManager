@@ -1,9 +1,6 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
 using System.Text;
-
-using Newtonsoft.Json;
-
-using VPExtensionManager.Core.Contracts.Services;
+using VPExtensionManager.Core.Interfaces;
 
 namespace VPExtensionManager.Core.Services;
 

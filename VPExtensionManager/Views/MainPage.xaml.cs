@@ -5,10 +5,9 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-
+using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
-using VPExtensionManager.Core.Contracts.Services;
-using VPExtensionManager.Core.Models;
+using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Views;
 

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 
 using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
-using VPExtensionManager.Core.Contracts.Services;
+using VPExtensionManager.Core.Interfaces;
 using VPExtensionManager.Core.Services;
 using VPExtensionManager.Models;
 using VPExtensionManager.Services;

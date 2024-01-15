@@ -1,4 +1,4 @@
-﻿namespace VPExtensionManager.Core.Contracts.Services;
+﻿namespace VPExtensionManager.Core.Interfaces;
 
 public interface IFileService
 {

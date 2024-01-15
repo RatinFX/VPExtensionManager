@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-namespace VPExtensionManager.Core.Models;
+namespace VPExtensionManager.Models;
 
 public class ShortReleaseAsset
 {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace VPExtensionManager.Core.Models;
+namespace VPExtensionManager.Models;
 
 public class VPExtension : INotifyPropertyChanged
 {

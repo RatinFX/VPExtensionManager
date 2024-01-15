@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using VPExtensionManager.Core.Models;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Views;

@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.IO.Compression;
-using VPExtensionManager.Core.Contracts.Services;
-using VPExtensionManager.Core.Models;
+using System.Net.Http;
+using VPExtensionManager.Contracts.Services;
+using VPExtensionManager.Models;
 
-namespace VPExtensionManager.Core.Services;
+namespace VPExtensionManager.Services;
 
 public class ExtensionService : IExtensionService
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace VPExtensionManager.Core.Models;
+namespace VPExtensionManager.Models;
 
 public enum VPVersion
 {
