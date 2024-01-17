@@ -26,7 +26,7 @@ namespace VPExtensionManager.Views
                 );
 
                 cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(10),
+                    notificationLifetime: TimeSpan.FromSeconds(7),
                     maximumNotificationCount: MaximumNotificationCount.FromCount(5)
                 );
 
