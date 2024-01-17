@@ -15,6 +15,7 @@ public class VPExtension : INotifyPropertyChanged
     [JsonIgnore]
     public bool RepositoryWasFound { get; set; } = true;
 
+    [JsonIgnore]
     private string _installedVersion = "Not installed";
     public string InstalledVersion
     {
@@ -28,8 +29,8 @@ public class VPExtension : INotifyPropertyChanged
         }
     }
 
-    private string _latestVersion = string.Empty;
     [JsonIgnore]
+    private string _latestVersion = string.Empty;
     public string LatestVersion
     {
         get => _latestVersion;
@@ -41,6 +42,8 @@ public class VPExtension : INotifyPropertyChanged
             OnPropertyChanged(nameof(VersionDisplay));
         }
     }
+
+    public long LastChecked { get; set; } = -1;
 
     [JsonIgnore]
     public bool UpdateAvailable =>
@@ -55,7 +58,6 @@ public class VPExtension : INotifyPropertyChanged
         : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
         : InstalledVersion;
 
-    [JsonIgnore]
     public List<ShortReleaseAsset> ReleaseAssets { get; set; } = new();
 
     // Installed instances
@@ -75,9 +77,23 @@ public class VPExtension : INotifyPropertyChanged
     public void SetInstalledVersion()
     {
         InstalledVersion =
-            Installs.Count > 1 ? "Multiple installs"
-            : Installs.Count == 1 ? Installs.First().Version
-            : "Not installed";
+            !Installs.Any() ? "Not installed"
+            : Installs.Count > 1 ? "Multiple installs"
+            : Installs.FirstOrDefault()?.Version
+            ?? "Awkward error";
+    }
+
+    public bool ShouldCheckForUpdate()
+    {
+        return LastChecked - DateTimeOffset.Now.ToUnixTimeSeconds() >= 100_000
+            || LastChecked < 0
+            || !ReleaseAssets.Any()
+            || string.IsNullOrEmpty(LatestVersion);
+    }
+
+    public void SetLastChecked()
+    {
+        LastChecked = DateTimeOffset.Now.ToUnixTimeSeconds();
     }
 
     public string GetDownloadLink(VPVersion vp)
@@ -85,8 +101,8 @@ public class VPExtension : INotifyPropertyChanged
         if (string.IsNullOrEmpty(LatestVersion))
             return string.Empty;
 
-        var assets = ReleaseAssets.Where(x => x.Name.ToLower().Contains(ExtensionName.ToLower()) && x.VP == vp);
-        var result = assets.FirstOrDefault(x => x.Name.EndsWith(Type.DownloadFileExtension))?.BrowserDownloadUrl
+        var result = ReleaseAssets.FirstOrDefault(x => x.VP == vp && x.Name.EndsWith(Type.DownloadFileExtension))
+            ?.BrowserDownloadUrl
             ?? "Download link not found";
 
         return result;

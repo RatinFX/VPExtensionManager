@@ -41,7 +41,9 @@ public class ExtensionService : IExtensionService
 
             foreach (var extension in Extensions)
             {
-                SetLatestRelease(extension);
+                if (extension.ShouldCheckForUpdate())
+                    SetLatestRelease(extension);
+
                 SetInstallFolders(extension, shouldLocateInstalls);
             }
 
@@ -79,14 +81,14 @@ public class ExtensionService : IExtensionService
     {
         try
         {
-            // TODO: Add LastChecked DateTime for extensions and only check [ if > 1 day ] or so
+            extension.SetLastChecked();
+
             var release = GitHubService.GetLatestRelease(extension.ExtensionName);
 
             extension.LatestVersion = release.TagName;
 
-            // TODO: save ReleaseAssets to the json
-            extension.ReleaseAssets = release.Assets
-                .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.DownloadFileExtension)
+            extension.ReleaseAssets = release.Assets.Where(x =>
+                x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.DownloadFileExtension)
                 || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Script.DownloadFileExtension))
                 .Select(x => new ShortReleaseAsset(x, ShortReleaseAsset.GetVersion(x.Name, release.TagName)))
                 .ToList();
@@ -108,9 +110,6 @@ public class ExtensionService : IExtensionService
 
     private void SetInstallFolders(VPExtension extension, bool shouldLocateInstalls)
     {
-        //if (!extension.RepositoryWasFound)
-        //    return;
-
         try
         {
             if (shouldLocateInstalls)
@@ -199,7 +198,7 @@ public class ExtensionService : IExtensionService
 
     private bool PerformInstall(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
     {
-        var downloadLink = extension.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
+        var downloadLink = extension.GetDownloadLink(vp);
         if (downloadLink == null)
         {
             _notificationService.Error($"Did not find a download link for {extension.ExtensionName} for version {vp}");
