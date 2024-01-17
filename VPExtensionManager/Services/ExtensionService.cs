@@ -11,9 +11,16 @@ public class ExtensionService : IExtensionService
 {
     public static List<VPExtension> Extensions = new();
 
+    private readonly INotificationService _notificationService;
+
     private string _downloadsPath = string.Empty;
     public List<string> ScriptFolders = new();
     public List<string> ExtensionFolders = new();
+
+    public ExtensionService(INotificationService notificationService)
+    {
+        _notificationService = notificationService;
+    }
 
     public void SetDownloadsPath(string downloadsPath)
     {
@@ -72,10 +79,12 @@ public class ExtensionService : IExtensionService
     {
         try
         {
+            // TODO: Add LastChecked DateTime for extensions and only check [ if > 1 day ] or so
             var release = GitHubService.GetLatestRelease(extension.ExtensionName);
 
             extension.LatestVersion = release.TagName;
 
+            // TODO: save ReleaseAssets to the json
             extension.ReleaseAssets = release.Assets
                 .Where(x => x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.DownloadFileExtension)
                 || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Script.DownloadFileExtension))
@@ -84,17 +93,23 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
+            ex = ex.GetBaseException();
+
             extension.RepositoryWasFound = false;
             extension.LatestVersion = "GitHub error";
-            Debug.WriteLine($"Exception with the extension \"{extension.ExtensionName}\": {ex.Message}");
-            return;
+
+            var msg = $"Error while looking up \"{extension.ExtensionName}\" on GitHub:\n\n" +
+                $"- {ex.Message}";
+
+            Debug.WriteLine(msg);
+            _notificationService.Error(msg);
         }
     }
 
     private void SetInstallFolders(VPExtension extension, bool shouldLocateInstalls)
     {
-        if (!extension.RepositoryWasFound)
-            return;
+        //if (!extension.RepositoryWasFound)
+        //    return;
 
         try
         {
@@ -108,8 +123,11 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception while locating \"{extension.ExtensionName}\": {ex.Message}");
-            return;
+            var msg = $"Error while searching for \"{extension.ExtensionName}\":\n\n" +
+                $"{ex.Message}";
+
+            Debug.WriteLine(msg);
+            _notificationService.Error(msg);
         }
     }
 
@@ -152,9 +170,20 @@ public class ExtensionService : IExtensionService
                     installs.Add(new VPInstall(version, filePath));
                 }
             }
+            catch (DirectoryNotFoundException ex)
+            {
+                Debug.WriteLine($"Error while locating \"{extension.ExtensionName}\" at:\n" +
+                    $"{path}\n\n" +
+                    $"{ex.Message}");
+            }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception while locating \"{extension.ExtensionName}\" at: {path} - {ex.Message}");
+                var msg = $"Error while searching in \"{extension.ExtensionName}\" at:\n" +
+                    $"{path}\n\n" +
+                    $"{ex.Message}";
+
+                Debug.WriteLine(msg);
+                _notificationService.Error(msg);
             }
         }
 
@@ -173,7 +202,7 @@ public class ExtensionService : IExtensionService
         var downloadLink = extension.ReleaseAssets.FirstOrDefault(x => x.VP == vp)?.BrowserDownloadUrl;
         if (downloadLink == null)
         {
-            // TODO: notification - "download link to {selected.Type.Name} was not found"
+            _notificationService.Error($"Did not find a download link for {extension.ExtensionName} for version {vp}");
             return false;
         }
 
@@ -238,8 +267,11 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception while installing \"{extension.ExtensionName} ({extension.LatestVersion})\": {ex.Message}");
-            // TODO: notification - "failed to install - reason: ..."
+            var msg = $"Error while installing \"{extension.ExtensionName} ({extension.LatestVersion})\":\n\n" +
+                $"{ex.Message}";
+
+            Debug.WriteLine(msg);
+            _notificationService.Error(msg);
             return null;
         }
     }
@@ -252,7 +284,11 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception while updating \"{extension.ExtensionName} ({extension.LatestVersion})\": {ex.Message}");
+            var msg = $"Error while updating \"{extension.ExtensionName} ({extension.LatestVersion})\":\n\n" +
+                $"{ex.Message}";
+
+            Debug.WriteLine(msg);
+            _notificationService.Error(msg);
         }
     }
 
@@ -287,7 +323,12 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception while uninstalling \"{extension.ExtensionName} ({selectedInstall.Version})\" from: {selectedInstall.InstallPath} - {ex.Message}");
+            var msg = $"Error while uninstalling \"{extension.ExtensionName} ({selectedInstall.Version})\" from:\n" +
+                $"{selectedInstall.InstallPath}\n\n" +
+                $"{ex.Message}";
+
+            Debug.WriteLine(msg);
+            _notificationService.Error(msg);
         }
     }
 }

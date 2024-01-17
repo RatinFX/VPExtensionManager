@@ -1,12 +1,10 @@
-﻿using System.IO;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
 using VPExtensionManager.Core.Interfaces;
@@ -73,6 +71,7 @@ public partial class App : Application
         services.AddSingleton<IExtensionService, ExtensionService>();
         services.AddSingleton<ILocalVPVersionService, LocalVPVersionService>();
         services.AddSingleton<IFolderService, FolderService>();
+        services.AddSingleton<INotificationService, NotificationService>();
 
         // Views
         services.AddTransient<IShellWindow, ShellWindow>();

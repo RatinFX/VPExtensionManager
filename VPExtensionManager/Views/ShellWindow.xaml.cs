@@ -1,11 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using MahApps.Metro.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-
-using MahApps.Metro.Controls;
-
 using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Contracts.Views;
 

@@ -14,6 +14,7 @@ namespace VPExtensionManager.Views;
 public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 {
     private readonly IExtensionService _extensionService;
+    private readonly INotificationService _notificationService;
 
     private VPExtension _selected;
     public VPExtension Selected
@@ -64,9 +65,10 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         set => Set(ref _installPaths, value);
     }
 
-    public MainPage(IExtensionService extensionService)
+    public MainPage(IExtensionService extensionService, INotificationService notificationService)
     {
         _extensionService = extensionService;
+        _notificationService = notificationService;
         InitializeComponent();
         DataContext = this;
     }
@@ -107,12 +109,16 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void btnCheckForUpdate_Click(object sender, RoutedEventArgs e)
     {
         _extensionService.RefreshLatestRelease(Selected);
+
+        _notificationService.Success($"Latest version for {Selected.ExtensionName}: {Selected.LatestVersion}");
     }
 
     private void btnFindInstalls_Click(object sender, RoutedEventArgs e)
     {
         _extensionService.RefreshInstallFolders(Selected);
         ResetInstallPaths();
+
+        _notificationService.Success($"Found {Selected.Installs.Count}x {Selected.ExtensionName} install");
     }
 
     private void btnOpenFolder_Click(object sender, RoutedEventArgs e)
@@ -144,6 +150,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         Selected.Installs.Add(newInstall);
         Selected.SetInstalledVersion();
         ResetInstallPaths();
+
+        _notificationService.Success($"Installed {Selected.ExtensionName} ({Selected.LatestVersion})");
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -162,6 +170,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         _extensionService.RefreshInstallFolders(Selected);
         Selected.SetInstalledVersion();
         ResetInstallPaths();
+
+        _notificationService.Success($"Updated {Selected.ExtensionName} to {Selected.LatestVersion}");
     }
 
     private void btnUninstall_Click(object sender, RoutedEventArgs e)
@@ -189,6 +199,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         {
             _extensionService.Uninstall(Selected, SelectedInstall);
             ResetInstallPaths();
+
+            _notificationService.Success($"Uninstalled {Selected.ExtensionName} from the selected path");
         }
     }
 }

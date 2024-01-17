@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private readonly IApplicationInfoService _applicationInfoService;
     private readonly IFolderService _folderService;
     private readonly IExtensionService _extensionService;
+    private readonly INotificationService _notificationService;
     private bool _isInitialized;
 
     private AppTheme _theme;
@@ -55,7 +57,8 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         ISystemService systemService,
         IApplicationInfoService applicationInfoService,
         IFolderService folderService,
-        IExtensionService extensionService)
+        IExtensionService extensionService,
+        INotificationService notificationService)
     {
         _appConfig = appConfig.Value;
         _themeSelectorService = themeSelectorService;
@@ -64,6 +67,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _applicationInfoService = applicationInfoService;
         _folderService = folderService;
         _extensionService = extensionService;
+        _notificationService = notificationService;
 
         InitializeComponent();
         DataContext = this;
@@ -190,6 +194,8 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         DownloadsFolder = dialog.SelectedPath;
         _folderService.SaveDownloadsFolder(DownloadsFolder);
         _extensionService.SetDownloadsPath(DownloadsFolder);
+
+        _notificationService.Success($"Downloads folder was changed");
     }
 
     private void OnResetDownloadsFolderClick(object sender, RoutedEventArgs e)
@@ -197,6 +203,11 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _folderService.ResetDownloadsFolder();
         DownloadsFolder = _folderService.GetDownloadsFolder();
         _extensionService.SetDownloadsPath(DownloadsFolder);
+
+        _notificationService.Success(
+            $"Downloads folder was reset to:\n" +
+            $"%localappdata%\\{_appConfig.MainFolder}\\{_appConfig.DownloadsFolder}"
+        );
     }
 
     private void OnOpenDownloadsFolderClick(object sender, RoutedEventArgs e)
