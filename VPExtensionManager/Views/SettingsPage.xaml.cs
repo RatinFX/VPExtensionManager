@@ -198,4 +198,12 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         DownloadsFolder = _folderService.GetDownloadsFolder();
         _extensionService.SetDownloadsPath(DownloadsFolder);
     }
+
+    private void OnOpenDownloadsFolderClick(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrEmpty(DownloadsFolder))
+            return;
+
+        Process.Start("explorer.exe", DownloadsFolder);
+    }
 }

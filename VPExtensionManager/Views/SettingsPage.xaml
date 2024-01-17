@@ -9,7 +9,8 @@
     xmlns:models="clr-namespace:VPExtensionManager.Models"
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="450" 
+    d:DesignWidth="500">
     <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="models:AppTheme" />
     </Page.Resources>
@@ -94,6 +95,7 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
@@ -114,11 +116,19 @@
                         Click="OnChangeDownloadsFolderClick" />
                     <Button 
                         Grid.Column="2"
+                        Margin="{StaticResource SmallRightMargin}"
                         Style="{StaticResource MahApps.Styles.Button}"
                         Padding="12,6"
                         HorizontalContentAlignment="Left"
                         Content="Reset" 
                         Click="OnResetDownloadsFolderClick" />
+                    <Button 
+                        Grid.Column="3"
+                        Style="{StaticResource MahApps.Styles.Button}"
+                        Padding="12,6"
+                        HorizontalContentAlignment="Left"
+                        Content="Open" 
+                        Click="OnOpenDownloadsFolderClick" />
                 </Grid>
 
                 <TextBlock
