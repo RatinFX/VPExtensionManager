@@ -28,8 +28,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         }
     }
 
-    public bool CheckForUpdateEnabled => Selected.RepositoryWasFound;
-    public bool InstallEnabled => Selected.RepositoryWasFound || Selected.UpdateAvailable;
+    public bool CheckForUpdateEnabled => Selected != null && Selected.RepositoryWasFound;
+    public bool InstallEnabled => Selected != null && (Selected.RepositoryWasFound || Selected.UpdateAvailable);
 
     private VPInstall _selectedInstall;
     public VPInstall SelectedInstall
@@ -44,7 +44,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         }
     }
 
-    public bool UpdateEnabled => Selected.UpdateAvailable && SelectedInstall != null && Selected.LatestVersion != SelectedInstall.Version;
+    public bool UpdateEnabled => Selected != null && SelectedInstall != null
+        && Selected.UpdateAvailable
+        && Selected.LatestVersion != SelectedInstall.Version;
     public bool OpenFolderEnabled => SelectedInstall != null && !string.IsNullOrEmpty(SelectedInstall.InstallPath);
     public bool UninstallEnabled => SelectedInstall != null;
 
