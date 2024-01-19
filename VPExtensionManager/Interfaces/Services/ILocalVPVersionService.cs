@@ -1,4 +1,4 @@
-﻿namespace VPExtensionManager.Contracts.Services;
+﻿namespace VPExtensionManager.Interfaces.Services;
 
 public interface ILocalVPVersionService
 {

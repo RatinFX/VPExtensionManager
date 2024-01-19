@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using VPExtensionManager.Contracts.Services;
-using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Interfaces.Services;
+using VPExtensionManager.Interfaces.Views;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Views;

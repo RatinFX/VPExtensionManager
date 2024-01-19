@@ -1,4 +1,4 @@
-﻿namespace VPExtensionManager.Contracts.Activation;
+﻿namespace VPExtensionManager.Interfaces.Activation;
 
 public interface IActivationHandler
 {

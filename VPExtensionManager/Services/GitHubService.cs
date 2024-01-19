@@ -5,7 +5,7 @@ namespace VPExtensionManager.Services;
 
 public class GitHubService
 {
-    public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("VPExtensionManager_" + DateTime.Now.Ticks));
+    public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("VPExtensionManager_" + DateTimeOffset.Now.ToUnixTimeMilliseconds()));
 
     public static Release GetLatestRelease(string extensionName)
     {

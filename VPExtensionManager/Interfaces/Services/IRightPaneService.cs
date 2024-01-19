@@ -1,8 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using MahApps.Metro.Controls;
+using System.Windows.Controls;
 
-using MahApps.Metro.Controls;
-
-namespace VPExtensionManager.Contracts.Services;
+namespace VPExtensionManager.Interfaces.Services;
 
 public interface IRightPaneService
 {

@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-
-using VPExtensionManager.Contracts.Services;
+using VPExtensionManager.Interfaces.Services;
 
 namespace VPExtensionManager.Services;
 

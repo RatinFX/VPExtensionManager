@@ -3,8 +3,7 @@
 using ControlzEx.Theming;
 
 using MahApps.Metro.Theming;
-
-using VPExtensionManager.Contracts.Services;
+using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;

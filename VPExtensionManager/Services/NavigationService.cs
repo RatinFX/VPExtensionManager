@@ -1,8 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Navigation;
-
-using VPExtensionManager.Contracts.Services;
-using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Interfaces.Services;
+using VPExtensionManager.Interfaces.Views;
 
 namespace VPExtensionManager.Services;
 

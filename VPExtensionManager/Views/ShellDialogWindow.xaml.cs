@@ -2,8 +2,7 @@
 using System.Windows.Controls;
 
 using MahApps.Metro.Controls;
-
-using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Interfaces.Views;
 
 namespace VPExtensionManager.Views;
 

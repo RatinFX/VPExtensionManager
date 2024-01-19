@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System.IO;
-using VPExtensionManager.Contracts.Services;
+using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;

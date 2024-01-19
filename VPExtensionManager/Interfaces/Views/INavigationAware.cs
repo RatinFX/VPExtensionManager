@@ -1,4 +1,4 @@
-﻿namespace VPExtensionManager.Contracts.Views;
+﻿namespace VPExtensionManager.Interfaces.Views;
 
 public interface INavigationAware
 {

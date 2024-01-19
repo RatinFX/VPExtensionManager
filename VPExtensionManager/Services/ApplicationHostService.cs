@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.IO;
-using VPExtensionManager.Contracts.Activation;
-using VPExtensionManager.Contracts.Services;
-using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Interfaces.Activation;
+using VPExtensionManager.Interfaces.Services;
+using VPExtensionManager.Interfaces.Views;
 using VPExtensionManager.Models;
 using VPExtensionManager.Views;
 

@@ -2,9 +2,8 @@
 using System.IO;
 
 using Microsoft.Extensions.Options;
-
-using VPExtensionManager.Contracts.Services;
 using VPExtensionManager.Core.Interfaces;
+using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;

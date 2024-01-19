@@ -1,5 +1,5 @@
 ﻿using ToastNotifications.Core;
-using VPExtensionManager.Contracts.Services;
+using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Views;
 
 namespace VPExtensionManager.Services;

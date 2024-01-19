@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
-using VPExtensionManager.Contracts.Services;
+using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;

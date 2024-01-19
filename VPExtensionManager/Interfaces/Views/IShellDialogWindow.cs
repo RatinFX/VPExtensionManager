@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace VPExtensionManager.Contracts.Views;
+namespace VPExtensionManager.Interfaces.Views;
 
 public interface IShellDialogWindow
 {

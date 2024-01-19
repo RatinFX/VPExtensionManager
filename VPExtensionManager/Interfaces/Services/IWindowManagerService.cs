@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace VPExtensionManager.Contracts.Services;
+namespace VPExtensionManager.Interfaces.Services;
 
 public interface IWindowManagerService
 {

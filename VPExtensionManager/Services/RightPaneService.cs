@@ -2,9 +2,8 @@
 using System.Windows.Navigation;
 
 using MahApps.Metro.Controls;
-
-using VPExtensionManager.Contracts.Services;
-using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Interfaces.Services;
+using VPExtensionManager.Interfaces.Views;
 
 namespace VPExtensionManager.Services;
 

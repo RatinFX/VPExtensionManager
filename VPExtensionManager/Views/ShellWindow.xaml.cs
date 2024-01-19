@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using VPExtensionManager.Contracts.Services;
-using VPExtensionManager.Contracts.Views;
+using VPExtensionManager.Interfaces.Services;
+using VPExtensionManager.Interfaces.Views;
 
 namespace VPExtensionManager.Views;
 

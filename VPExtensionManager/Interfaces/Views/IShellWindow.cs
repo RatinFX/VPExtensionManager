@@ -1,8 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using MahApps.Metro.Controls;
+using System.Windows.Controls;
 
-using MahApps.Metro.Controls;
-
-namespace VPExtensionManager.Contracts.Views;
+namespace VPExtensionManager.Interfaces.Views;
 
 public interface IShellWindow
 {
