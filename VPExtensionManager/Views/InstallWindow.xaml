@@ -5,14 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:local="clr-namespace:VPExtensionManager.Views"
     xmlns:converters="clr-namespace:VPExtensionManager.Converters"
+    xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     mc:Ignorable="d"
     Height="220"
     Width="440"
     Style="{StaticResource CustomMetroWindow}"
     WindowStartupLocation="CenterScreen"
-    ResizeMode="NoResize" >
+    ResizeMode="NoResize"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
     <controls:MetroWindow.Resources>
         <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     </controls:MetroWindow.Resources>
@@ -32,6 +34,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -47,6 +50,7 @@
                 <ComboBox
                     Grid.Row="0"
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
                     SelectedItem="{Binding VPVersion, Mode=TwoWay}"
                     ItemsSource="{Binding VPVersionsSource, Mode=TwoWay}"
                     Margin="{StaticResource SmallLeftTopRightMargin}">
@@ -74,7 +78,16 @@
                     ItemsSource="{Binding InstallPathsSource, Mode=TwoWay}"
                     ToolTip="{Binding InstallPath}"
                     IsEnabled="{Binding InstallPathEnabled}"
-                    Margin="{StaticResource SmallLeftTopRightMargin}" />
+                    Margin="{StaticResource SmallLeftTopMargin}" />
+
+                <styles:OpenFolderButton
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="{StaticResource SmallLeftTopRightMargin}"
+                    Padding="12"
+                    Style="{StaticResource OpenFolderIconButton}"
+                    ToolTip="{Binding InstallPath}"
+                    Folder="{Binding InstallPath}" />
             </Grid>
 
             <StackPanel
