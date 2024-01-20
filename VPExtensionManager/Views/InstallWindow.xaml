@@ -101,7 +101,7 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource ListSubTitleStyle}"
                     MouseUp="tbxForceDownload_MouseUp" >
-                    Force re-download the latest update
+                    Force re-download the latest version
                 </TextBlock>
             </StackPanel>
 
