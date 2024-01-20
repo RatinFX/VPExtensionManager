@@ -87,7 +87,7 @@ public class VPExtension : INotifyPropertyChanged
     {
         return LastChecked - DateTimeOffset.Now.ToUnixTimeSeconds() >= 100_000
             || LastChecked < 0
-            || !ReleaseAssets.Any()
+            //|| !ReleaseAssets.Any()
             || string.IsNullOrEmpty(LatestVersion);
     }
 
