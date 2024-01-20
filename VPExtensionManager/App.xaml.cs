@@ -72,6 +72,7 @@ public partial class App : Application
         services.AddSingleton<ILocalVPVersionService, LocalVPVersionService>();
         services.AddSingleton<IFolderService, FolderService>();
         services.AddSingleton<INotificationService, NotificationService>();
+        services.AddSingleton<IGitHubService, GitHubService>();
 
         // Views
         services.AddTransient<IShellWindow, ShellWindow>();

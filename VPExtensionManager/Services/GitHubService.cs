@@ -1,16 +1,29 @@
 ﻿using Octokit;
+using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;
 
-public class GitHubService
+/// <summary>
+/// TODO: Add GitHub Authentication if we add more Extensions to avoid Rate limits
+/// </summary>
+public class GitHubService : IGitHubService
 {
-    public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("VPExtensionManager_" + DateTimeOffset.Now.ToUnixTimeMilliseconds()));
+    private readonly GitHubClient _client = new(new ProductHeaderValue("VPExtensionManager_" + DateTimeOffset.Now.ToUnixTimeMilliseconds()));
 
-    public static Release GetLatestRelease(string extensionName)
+    public Release GetLatestRelease(string extensionName)
     {
-        // Fake release in case GitHub got timed out
-        //return new Release("", "", "", "", 0, "", "1.5.2", "", "", "", false, false, DateTime.Now, null, null, "", "", null);
-        return Client.Repository.Release.GetLatest(RFXStrings.RatinFX, extensionName)?.Result;
+        return _client.Repository.Release.GetLatest(RFXStrings.RatinFX, extensionName)?.Result;
+    }
+
+    public int GetRemainingCalls()
+    {
+        return _client.RateLimit.GetRateLimits().Result.Resources.Core.Remaining;
+    }
+
+    public string GetRateLimitResetTime()
+    {
+        var rem = _client.RateLimit.GetRateLimits().Result.Resources.Core.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
+        return $"{rem:0.00} minutes";
     }
 }

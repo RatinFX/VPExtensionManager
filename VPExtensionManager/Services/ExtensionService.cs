@@ -12,14 +12,16 @@ public class ExtensionService : IExtensionService
     public static List<VPExtension> Extensions = new();
 
     private readonly INotificationService _notificationService;
+    private readonly IGitHubService _gitHubService;
 
     private string _downloadsPath = string.Empty;
     public List<string> ScriptFolders = new();
     public List<string> ExtensionFolders = new();
 
-    public ExtensionService(INotificationService notificationService)
+    public ExtensionService(INotificationService notificationService, IGitHubService gitHubService)
     {
         _notificationService = notificationService;
+        _gitHubService = gitHubService;
     }
 
     public void SetDownloadsPath(string downloadsPath)
@@ -83,7 +85,7 @@ public class ExtensionService : IExtensionService
         {
             extension.SetLastChecked();
 
-            var release = GitHubService.GetLatestRelease(extension.ExtensionName);
+            var release = _gitHubService.GetLatestRelease(extension.ExtensionName);
 
             extension.LatestVersion = release.TagName;
 
