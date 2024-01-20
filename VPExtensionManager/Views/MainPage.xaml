@@ -1,12 +1,13 @@
 ﻿<Page
     x:Class="VPExtensionManager.Views.MainPage"
+    x:Name="mainPage"
     Style="{DynamicResource MahApps.Styles.Page}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
-    xmlns:local="clr-namespace:VPExtensionManager.Views"
+    xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="900">
     <Page.Resources>
@@ -81,7 +82,7 @@
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
-                                IsEnabled="{Binding DataContext.CheckForUpdateEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                                IsEnabled="{Binding DataContext.CheckForUpdateEnabled, ElementName=mainPage}"
                                 Click="btnCheckForUpdate_Click" >
                                 Check for Update
                             </Button>
@@ -96,7 +97,7 @@
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6" 
-                                IsEnabled="{Binding DataContext.InstallEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                                IsEnabled="{Binding DataContext.InstallEnabled, ElementName=mainPage}"
                                 Click="btnInstall_Click">
                                 Install
                             </Button>
@@ -110,19 +111,16 @@
                         <StackPanel
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
+                            <styles:OpenFolderButton
+                                Style="{StaticResource OpenFolderButton}"
+                                Folder="{Binding DataContext.SelectedInstallFolder, ElementName=mainPage}"
+                                IsEnabled="{Binding DataContext.OpenFolderEnabled, ElementName=mainPage}"
+                                />
                             <Button
                                 Style="{StaticResource MahApps.Styles.Button}"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6"
-                                IsEnabled="{Binding DataContext.OpenFolderEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
-                                Click="btnOpenFolder_Click">
-                                Open folder
-                            </Button>
-                            <Button
-                                Style="{StaticResource MahApps.Styles.Button}"
-                                Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6"
-                                IsEnabled="{Binding DataContext.UpdateEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                                IsEnabled="{Binding DataContext.UpdateEnabled, ElementName=mainPage}"
                                 Click="btnUpdate_Click">
                                 Update
                             </Button>
@@ -131,16 +129,16 @@
                                 Margin="{StaticResource SmallRightMargin}"
                                 Padding="12,6" 
                                 Click="btnUninstall_Click"
-                                IsEnabled="{Binding DataContext.UninstallEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}" >
+                                IsEnabled="{Binding DataContext.UninstallEnabled, ElementName=mainPage}" >
                                 Uninstall
                             </Button>
                         </StackPanel>
 
                         <ListView
                             Margin="{StaticResource SmallTopMargin}"
-                            ItemsSource="{Binding DataContext.InstallPaths, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}}"
+                            ItemsSource="{Binding DataContext.InstallPaths, ElementName=mainPage}"
                             ItemTemplate="{StaticResource InstallPathItemTemplate}"
-                            SelectedItem="{Binding DataContext.SelectedInstall, RelativeSource={RelativeSource AncestorType={x:Type local:MainPage}}, Mode=TwoWay}" />
+                            SelectedItem="{Binding DataContext.SelectedInstall, ElementName=mainPage, Mode=TwoWay}" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>

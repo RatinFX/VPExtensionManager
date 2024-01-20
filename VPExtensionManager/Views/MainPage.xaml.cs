@@ -39,16 +39,18 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         set
         {
             Set(ref _selectedInstall, value);
-            OnPropertyChanged(nameof(UpdateEnabled));
             OnPropertyChanged(nameof(OpenFolderEnabled));
+            OnPropertyChanged(nameof(SelectedInstallFolder));
+            OnPropertyChanged(nameof(UpdateEnabled));
             OnPropertyChanged(nameof(UninstallEnabled));
         }
     }
 
+    public bool OpenFolderEnabled => SelectedInstall != null && !string.IsNullOrEmpty(SelectedInstall.InstallPath);
+    public string SelectedInstallFolder => SelectedInstall != null ? Directory.GetParent(SelectedInstall.InstallPath).FullName : string.Empty;
     public bool UpdateEnabled => Selected != null && SelectedInstall != null
         && Selected.UpdateAvailable
         && Selected.LatestVersion != SelectedInstall.Version;
-    public bool OpenFolderEnabled => SelectedInstall != null && !string.IsNullOrEmpty(SelectedInstall.InstallPath);
     public bool UninstallEnabled => SelectedInstall != null;
 
     private ObservableCollection<VPExtension> _extensionItems = new();
@@ -119,16 +121,6 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         ResetInstallPaths();
 
         _notificationService.Success($"Found {Selected.Installs.Count}x {Selected.ExtensionName} install");
-    }
-
-    private void btnOpenFolder_Click(object sender, RoutedEventArgs e)
-    {
-        var path = Directory.GetParent(SelectedInstall.InstallPath).FullName;
-
-        if (string.IsNullOrEmpty(path))
-            return;
-
-        Process.Start("explorer.exe", path);
     }
 
     private void btnInstall_Click(object sender, RoutedEventArgs e)
