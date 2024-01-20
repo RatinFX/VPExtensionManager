@@ -129,6 +129,9 @@
                         </StackPanel>
 
                         <ListView
+                            BorderBrush="DarkGray"
+                            BorderThickness="1"
+                            MaxHeight="190"
                             Margin="{StaticResource SmallTopMargin}"
                             ItemsSource="{Binding DataContext.InstallPaths, ElementName=mainPage}"
                             ItemTemplate="{StaticResource InstallPathItemTemplate}"
