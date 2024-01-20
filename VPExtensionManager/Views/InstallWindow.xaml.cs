@@ -56,8 +56,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
     {
         Init($"Update {extension.ExtensionName}", extension);
 
-        var installFolder = Directory.GetParent(selectedInstall.InstallPath).FullName;
-        InstallPathsSource.Add(installFolder);
+        InstallPathsSource.Add(selectedInstall.InstallPath);
 
         SetDefaults();
 
@@ -73,7 +72,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
             // Skip already existing paths - is this an issue?
             // one would probably not want to install 2 different
             // versions of the same extension in the same folder
-            if (extension.Installs.Any(x => Directory.GetParent(x.InstallPath).FullName == folder))
+            if (extension.Installs.Any(x => x.InstallPath == folder))
                 continue;
 
             InstallPathsSource.Add(folder);

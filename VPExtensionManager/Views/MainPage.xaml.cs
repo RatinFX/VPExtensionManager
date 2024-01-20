@@ -47,7 +47,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     }
 
     public bool OpenFolderEnabled => SelectedInstall != null && !string.IsNullOrEmpty(SelectedInstall.InstallPath);
-    public string SelectedInstallFolder => SelectedInstall != null ? Directory.GetParent(SelectedInstall.InstallPath).FullName : string.Empty;
+    public string SelectedInstallFolder => SelectedInstall != null ? SelectedInstall.InstallPath : string.Empty;
     public bool UpdateEnabled => Selected != null && SelectedInstall != null
         && Selected.UpdateAvailable
         && Selected.LatestVersion != SelectedInstall.Version;
@@ -120,7 +120,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         _extensionService.RefreshInstallFolders(Selected);
         ResetInstallPaths();
 
-        _notificationService.Success($"Found {Selected.Installs.Count}x {Selected.ExtensionName} install");
+        _notificationService.Success($"Found {Selected.Installs.Count}x {Selected.ExtensionName}");
     }
 
     private void btnInstall_Click(object sender, RoutedEventArgs e)

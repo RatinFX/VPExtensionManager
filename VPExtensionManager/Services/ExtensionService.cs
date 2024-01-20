@@ -150,7 +150,7 @@ public class ExtensionService : IExtensionService
                 foreach (var filePath in filePaths)
                 {
                     /// TODO: Find/Create a reliable way to check the VEGAS version of and Extension
-                    /// (hint: there is none)
+                    /// (hint: there is none yet)
                     /// - this only matters when the user wants to Update:
                     //   > extension.GetDownloadLink(VPVersion..)
                     /// - could add "for Sony/Magix" or "13/14" in the Dll File's Description
@@ -165,8 +165,9 @@ public class ExtensionService : IExtensionService
 
                     var vInfo = FileVersionInfo.GetVersionInfo(filePath);
                     var version = $"{vInfo.ProductMajorPart}.{vInfo.ProductMinorPart}.{vInfo.ProductBuildPart}";
+                    var installPath = Directory.GetParent(filePath).FullName;
 
-                    installs.Add(new VPInstall(version, filePath));
+                    installs.Add(new VPInstall(version, installPath));
                 }
             }
             catch (DirectoryNotFoundException ex)
@@ -256,13 +257,9 @@ public class ExtensionService : IExtensionService
         {
             var success = PerformInstall(extension, vp, installPath, forceDownload);
 
-            if (!success)
-                return null;
-
-            var version = extension.LatestVersion;
-            var filePath = Path.Combine(installPath, $"{extension.ExtensionName}{RFXStrings.Dll}");
-
-            return new VPInstall(version, filePath);
+            return success
+                ? new VPInstall(extension.LatestVersion, installPath)
+                : null;
         }
         catch (Exception ex)
         {
@@ -295,22 +292,23 @@ public class ExtensionService : IExtensionService
     {
         try
         {
-            var parent = Directory.GetParent(selectedInstall.InstallPath);
+            // Main Extension
+            var filePath = Path.Combine(selectedInstall.InstallPath, $"{extension.ExtensionName}{RFXStrings.Dll}");
 
-            if (File.Exists(selectedInstall.InstallPath))
-                File.Delete(selectedInstall.InstallPath);
+            if (File.Exists(filePath))
+                File.Delete(filePath);
 
+            // Remaining Dependencies
             var hasNoConflictingInstalls = Extensions
                 .Where(x => x.ExtensionName != extension.ExtensionName)
-                .All(x => x.Installs.All(y =>
-                Directory.GetParent(y.InstallPath).FullName != parent.FullName)
+                .All(x => x.Installs.All(y => y.InstallPath != selectedInstall.InstallPath)
             );
 
             if (hasNoConflictingInstalls)
             {
-                foreach (var d in extension.Dependencies)
+                foreach (var dependency in extension.Dependencies)
                 {
-                    var path = Path.Combine(parent.FullName, $"{d}{RFXStrings.Dll}");
+                    var path = Path.Combine(selectedInstall.InstallPath, $"{dependency}{RFXStrings.Dll}");
 
                     if (File.Exists(path))
                         File.Delete(path);
