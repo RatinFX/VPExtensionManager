@@ -10,7 +10,7 @@
 
     <Style x:Key="BaseIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
-        <Setter Property="Padding" Value="6" />
+        <Setter Property="Padding" Value="12,6,12,6" />
         <Setter Property="FontSize" Value="12" />
     </Style>
 

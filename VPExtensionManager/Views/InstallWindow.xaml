@@ -84,7 +84,6 @@
                     Grid.Row="1"
                     Grid.Column="2"
                     Margin="{StaticResource SmallLeftTopRightMargin}"
-                    Padding="12"
                     Style="{StaticResource OpenFolderIconButton}"
                     ToolTip="{Binding InstallPath}"
                     Folder="{Binding InstallPath}" />
