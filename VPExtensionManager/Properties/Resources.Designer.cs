@@ -79,7 +79,16 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings page placeholder text.  Your app description goes here..
+        ///   Looks up a localized string similar to Extension Manager by RatinFX..
+        /// </summary>
+        public static string SettingsPageAboutCreatorText {
+            get {
+                return ResourceManager.GetString("SettingsPageAboutCreatorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit the GitHub page for more information..
         /// </summary>
         public static string SettingsPageAboutText {
             get {
@@ -111,15 +120,6 @@ namespace VPExtensionManager.Properties {
         public static string SettingsPagePersonalizationTitle {
             get {
                 return ResourceManager.GetString("SettingsPagePersonalizationTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Privacy Statement.
-        /// </summary>
-        public static string SettingsPagePrivacyStatementText {
-            get {
-                return ResourceManager.GetString("SettingsPagePrivacyStatementText", resourceCulture);
             }
         }
         

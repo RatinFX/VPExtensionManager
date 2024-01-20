@@ -145,26 +145,28 @@
                     Style="{StaticResource SubtitleTextStyle}"
                     Text="{x:Static properties:Resources.SettingsPageAboutTitle}" />
                 <TextBlock
-                    Text="{Binding VersionDescription, Mode=OneWay}"
                     Margin="{StaticResource XSmallTopMargin}"
-                    Style="{StaticResource BodyTextStyle}" />
+                    Style="{StaticResource BodyTextStyle}" 
+                    Text="{Binding VersionDescription, Mode=OneWay}"
+                    />
+
+                <TextBlock
+                    Margin="{StaticResource SmallTopMargin}"
+                    Style="{StaticResource BodyTextStyle}"
+                    Text="{x:Static properties:Resources.SettingsPageAboutCreatorText}" />
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource BodyTextStyle}"
-                    Text="{x:Static properties:Resources.SettingsPageAboutText}" />
-
-                <!--<TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    AutomationProperties.Name="{Binding Text, ElementName=settingsPrivacyStatement}">
+                    AutomationProperties.Name="{Binding Text, ElementName=settingsVisitGitHub}">
                     <Hyperlink
-                        Click="OnPrivacyStatementClick"
-                        AutomationProperties.Name="{Binding Text, ElementName=settingsPrivacyStatement}">
+                        Click="OnVisitGitHubClick"
+                        AutomationProperties.Name="{Binding Text, ElementName=settingsVisitGitHub}">
                         <TextBlock
-                            x:Name="settingsPrivacyStatement"
+                            x:Name="settingsVisitGitHub"
                             Style="{StaticResource BodyTextStyle}"
-                            Text="{x:Static properties:Resources.SettingsPagePrivacyStatementText}" />
+                            Text="{x:Static properties:Resources.SettingsPageAboutText}" />
                     </Hyperlink>
-                </TextBlock>-->
+                </TextBlock>
             </StackPanel>
         </Grid>
     </ScrollViewer>

@@ -126,8 +126,8 @@
   <data name="SettingsPageTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SettingsPageAboutText" xml:space="preserve">
-    <value>Settings page placeholder text.  Your app description goes here.</value>
+  <data name="SettingsPageAboutCreatorText" xml:space="preserve">
+    <value>Extension Manager by RatinFX.</value>
   </data>
   <data name="SettingsPageAboutTitle" xml:space="preserve">
     <value>About this application</value>
@@ -137,9 +137,6 @@
   </data>
   <data name="SettingsPagePersonalizationTitle" xml:space="preserve">
     <value>Personalization</value>
-  </data>
-  <data name="SettingsPagePrivacyStatementText" xml:space="preserve">
-    <value>Privacy Statement</value>
   </data>
   <data name="SettingsPageRadioButtonDarkTheme" xml:space="preserve">
     <value>Dark</value>

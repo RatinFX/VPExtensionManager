@@ -132,9 +132,9 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         }
     }
 
-    private void OnPrivacyStatementClick(object sender, RoutedEventArgs e)
+    private void OnVisitGitHubClick(object sender, RoutedEventArgs e)
     {
-        // _systemService.OpenInWebBrowser(_appConfig.PrivacyStatement);
+        _systemService.OpenInWebBrowser(_appConfig.GitHubPage);
     }
 
     private void OnVPVersionsSelectionChanged(object sender, SelectionChangedEventArgs e)

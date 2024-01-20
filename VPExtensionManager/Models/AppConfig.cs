@@ -12,5 +12,5 @@ public class AppConfig
 
     public string ExtensionsFileName { get; set; }
 
-    public string PrivacyStatement { get; set; }
+    public string GitHubPage { get; set; }
 }
