@@ -293,7 +293,11 @@ public class ExtensionService : IExtensionService
         try
         {
             // Main Extension
-            var filePath = Path.Combine(selectedInstall.InstallPath, $"{extension.ExtensionName}{RFXStrings.Dll}");
+            var foundFile = Directory.GetFiles(selectedInstall.InstallPath, "*" + RFXStrings.Dll)
+                .Select(Path.GetFileName)
+                .FirstOrDefault(x => x.StartsWith(extension.ExtensionName, StringComparison.OrdinalIgnoreCase));
+
+            var filePath = Path.Combine(selectedInstall.InstallPath, foundFile);
 
             if (File.Exists(filePath))
                 File.Delete(filePath);
