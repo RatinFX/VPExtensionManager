@@ -79,27 +79,22 @@
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
                             <Button
-                                Style="{StaticResource MahApps.Styles.Button}"
+                                Style="{StaticResource RefreshIconButton}"
                                 Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6"
                                 IsEnabled="{Binding DataContext.CheckForUpdateEnabled, ElementName=mainPage}"
+                                ToolTip="{x:Static properties:Resources.ToolTipCheckForUpdate}"
                                 Click="btnCheckForUpdate_Click" >
-                                Check for Update
                             </Button>
                             <Button
-                                Style="{StaticResource MahApps.Styles.Button}"
+                                Style="{StaticResource SearchIconButton}"
                                 Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6"
                                 Click="btnFindInstalls_Click" >
-                                Find Installs
                             </Button>
                             <Button
-                                Style="{StaticResource MahApps.Styles.Button}"
-                                Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6" 
+                                Style="{StaticResource DownloadIconButton}"
                                 IsEnabled="{Binding DataContext.InstallEnabled, ElementName=mainPage}"
+                                ToolTip="{x:Static properties:Resources.ToolTipInstall}"
                                 Click="btnInstall_Click">
-                                Install
                             </Button>
                         </StackPanel>
 
@@ -112,25 +107,21 @@
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
                             <styles:OpenFolderButton
-                                Style="{StaticResource OpenFolderButton}"
+                                Style="{StaticResource OpenFolderIconButton}"
+                                Margin="{StaticResource SmallRightMargin}"
                                 Folder="{Binding DataContext.SelectedInstallFolder, ElementName=mainPage}"
                                 IsEnabled="{Binding DataContext.OpenFolderEnabled, ElementName=mainPage}"
                                 />
                             <Button
-                                Style="{StaticResource MahApps.Styles.Button}"
+                                Style="{StaticResource UpdateIconButton}"
                                 Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6"
                                 IsEnabled="{Binding DataContext.UpdateEnabled, ElementName=mainPage}"
                                 Click="btnUpdate_Click">
-                                Update
                             </Button>
                             <Button
-                                Style="{StaticResource MahApps.Styles.Button}"
-                                Margin="{StaticResource SmallRightMargin}"
-                                Padding="12,6" 
-                                Click="btnUninstall_Click"
-                                IsEnabled="{Binding DataContext.UninstallEnabled, ElementName=mainPage}" >
-                                Uninstall
+                                Style="{StaticResource RemoveIconButton}"
+                                IsEnabled="{Binding DataContext.UninstallEnabled, ElementName=mainPage}"
+                                Click="btnUninstall_Click" >
                             </Button>
                         </StackPanel>
 

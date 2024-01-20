@@ -11,6 +11,7 @@
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     mc:Ignorable="d"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     d:DesignHeight="450" 
     d:DesignWidth="500">
     <Page.Resources>
@@ -94,7 +95,7 @@
 
                 <Grid Margin="{StaticResource SmallTopBottomMargin}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -110,8 +111,7 @@
                     <Button 
                         Grid.Column="1"
                         Margin="{StaticResource SmallRightMargin}"
-                        Style="{StaticResource MahApps.Styles.Button}"
-                        Padding="12,6"
+                        Style="{StaticResource BaseButton}"
                         HorizontalContentAlignment="Left"
                         Content="{Binding DownloadsFolder}"
                         ToolTip="{Binding DownloadsFolder}"
@@ -119,25 +119,12 @@
                     <Button 
                         Grid.Column="2"
                         Margin="{StaticResource SmallRightMargin}"
-                        Style="{StaticResource MahApps.Styles.Button}"
-                        Padding="12,6"
-                        HorizontalContentAlignment="Left"
-                        Content="Reset" 
+                        Style="{StaticResource ResetIconButton}"
                         Click="OnResetDownloadsFolderClick" />
-                    <Button 
-                        Grid.Column="3"
-                        Style="{StaticResource MahApps.Styles.Button}"
-                        Padding="12,6"
-                        HorizontalContentAlignment="Left"
-                        Content="Open" 
-                        Click="OnOpenDownloadsFolderClick" />
                     <styles:OpenFolderButton
                         Grid.Column="3"
-                        Margin="0"
-                        Style="{StaticResource BaseButton}"
-                        Folder="{Binding DownloadsFolder}" >
-                        Open
-                    </styles:OpenFolderButton>
+                        Style="{StaticResource OpenFolderIconButton}"
+                        Folder="{Binding DownloadsFolder}" />
                 </Grid>
 
                 <TextBlock

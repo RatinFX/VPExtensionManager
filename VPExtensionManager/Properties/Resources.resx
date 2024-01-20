@@ -168,4 +168,34 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>VP Extension Manager</value>
   </data>
+  <data name="ToolTipCheckForUpdate" xml:space="preserve">
+    <value>Check for update</value>
+  </data>
+  <data name="ToolTipDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="ToolTipInstall" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="ToolTipOpenFolder" xml:space="preserve">
+    <value>Open folder</value>
+  </data>
+  <data name="ToolTipRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ToolTipRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ToolTipReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ToolTipSearch" xml:space="preserve">
+    <value>Search on PC</value>
+  </data>
+  <data name="ToolTipUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SettingsPageAboutText" xml:space="preserve">
+    <value>Visit the GitHub page for more information.</value>
+  </data>
 </root>

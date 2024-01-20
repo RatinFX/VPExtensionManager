@@ -221,5 +221,86 @@ namespace VPExtensionManager.Properties {
                 return ResourceManager.GetString("ShellMenuViewsHeader", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for update.
+        /// </summary>
+        public static string ToolTipCheckForUpdate {
+            get {
+                return ResourceManager.GetString("ToolTipCheckForUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string ToolTipDownload {
+            get {
+                return ResourceManager.GetString("ToolTipDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string ToolTipInstall {
+            get {
+                return ResourceManager.GetString("ToolTipInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open folder.
+        /// </summary>
+        public static string ToolTipOpenFolder {
+            get {
+                return ResourceManager.GetString("ToolTipOpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string ToolTipRefresh {
+            get {
+                return ResourceManager.GetString("ToolTipRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string ToolTipRemove {
+            get {
+                return ResourceManager.GetString("ToolTipRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ToolTipReset {
+            get {
+                return ResourceManager.GetString("ToolTipReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search on PC.
+        /// </summary>
+        public static string ToolTipSearch {
+            get {
+                return ResourceManager.GetString("ToolTipSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string ToolTipUpdate {
+            get {
+                return ResourceManager.GetString("ToolTipUpdate", resourceCulture);
+            }
+        }
     }
 }

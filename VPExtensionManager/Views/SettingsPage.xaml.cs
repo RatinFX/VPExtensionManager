@@ -209,12 +209,4 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
             $"%localappdata%\\{_appConfig.MainFolder}\\{_appConfig.DownloadsFolder}"
         );
     }
-
-    private void OnOpenDownloadsFolderClick(object sender, RoutedEventArgs e)
-    {
-        if (string.IsNullOrEmpty(DownloadsFolder))
-            return;
-
-        Process.Start("explorer.exe", DownloadsFolder);
-    }
 }

@@ -16,6 +16,7 @@
         <Setter Property="TextAlignment" Value="Center" />
     </Style>
 
+    <!--Custom Styles-->
     <Style x:Key="PageTitleStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="{StaticResource XLargeFontSize}" />
         <Setter Property="VerticalAlignment" Value="Center" />
