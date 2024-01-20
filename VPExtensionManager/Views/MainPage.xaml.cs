@@ -29,7 +29,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         }
     }
 
-    public bool CheckForUpdateEnabled => Selected != null && Selected.RepositoryWasFound;
+    public bool CheckForUpdateEnabled => Selected != null;
     public bool InstallEnabled => Selected != null && (Selected.RepositoryWasFound || Selected.UpdateAvailable);
 
     private VPInstall _selectedInstall;
