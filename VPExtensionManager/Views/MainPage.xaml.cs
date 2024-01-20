@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -105,12 +103,15 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void ResetInstallPaths()
     {
         InstallPaths.Clear();
-        Selected.Installs.ForEach(x => InstallPaths.Add(x));
+        Selected.Installs.ForEach(InstallPaths.Add);
     }
 
     private void btnCheckForUpdate_Click(object sender, RoutedEventArgs e)
     {
-        _extensionService.RefreshLatestRelease(Selected);
+        var success = _extensionService.RefreshLatestRelease(Selected);
+
+        if (!success)
+            return;
 
         _notificationService.Success($"Latest version for {Selected.ExtensionName}: {Selected.LatestVersion}");
     }
@@ -158,7 +159,11 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         if (vpver is VPVersion.Unknown || installPath is null)
             return;
 
-        _extensionService.Update(Selected, vpver, installPath, forceDownload);
+        var success = _extensionService.Update(Selected, vpver, installPath, forceDownload);
+
+        if (!success)
+            return;
+
         _extensionService.RefreshInstallFolders(Selected);
         Selected.SetInstalledVersion();
         ResetInstallPaths();

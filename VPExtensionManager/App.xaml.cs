@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -98,5 +99,7 @@ public partial class App : Application
     {
         // TODO: Please log and handle the exception as appropriate to your scenario
         // For more info see https://docs.microsoft.com/dotnet/api/system.windows.application.dispatcherunhandledexception?view=netcore-3.0
+        Debug.WriteLine("Unhandled exception:\n" + e.Exception.GetBaseException().Message);
+        GetService<INotificationService>().Error("Unhandled error:\n" + e.Exception.GetBaseException().Message);
     }
 }

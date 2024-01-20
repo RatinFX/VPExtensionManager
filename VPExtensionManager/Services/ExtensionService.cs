@@ -69,9 +69,9 @@ public class ExtensionService : IExtensionService
         return Extensions;
     }
 
-    public void RefreshLatestRelease(VPExtension extension)
+    public bool RefreshLatestRelease(VPExtension extension)
     {
-        SetLatestRelease(extension);
+        return SetLatestRelease(extension);
     }
 
     public void RefreshInstallFolders(VPExtension extension)
@@ -79,8 +79,12 @@ public class ExtensionService : IExtensionService
         SetInstallFolders(extension, true);
     }
 
-    private void SetLatestRelease(VPExtension extension)
+    private bool SetLatestRelease(VPExtension extension)
     {
+        Debug.WriteLine($">>> Before CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+        
+        var success = false;
+
         try
         {
             extension.SetLastChecked();
@@ -94,6 +98,8 @@ public class ExtensionService : IExtensionService
                 || x.BrowserDownloadUrl.EndsWith(VPExtensionType.Script.DownloadFileExtension))
                 .Select(x => new ShortReleaseAsset(x, ShortReleaseAsset.GetVersion(x.Name, release.TagName)))
                 .ToList();
+
+            success = true;
         }
         catch (Exception ex)
         {
@@ -118,7 +124,14 @@ public class ExtensionService : IExtensionService
 
             Debug.WriteLine(msg);
             _notificationService.Error(msg);
+
+            success = false;
         }
+
+        Debug.WriteLine($">>> >>> After CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+        Debug.WriteLine($">>> >>> >>> Time until Rate Limit reset: {_gitHubService.GetRateLimitResetTime()}");
+
+        return success;
     }
 
     private void SetInstallFolders(VPExtension extension, bool shouldLocateInstalls)
@@ -266,13 +279,16 @@ public class ExtensionService : IExtensionService
     /// </summary>
     public VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
     {
+        Debug.WriteLine($">>> Before Install - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+
+        VPInstall newInstall = null;
+
         try
         {
             var success = PerformInstall(extension, vp, installPath, forceDownload);
 
-            return success
-                ? new VPInstall(extension.LatestVersion, installPath)
-                : null;
+            if (success)
+                newInstall = new VPInstall(extension.LatestVersion, installPath);
         }
         catch (Exception ex)
         {
@@ -281,15 +297,23 @@ public class ExtensionService : IExtensionService
 
             Debug.WriteLine(msg);
             _notificationService.Error(msg);
-            return null;
         }
+
+        Debug.WriteLine($">>> >>> After CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+        Debug.WriteLine($">>> >>> >>> Time until Rate Limit reset: {_gitHubService.GetRateLimitResetTime()}");
+
+        return newInstall;
     }
 
-    public void Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    public bool Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
     {
+        Debug.WriteLine($">>> Before Update - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+
+        bool success = false;
+
         try
         {
-            PerformInstall(extension, vp, installPath, forceDownload);
+            success = PerformInstall(extension, vp, installPath, forceDownload);
         }
         catch (Exception ex)
         {
@@ -298,7 +322,14 @@ public class ExtensionService : IExtensionService
 
             Debug.WriteLine(msg);
             _notificationService.Error(msg);
+
+            success = false;
         }
+
+        Debug.WriteLine($">>> >>> After Update - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+        Debug.WriteLine($">>> >>> >>> Time until Rate Limit reset: {_gitHubService.GetRateLimitResetTime()}");
+
+        return success;
     }
 
     public void Uninstall(VPExtension extension, VPInstall selectedInstall)
