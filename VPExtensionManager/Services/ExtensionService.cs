@@ -102,8 +102,19 @@ public class ExtensionService : IExtensionService
             extension.RepositoryWasFound = false;
             extension.LatestVersion = "GitHub error";
 
-            var msg = $"Error while looking up \"{extension.ExtensionName}\" on GitHub:\n\n" +
-                $"- {ex.Message}";
+            var msg = $"Error while looking up \"{extension.ExtensionName}\" on GitHub:\n\n";
+
+            if (ex is Octokit.RateLimitExceededException)
+            {
+                // Let's not show the IP of the user for now...
+                var rateLimited = ex as Octokit.RateLimitExceededException;
+                var remaining = rateLimited.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
+                msg += $"- GitHub API rate limit exceeded (60 per hour), please wait {remaining} minutes before retrying.";
+            }
+            else
+            {
+                msg += $"- {ex.Message}";
+            }
 
             Debug.WriteLine(msg);
             _notificationService.Error(msg);
