@@ -28,14 +28,11 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
     public string InstallPath
     {
         get => _installPath;
-        set => Set(ref _installPath, value);
-    }
-
-    private ObservableCollection<string> _installPathsSource = new();
-    public ObservableCollection<string> InstallPathsSource
-    {
-        get => _installPathsSource;
-        set => Set(ref _installPathsSource, value);
+        set
+        {
+            Set(ref _installPath, value);
+            OnPropertyChanged(nameof(OpenFolderEnabled));
+        }
     }
 
     private bool _forceDownload;
@@ -45,12 +42,21 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         set => Set(ref _forceDownload, value);
     }
 
+    private ObservableCollection<string> _installPathsSource = new();
+    public ObservableCollection<string> InstallPathsSource
+    {
+        get => _installPathsSource;
+        set => Set(ref _installPathsSource, value);
+    }
+
     private bool _installPathEnabled = true;
     public bool InstallPathEnabled
     {
         get => _installPathEnabled;
         set => Set(ref _installPathEnabled, value);
     }
+
+    public bool OpenFolderEnabled => Directory.Exists(InstallPath);
 
     public InstallWindow(VPExtension extension, VPInstall selectedInstall)
     {

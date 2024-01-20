@@ -86,7 +86,8 @@
                     Margin="{StaticResource SmallLeftTopRightMargin}"
                     Style="{StaticResource OpenFolderIconButton}"
                     ToolTip="{Binding InstallPath}"
-                    Folder="{Binding InstallPath}" />
+                    Folder="{Binding InstallPath}"
+                    IsEnabled="{Binding OpenFolderEnabled}"/>
             </Grid>
 
             <StackPanel
