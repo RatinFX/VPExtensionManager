@@ -11,9 +11,10 @@
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     mc:Ignorable="d"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     d:DesignHeight="450" 
-    d:DesignWidth="500">
+    d:DesignWidth="500"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
     <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="models:AppTheme" />
     </Page.Resources>
@@ -131,12 +132,11 @@
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"
                     Text="{x:Static properties:Resources.SettingsPageAboutTitle}" />
+                    
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource BodyTextStyle}" 
-                    Text="{Binding VersionDescription, Mode=OneWay}"
-                    />
-
+                    Text="{Binding VersionDescription, Mode=OneWay}" />
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource BodyTextStyle}"

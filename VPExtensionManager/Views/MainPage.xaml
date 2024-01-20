@@ -9,7 +9,10 @@
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="900">
+    d:DesignHeight="450" 
+    d:DesignWidth="900"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
     <Page.Resources>
         <DataTemplate x:Key="ExtensionItemTemplate">
             <Grid Height="60">

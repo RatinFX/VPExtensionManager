@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,13 +29,6 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         set => Set(ref _theme, value);
     }
 
-    private string _versionDescription;
-    public string VersionDescription
-    {
-        get => _versionDescription;
-        set => Set(ref _versionDescription, value);
-    }
-
     private ObservableCollection<SelectableObject<int>> _vpVersionsSource = new();
     public ObservableCollection<SelectableObject<int>> VPVersionsSource
     {
@@ -50,6 +42,8 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         get => _downloadsFolder;
         set => Set(ref _downloadsFolder, value);
     }
+
+    public string VersionDescription => _applicationInfoService.GetVersionShort();
 
     public SettingsPage(IOptions<AppConfig> appConfig,
         IThemeSelectorService themeSelectorService,
@@ -86,7 +80,6 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
 
     public void OnNavigatedTo(object parameter)
     {
-        VersionDescription = $"{Properties.Resources.AppDisplayName} - {_applicationInfoService.GetVersion()}";
         Theme = _themeSelectorService.GetCurrentTheme();
 
         // Only support VP14 and up to VP21 for now

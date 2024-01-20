@@ -79,7 +79,7 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extension Manager by RatinFX..
+        ///   Looks up a localized string similar to VP Extension Manager by RatinFX..
         /// </summary>
         public static string SettingsPageAboutCreatorText {
             get {

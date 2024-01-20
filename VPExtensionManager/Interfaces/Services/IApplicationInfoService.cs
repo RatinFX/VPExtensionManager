@@ -3,4 +3,5 @@
 public interface IApplicationInfoService
 {
     Version GetVersion();
+    string GetVersionShort();
 }

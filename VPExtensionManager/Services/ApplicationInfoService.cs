@@ -6,9 +6,7 @@ namespace VPExtensionManager.Services;
 
 public class ApplicationInfoService : IApplicationInfoService
 {
-    public ApplicationInfoService()
-    {
-    }
+    public ApplicationInfoService() { }
 
     public Version GetVersion()
     {
@@ -16,5 +14,11 @@ public class ApplicationInfoService : IApplicationInfoService
         string assemblyLocation = Assembly.GetExecutingAssembly().Location;
         var version = FileVersionInfo.GetVersionInfo(assemblyLocation).FileVersion;
         return new Version(version);
+    }
+
+    public string GetVersionShort()
+    {
+        var version = GetVersion();
+        return $"{version.Major}.{version.Minor}.{version.Build}";
     }
 }
