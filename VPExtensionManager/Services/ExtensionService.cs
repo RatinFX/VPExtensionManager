@@ -82,7 +82,7 @@ public class ExtensionService : IExtensionService
     private bool SetLatestRelease(VPExtension extension)
     {
         Debug.WriteLine($">>> Before CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
-        
+
         var success = false;
 
         try
@@ -103,27 +103,11 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            ex = ex.GetBaseException();
-
             extension.RepositoryWasFound = false;
             extension.LatestVersion = "GitHub error";
 
-            var msg = $"Error while looking up \"{extension.ExtensionName}\" on GitHub:\n\n";
-
-            if (ex is Octokit.RateLimitExceededException)
-            {
-                // Let's not show the IP of the user for now...
-                var rateLimited = ex as Octokit.RateLimitExceededException;
-                var remaining = rateLimited.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
-                msg += $"- GitHub API rate limit exceeded (60 per hour), please wait {remaining} minutes before retrying.";
-            }
-            else
-            {
-                msg += $"- {ex.Message}";
-            }
-
-            Debug.WriteLine(msg);
-            _notificationService.Error(msg);
+            var msg = $"Error while looking up \"{extension.ExtensionName}\" on GitHub:";
+            HandleExceptions(msg, ex);
 
             success = false;
         }
@@ -148,11 +132,8 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while searching for \"{extension.ExtensionName}\":\n\n" +
-                $"{ex.Message}";
-
-            Debug.WriteLine(msg);
-            _notificationService.Error(msg);
+            var msg = $"Error while searching for \"{extension.ExtensionName}\":";
+            HandleExceptions(msg, ex);
         }
     }
 
@@ -204,12 +185,8 @@ public class ExtensionService : IExtensionService
             }
             catch (Exception ex)
             {
-                var msg = $"Error while searching in \"{extension.ExtensionName}\" at:\n" +
-                    $"{path}\n\n" +
-                    $"{ex.Message}";
-
-                Debug.WriteLine(msg);
-                _notificationService.Error(msg);
+                var msg = $"Error while searching in \"{extension.ExtensionName}\" at:\n" + path;
+                HandleExceptions(msg, ex);
             }
         }
 
@@ -292,11 +269,8 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while installing \"{extension.ExtensionName} ({extension.LatestVersion})\":\n\n" +
-                $"{ex.Message}";
-
-            Debug.WriteLine(msg);
-            _notificationService.Error(msg);
+            var msg = $"Error while installing \"{extension.ExtensionName} ({extension.LatestVersion})\":";
+            HandleExceptions(msg, ex);
         }
 
         Debug.WriteLine($">>> >>> After CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
@@ -317,11 +291,8 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while updating \"{extension.ExtensionName} ({extension.LatestVersion})\":\n\n" +
-                $"{ex.Message}";
-
-            Debug.WriteLine(msg);
-            _notificationService.Error(msg);
+            var msg = $"Error while updating \"{extension.ExtensionName} ({extension.LatestVersion})\":";
+            HandleExceptions(msg, ex);
 
             success = false;
         }
@@ -368,12 +339,18 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while uninstalling \"{extension.ExtensionName} ({selectedInstall.Version})\" from:\n" +
-                $"{selectedInstall.InstallPath}\n\n" +
-                $"{ex.Message}";
-
-            Debug.WriteLine(msg);
-            _notificationService.Error(msg);
+            var msg = $"Error while uninstalling \"{extension.ExtensionName} ({selectedInstall.Version})\" from:\n" + selectedInstall.InstallPath;
+            HandleExceptions(msg, ex);
         }
+    }
+
+    private void HandleExceptions(string details, Exception ex)
+    {
+        ex = ex.GetBaseException();
+
+        var msg = details + "\n\n" + "- " + _gitHubService.GetRateLimitExceptionErrorMessage(ex);
+
+        Debug.WriteLine(msg);
+        _notificationService.Error(msg);
     }
 }

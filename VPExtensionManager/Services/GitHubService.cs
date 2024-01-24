@@ -26,4 +26,15 @@ public class GitHubService : IGitHubService
         var rem = _client.RateLimit.GetRateLimits().Result.Resources.Core.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
         return $"{rem:0.00} minutes";
     }
+
+    public string GetRateLimitExceptionErrorMessage(Exception ex)
+    {
+        if (ex is not RateLimitExceededException)
+            return ex.Message;
+
+        // Let's not show the IP of the user for now...
+        var rateLimited = ex as RateLimitExceededException;
+        var remaining = rateLimited.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
+        return $"GitHub API rate limit exceeded (60 per hour), please wait {remaining} minutes before retrying.";
+    }
 }
