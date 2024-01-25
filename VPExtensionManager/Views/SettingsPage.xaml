@@ -65,7 +65,19 @@
                 </StackPanel>
 
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="{StaticResource SmallRightMargin}"
+                        Style="{StaticResource BodyTextStyle}"
+                        VerticalAlignment="Center">
+                        Installed VP versions
+                    </TextBlock>
                     <ComboBox 
+                        Grid.Column="1"
                         Name="cbxVPVersions" 
                         VerticalAlignment="Center"
                         SelectionChanged="OnVPVersionsSelectionChanged"
@@ -87,9 +99,10 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <TextBlock 
+                        Grid.Column="1"
                         IsHitTestVisible="False"
                         Name="tbxVPVersions" 
-                        Text="Select your installed VP versions..." 
+                        Text="Select..." 
                         VerticalAlignment="Center" 
                         Margin="6,0,6,0" />
                 </Grid>
@@ -132,7 +145,7 @@
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"
                     Text="{x:Static properties:Resources.SettingsPageAboutTitle}" />
-                    
+
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource BodyTextStyle}" 
