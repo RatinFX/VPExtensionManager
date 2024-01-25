@@ -12,3 +12,13 @@
 # VP Extension Manager
 
 Vegas Pro Extension Manager (currently) for my Extensions and Scripts.
+
+# Overview
+
+- Find existing installs
+- Quickly Download and install Extension/Scripts
+
+# Optional setup
+
+- Set your installed VEGAS Pro versions in File -> Settings -> "Select your installed VP versions..."
+- Set the default "Downloads" folder where the application downloads the Extensions to
