@@ -16,7 +16,12 @@ public class LocalVPVersionService : ILocalVPVersionService
     {
         if (AppProperties.Get(AppProperties.VPVersions, out string versions))
         {
-            return versions.Split(",").Select(int.Parse).ToList();
+            return string.IsNullOrEmpty(versions) ? []
+                : versions
+                .Split(",")
+                .Select(x => int.TryParse(x, out int result) ? result : 0)
+                .Where(x => x != 0)
+                .ToList();
         }
 
         return [];
