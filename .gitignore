@@ -362,5 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Installer cache
+# Installer files
 VPEMInstaller/VPEMInstaller-cache/
+VPEMInstaller/VPEMInstaller-SetupFiles/
