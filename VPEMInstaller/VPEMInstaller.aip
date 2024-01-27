@@ -49,6 +49,7 @@
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_VPExtensionManager.runtimeconfig.json" Value="..\VPExtensionManager\bin\Release\net6.0-windows10.0.19041.0\publish"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_WinRT.Runtime.dll" Value="..\VPExtensionManager\bin\Release\net6.0-windows10.0.19041.0\publish"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_appsettings.json" Value="..\VPExtensionManager\bin\Release\net6.0-windows10.0.19041.0\publish"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_icon.ico" Value="..\VPExtensionManager\bin\Release\net6.0-windows10.0.19041.0\publish"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_ControlzEx.dll" Value="ControlzEx.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_MahApps.Metro.dll" Value="MahApps.Metro.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_MahApps.Metro.resources.dll" Value="MahApps.Metro.resources.dll"/>
@@ -92,10 +93,12 @@
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_VPExtensionManager.runtimeconfig.json" Value="VPExtensionManager.runtimeconfig.json"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_WinRT.Runtime.dll" Value="WinRT.Runtime.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_appsettings.json" Value="appsettings.json"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_icon.ico" Value="icon.ico"/>
     <ROW Property="AI_RUN_AS_ADMIN" Value="1"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPPRODUCTICON" Value="icon.exe" Type="8"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="RatinFX"/>
     <ROW Property="ProductCode" Value="1033:{2093737F-D721-488E-8399-C0FBFC5C1995} " Type="16"/>
@@ -184,6 +187,7 @@
     <ROW File="WinRT.Runtime.dll" Component_="VPExtensionManager_PublishOutput" FileName="WINRTR~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_WinRT.Runtime.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_WinRT.Runtime.dll&gt;" SelfReg="false"/>
     <ROW File="MahApps.Metro.resources.dll" Component_="VPExtensionManager_PublishOutput_de" FileName="MAHAPP~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_MahApps.Metro.resources.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_MahApps.Metro.resources.dll&gt;" SelfReg="false"/>
     <ROW File="System.Diagnostics.EventLog.Messages.dll" Component_="VPExtensionManager_PublishOutput_runtimes_win_lib_net6.0" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Diagnostics.EventLog.Messages.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Diagnostics.EventLog.Messages.dll&gt;" SelfReg="false"/>
+    <ROW File="icon.ico" Component_="VPExtensionManager_PublishOutput" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_icon.ico]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_icon.ico&gt;" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_ControlzEx.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_ControlzEx.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_ControlzEx.dll]" Type="2" Content="0"/>
@@ -229,6 +233,7 @@
     <ROW Name="AI_APPPATH_PERBUILD_VPExtensionManager.runtimeconfig.json" Path="[|AI_PROPPATH_DIR_PERBUILD_VPExtensionManager.runtimeconfig.json]\[|AI_PROPPATH_FILENAME_PERBUILD_VPExtensionManager.runtimeconfig.json]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_WinRT.Runtime.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_WinRT.Runtime.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_WinRT.Runtime.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_appsettings.json" Path="[|AI_PROPPATH_DIR_PERBUILD_appsettings.json]\[|AI_PROPPATH_FILENAME_PERBUILD_appsettings.json]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_icon.ico" Path="[|AI_PROPPATH_DIR_PERBUILD_icon.ico]\[|AI_PROPPATH_FILENAME_PERBUILD_icon.ico]" Type="2" Content="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -271,11 +276,9 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
     <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
-    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
-    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
     <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="204"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
     <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
@@ -291,7 +294,9 @@
     <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
     <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="205"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
@@ -337,6 +342,9 @@
     <ROW Feature_="MainFeature" Component_="VPExtensionManager_PublishOutput_de"/>
     <ROW Feature_="MainFeature" Component_="VPExtensionManager_PublishOutput_runtimes_win_lib_net6.0"/>
     <ROW Feature_="MainFeature" Component_="AI_PROPPATH_FILENAME_PERBUILD_VPExtensionManager.exe"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="icon.exe" SourcePath="..\VPExtensionManager\icon.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
@@ -433,5 +441,6 @@
     <ROW ProjectId="{296ed384-d87f-4d85-a327-1487e6e23ead}" ProjectName="VPExtensionManager" OutputGroup="PublishOutput" OutputFile="WinRT.Runtime.dll"/>
     <ROW ProjectId="{296ed384-d87f-4d85-a327-1487e6e23ead}" ProjectName="VPExtensionManager" OutputGroup="PublishOutput" OutputFile="MahApps.Metro.resources.dll"/>
     <ROW ProjectId="{296ed384-d87f-4d85-a327-1487e6e23ead}" ProjectName="VPExtensionManager" OutputGroup="PublishOutput" OutputFile="System.Diagnostics.EventLog.Messages.dll"/>
+    <ROW ProjectId="{296ed384-d87f-4d85-a327-1487e6e23ead}" ProjectName="VPExtensionManager" OutputGroup="PublishOutput" OutputFile="icon.ico"/>
   </COMPONENT>
 </DOCUMENT>
