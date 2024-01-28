@@ -50,7 +50,7 @@ public class VPExtension : INotifyPropertyChanged
         RepositoryWasFound
         && !string.IsNullOrEmpty(LatestVersion)
         && InstalledVersion != LatestVersion
-        && Installs.Any(x => x.Version != LatestVersion);
+        && (!Installs.Any() || Installs.Any(x => x.Version != LatestVersion));
 
     [JsonIgnore]
     public string VersionDisplay =>
