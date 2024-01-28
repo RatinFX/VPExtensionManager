@@ -132,13 +132,25 @@
                         Click="OnChangeDownloadsFolderClick" />
                     <Button 
                         Grid.Column="2"
+                        Padding="8,6"
                         Margin="{StaticResource SmallRightMargin}"
-                        Style="{StaticResource ResetIconButton}"
-                        Click="OnResetDownloadsFolderClick" />
+                        ToolTip="{x:Static properties:Resources.ToolTipReset}"
+                        Click="OnResetDownloadsFolderClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource ResetIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                            <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipReset}" />
+                        </StackPanel>
+                    </Button>
                     <styles:OpenFolderButton
                         Grid.Column="3"
-                        Style="{StaticResource OpenFolderIconButton}"
-                        Folder="{Binding DownloadsFolder}" />
+                        Padding="8,6"
+                        Style="{StaticResource MahApps.Styles.Button}"
+                        Folder="{Binding DownloadsFolder}" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                            <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipOpenFolder}" />
+                        </StackPanel>
+                    </styles:OpenFolderButton>
                 </Grid>
 
                 <TextBlock

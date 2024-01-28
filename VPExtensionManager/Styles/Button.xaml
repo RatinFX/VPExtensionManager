@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:properties="clr-namespace:VPExtensionManager.Properties">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--Base Styles-->
     <Style x:Key="BaseButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
         <Setter Property="Padding" Value="12,6,12,6" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="BaseIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
@@ -16,50 +16,4 @@
 
     <!--Custom Styles-->
 
-    <!--
-        Icon buttons can be found at:
-        https://learn.microsoft.com/en-us/windows/apps/design/style/segoe-ui-symbol-font
-    -->
-    
-    <!--E777	UpdateRestore-->
-    <Style x:Key="ResetIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xE777;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipReset}" />
-    </Style>
-
-    <!--E895	Sync-->
-    <Style x:Key="RefreshIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xE895;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipRefresh}" />
-    </Style>
-
-    <!--E71E	Zoom-->
-    <Style x:Key="SearchIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xE71E;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipSearch}" />
-    </Style>
-
-    <!--E896	Download-->
-    <Style x:Key="DownloadIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xE896;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipDownload}" />
-    </Style>
-
-    <!--ED25	OpenFolderHorizontal-->
-    <Style x:Key="OpenFolderIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xED25;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipOpenFolder}" />
-    </Style>
-
-    <!--E8CB	Sort-->
-    <Style x:Key="UpdateIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xE8CB;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipUpdate}" />
-    </Style>
-
-    <!--E894	Clear-->
-    <Style x:Key="RemoveIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseIconButton}">
-        <Setter Property="Content" Value="&#xE894;" />
-        <Setter Property="ToolTip" Value="{x:Static properties:Resources.ToolTipRemove}" />
-    </Style>
 </ResourceDictionary>

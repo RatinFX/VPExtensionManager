@@ -7,8 +7,9 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:converters="clr-namespace:VPExtensionManager.Converters"
     xmlns:styles="clr-namespace:VPExtensionManager.Styles"
+    xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     mc:Ignorable="d"
-    Height="220"
+    Height="210"
     Width="440"
     Style="{StaticResource CustomMetroWindow}"
     WindowStartupLocation="CenterScreen"
@@ -44,7 +45,7 @@
                     Style="{StaticResource ListSubTitleStyle}"
                     MouseUp="tbxForceDownload_MouseUp"
                     Margin="{StaticResource SmallLeftTopMargin}" >
-                    Version
+                    VP Version
                 </TextBlock>
 
                 <ComboBox
@@ -83,11 +84,17 @@
                 <styles:OpenFolderButton
                     Grid.Row="1"
                     Grid.Column="2"
+                    Style="{StaticResource BaseButton}"
+                    Padding="8,6"
                     Margin="{StaticResource SmallLeftTopRightMargin}"
-                    Style="{StaticResource OpenFolderIconButton}"
                     ToolTip="{Binding InstallPath}"
                     Folder="{Binding InstallPath}"
-                    IsEnabled="{Binding OpenFolderEnabled}"/>
+                    IsEnabled="{Binding OpenFolderEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                        <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipOpenFolder}" />
+                    </StackPanel>
+                </styles:OpenFolderButton>
             </Grid>
 
             <StackPanel
@@ -111,15 +118,13 @@
                 Orientation="Horizontal"
                 HorizontalAlignment="Center">
                 <Button
-                    Style="{StaticResource MahApps.Styles.Button}"
+                    Style="{StaticResource BaseButton}"
                     Margin="{StaticResource SmallRightMargin}"
-                    Padding="12,6" 
                     Click="btnOK_Click">
                     OK
                 </Button>
                 <Button
-                    Style="{StaticResource MahApps.Styles.Button}"
-                    Padding="12,6" 
+                    Style="{StaticResource BaseButton}"
                     Click="btnCancel_Click">
                     Cancel
                 </Button>

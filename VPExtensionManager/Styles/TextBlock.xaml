@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:properties="clr-namespace:VPExtensionManager.Properties">
 
     <!--Base Styles-->
     <Style x:Key="BaseTextBlockStyle" TargetType="{x:Type TextBlock}">
@@ -11,9 +12,15 @@
 
     <Style x:Key="BaseIconStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    
+    <Style x:Key="BaseIconTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+        <Setter Property="Padding" Value="0,0,0,1" />
     </Style>
 
     <!--Custom Styles-->
@@ -48,8 +55,47 @@
         <Setter Property="FontSize" Value="24" />
     </Style>
 
-    <Style x:Key="BigIconStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseIconStyle}">
+    <Style x:Key="BigIconStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
         <Setter Property="FontSize" Value="48" />
     </Style>
 
+    <!--
+        Icon buttons can be found at:
+        https://learn.microsoft.com/en-us/windows/apps/design/style/segoe-ui-symbol-font
+    -->
+
+    <!--E777	UpdateRestore-->
+    <Style x:Key="ResetIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE777;" />
+    </Style>
+
+    <!--E895	Sync-->
+    <Style x:Key="RefreshIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE895;" />
+    </Style>
+
+    <!--E71E	Zoom-->
+    <Style x:Key="SearchIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE71E;" />
+    </Style>
+
+    <!--E896	Download-->
+    <Style x:Key="DownloadIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE896;" />
+    </Style>
+
+    <!--ED25	OpenFolderHorizontal-->
+    <Style x:Key="OpenFolderIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xED25;" />
+    </Style>
+
+    <!--E8CB	Sort-->
+    <Style x:Key="UpdateIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE8CB;" />
+    </Style>
+
+    <!--E894	Clear-->
+    <Style x:Key="RemoveIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE894;" />
+    </Style>
 </ResourceDictionary>

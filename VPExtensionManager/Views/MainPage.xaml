@@ -82,22 +82,32 @@
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
                             <Button
-                                Style="{StaticResource RefreshIconButton}"
+                                Padding="8,6"
                                 Margin="{StaticResource SmallRightMargin}"
                                 IsEnabled="{Binding DataContext.CheckForUpdateEnabled, ElementName=mainPage}"
-                                ToolTip="{x:Static properties:Resources.ToolTipCheckForUpdate}"
                                 Click="btnCheckForUpdate_Click" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource RefreshIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipCheckForUpdate}" />
+                                </StackPanel>
                             </Button>
                             <Button
-                                Style="{StaticResource SearchIconButton}"
+                                Padding="8,6"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Click="btnFindInstalls_Click" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource SearchIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipSearch}" />
+                                </StackPanel>
                             </Button>
                             <Button
-                                Style="{StaticResource DownloadIconButton}"
+                                Padding="8,6"
                                 IsEnabled="{Binding DataContext.InstallEnabled, ElementName=mainPage}"
-                                ToolTip="{x:Static properties:Resources.ToolTipInstall}"
-                                Click="btnInstall_Click">
+                                Click="btnInstall_Click" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipDownload}" />
+                                </StackPanel>
                             </Button>
                         </StackPanel>
 
@@ -110,21 +120,34 @@
                             Orientation="Horizontal"
                             Margin="{StaticResource SmallTopMargin}">
                             <styles:OpenFolderButton
-                                Style="{StaticResource OpenFolderIconButton}"
+                                Style="{StaticResource MahApps.Styles.Button}"
+                                Padding="8,6"
                                 Margin="{StaticResource SmallRightMargin}"
                                 Folder="{Binding DataContext.SelectedInstallFolder, ElementName=mainPage}"
-                                IsEnabled="{Binding DataContext.OpenFolderEnabled, ElementName=mainPage}"
-                                />
+                                IsEnabled="{Binding DataContext.OpenFolderEnabled, ElementName=mainPage}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipOpenFolder}" />
+                                </StackPanel>
+                            </styles:OpenFolderButton>
                             <Button
-                                Style="{StaticResource UpdateIconButton}"
+                                Padding="8,6"
                                 Margin="{StaticResource SmallRightMargin}"
                                 IsEnabled="{Binding DataContext.UpdateEnabled, ElementName=mainPage}"
                                 Click="btnUpdate_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource UpdateIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipUpdate}" />
+                                </StackPanel>
                             </Button>
                             <Button
-                                Style="{StaticResource RemoveIconButton}"
+                                Padding="8,6"
                                 IsEnabled="{Binding DataContext.UninstallEnabled, ElementName=mainPage}"
                                 Click="btnUninstall_Click" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource RemoveIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipRemove}" />
+                                </StackPanel>
                             </Button>
                         </StackPanel>
 
