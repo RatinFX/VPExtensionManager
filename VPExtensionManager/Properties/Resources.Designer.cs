@@ -70,15 +70,6 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extensions.
-        /// </summary>
-        public static string MainPageTitle {
-            get {
-                return ResourceManager.GetString("MainPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VP Extension Manager by RatinFX..
         /// </summary>
         public static string SettingsPageAboutCreatorText {

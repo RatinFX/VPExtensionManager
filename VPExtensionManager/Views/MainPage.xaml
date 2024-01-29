@@ -170,21 +170,11 @@
             <ColumnDefinition MinWidth="200" MaxWidth="240" Width="*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="48" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock
-                Style="{StaticResource PageTitleStyle}"
-                Margin="{StaticResource MediumLeftMargin}"
-                Text="{x:Static properties:Resources.MainPageTitle}" />
-            <ListView
-                Grid.Row="1"
-                ItemsSource="{Binding ExtensionItems}"
-                ItemTemplate="{StaticResource ExtensionItemTemplate}"
-                SelectedItem="{Binding Selected, Mode=TwoWay}" />
-        </Grid>
+        <ListView
+            Grid.Column="0"
+            ItemsSource="{Binding ExtensionItems}"
+            ItemTemplate="{StaticResource ExtensionItemTemplate}"
+            SelectedItem="{Binding Selected, Mode=TwoWay}" />
         <ContentControl
             Grid.Column="1"
             IsTabStop="False"

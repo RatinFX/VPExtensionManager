@@ -150,9 +150,6 @@
   <data name="ShellMenuItemViewsMainPageHeader" xml:space="preserve">
     <value>Extensions</value>
   </data>
-  <data name="MainPageTitle" xml:space="preserve">
-    <value>Extensions</value>
-  </data>
   <data name="ShellGoBackButton" xml:space="preserve">
     <value>Go back</value>
   </data>
