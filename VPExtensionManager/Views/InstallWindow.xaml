@@ -92,7 +92,7 @@
                     IsEnabled="{Binding OpenFolderEnabled}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                        <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipOpenFolder}" />
+                        <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpenFolder}" />
                     </StackPanel>
                 </styles:OpenFolderButton>
             </Grid>

@@ -88,7 +88,7 @@
                                 Click="btnCheckForUpdate_Click" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource RefreshIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipCheckForUpdate}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextCheckForUpdate}" />
                                 </StackPanel>
                             </Button>
                             <Button
@@ -97,7 +97,7 @@
                                 Click="btnFindInstalls_Click" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource SearchIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipSearch}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextSearch}" />
                                 </StackPanel>
                             </Button>
                             <Button
@@ -106,7 +106,7 @@
                                 Click="btnInstall_Click" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipDownload}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextDownload}" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -127,7 +127,7 @@
                                 IsEnabled="{Binding DataContext.OpenFolderEnabled, ElementName=mainPage}" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipOpenFolder}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpenFolder}" />
                                 </StackPanel>
                             </styles:OpenFolderButton>
                             <Button
@@ -137,7 +137,7 @@
                                 Click="btnUpdate_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource UpdateIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipUpdate}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextUpdate}" />
                                 </StackPanel>
                             </Button>
                             <Button
@@ -146,7 +146,7 @@
                                 Click="btnUninstall_Click" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource RemoveIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.ToolTipRemove}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextRemove}" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>

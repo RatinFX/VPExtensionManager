@@ -225,81 +225,81 @@ namespace VPExtensionManager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Check for update.
         /// </summary>
-        public static string ToolTipCheckForUpdate {
+        public static string TextCheckForUpdate {
             get {
-                return ResourceManager.GetString("ToolTipCheckForUpdate", resourceCulture);
+                return ResourceManager.GetString("TextCheckForUpdate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Download.
         /// </summary>
-        public static string ToolTipDownload {
+        public static string TextDownload {
             get {
-                return ResourceManager.GetString("ToolTipDownload", resourceCulture);
+                return ResourceManager.GetString("TextDownload", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Install.
         /// </summary>
-        public static string ToolTipInstall {
+        public static string TextInstall {
             get {
-                return ResourceManager.GetString("ToolTipInstall", resourceCulture);
+                return ResourceManager.GetString("TextInstall", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open folder.
+        ///   Looks up a localized string similar to Open.
         /// </summary>
-        public static string ToolTipOpenFolder {
+        public static string TextOpenFolder {
             get {
-                return ResourceManager.GetString("ToolTipOpenFolder", resourceCulture);
+                return ResourceManager.GetString("TextOpenFolder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Refresh.
         /// </summary>
-        public static string ToolTipRefresh {
+        public static string TextRefresh {
             get {
-                return ResourceManager.GetString("ToolTipRefresh", resourceCulture);
+                return ResourceManager.GetString("TextRefresh", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
-        public static string ToolTipRemove {
+        public static string TextRemove {
             get {
-                return ResourceManager.GetString("ToolTipRemove", resourceCulture);
+                return ResourceManager.GetString("TextRemove", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
-        public static string ToolTipReset {
+        public static string TextReset {
             get {
-                return ResourceManager.GetString("ToolTipReset", resourceCulture);
+                return ResourceManager.GetString("TextReset", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Search on PC.
         /// </summary>
-        public static string ToolTipSearch {
+        public static string TextSearch {
             get {
-                return ResourceManager.GetString("ToolTipSearch", resourceCulture);
+                return ResourceManager.GetString("TextSearch", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
-        public static string ToolTipUpdate {
+        public static string TextUpdate {
             get {
-                return ResourceManager.GetString("ToolTipUpdate", resourceCulture);
+                return ResourceManager.GetString("TextUpdate", resourceCulture);
             }
         }
     }
