@@ -30,41 +30,41 @@
             <StackPanel
                 x:Name="ContentArea"
                 Grid.Row="1"
-                Margin="{StaticResource MediumLeftRightMargin}">
-
+                Margin="{StaticResource MediumLeftRightMargin}" >
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"
                     Text="{x:Static properties:Resources.SettingsPagePersonalizationTitle}" />
-                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                <StackPanel
+                    Orientation="Horizontal" 
+                    Margin="{StaticResource SmallTopBottomMargin}">
                     <TextBlock
                         Style="{StaticResource BodyTextStyle}"
+                        Margin="{StaticResource SmallRightMargin}"
                         Text="{x:Static properties:Resources.SettingsPageChooseThemeText}" />
-                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                        <RadioButton
-                            GroupName="AppTheme"
-                            Content="{x:Static properties:Resources.SettingsPageRadioButtonLightTheme}"
-                            FontSize="{StaticResource MediumFontSize}"
-                            Checked="OnLightChecked"
-                            IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light}" />
-                        <RadioButton
-                            GroupName="AppTheme"
-                            Content="{x:Static properties:Resources.SettingsPageRadioButtonDarkTheme}"
-                            Margin="{StaticResource XSmallTopMargin}"
-                            FontSize="{StaticResource MediumFontSize}"
-                            Checked="OnDarkChecked"
-                            IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark}" />
-                        <RadioButton
-                            GroupName="AppTheme"
-                            Content="{x:Static properties:Resources.SettingsPageRadioButtonWindowsDefaultTheme}"
-                            Margin="{StaticResource XSmallTopMargin}"
-                            FontSize="{StaticResource MediumFontSize}"
-                            Checked="OnDefaultChecked"
-                            IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default}" />
-                    </StackPanel>
+                    <RadioButton
+                        GroupName="AppTheme"
+                        Content="{x:Static properties:Resources.SettingsPageRadioButtonLightTheme}"
+                        Margin="{StaticResource SmallRightMargin}"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Checked="OnLightChecked"
+                        IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light}" />
+                    <RadioButton
+                        GroupName="AppTheme"
+                        Content="{x:Static properties:Resources.SettingsPageRadioButtonDarkTheme}"
+                        Margin="{StaticResource SmallRightMargin}"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Checked="OnDarkChecked"
+                        IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark}" />
+                    <RadioButton
+                        GroupName="AppTheme"
+                        Content="{x:Static properties:Resources.SettingsPageRadioButtonWindowsDefaultTheme}"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Checked="OnDefaultChecked"
+                        IsChecked="{Binding Theme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default}" />
                 </StackPanel>
 
-                <Grid>
+                <Grid Margin="{StaticResource SmallTopBottomMargin}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
