@@ -35,6 +35,6 @@ public class GitHubService : IGitHubService
         // Let's not show the IP of the user for now...
         var rateLimited = ex as RateLimitExceededException;
         var remaining = rateLimited.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
-        return $"GitHub API rate limit exceeded (60 per hour), please wait {remaining} minutes before retrying.";
+        return $"GitHub API rate limit exceeded, remaining minutes until reset: {remaining:0.00}";
     }
 }
