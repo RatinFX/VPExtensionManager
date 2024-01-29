@@ -9,7 +9,7 @@
     xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     mc:Ignorable="d"
-    Height="210"
+    Height="220"
     Width="440"
     Style="{StaticResource CustomMetroWindow}"
     WindowStartupLocation="CenterScreen"
