@@ -1,4 +1,5 @@
 ﻿using Octokit;
+using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
@@ -9,7 +10,7 @@ namespace VPExtensionManager.Services;
 /// </summary>
 public class GitHubService : IGitHubService
 {
-    private readonly GitHubClient _client = new(new ProductHeaderValue("VPExtensionManager_" + DateTimeOffset.Now.ToUnixTimeMilliseconds()));
+    private readonly GitHubClient _client = new(new ProductHeaderValue("VPExtensionManager_" + DateTimeHelper.GetCurrentUnixTime()));
 
     public Release GetLatestRelease(string extensionName)
     {

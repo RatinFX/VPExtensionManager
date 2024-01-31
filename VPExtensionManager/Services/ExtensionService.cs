@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
+using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
@@ -87,7 +88,7 @@ public class ExtensionService : IExtensionService
 
         try
         {
-            extension.SetLastChecked();
+            extension.LastChecked = DateTimeHelper.GetCurrentUnixTime();
 
             var release = _gitHubService.GetLatestRelease(extension.ExtensionName);
 

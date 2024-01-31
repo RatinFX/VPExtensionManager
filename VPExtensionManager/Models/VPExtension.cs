@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using VPExtensionManager.Helpers;
 
 namespace VPExtensionManager.Models;
 
@@ -84,15 +85,9 @@ public class VPExtension : INotifyPropertyChanged
 
     public bool ShouldCheckForUpdate()
     {
-        return LastChecked - DateTimeOffset.Now.ToUnixTimeSeconds() >= 100_000
-            || LastChecked < 0
+        return string.IsNullOrEmpty(LatestVersion)
             //|| !ReleaseAssets.Any()
-            || string.IsNullOrEmpty(LatestVersion);
-    }
-
-    public void SetLastChecked()
-    {
-        LastChecked = DateTimeOffset.Now.ToUnixTimeSeconds();
+            || DateTimeHelper.ShouldCheckForUpdate(LastChecked);
     }
 
     public string GetDownloadLink(VPVersion vp)
