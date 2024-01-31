@@ -12,7 +12,6 @@ public class VPExtension : INotifyPropertyChanged
     public VPExtensionType Type { get; set; }
 
     // GitHub / latest Release
-    [JsonIgnore]
     public bool RepositoryWasFound { get; set; } = true;
 
     [JsonIgnore]
