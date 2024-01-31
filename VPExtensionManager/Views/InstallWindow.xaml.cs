@@ -105,9 +105,11 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
     {
         VPVersion = VPVersionsSource.FirstOrDefault();
         InstallPath = InstallPathsSource.FirstOrDefault();
-        ForceDownload = AppProperties.Get(AppProperties.ForceDownload, out string forceDownload)
-            ? bool.Parse(forceDownload)
-            : false;
+
+        if (AppProperties.Get(AppProperties.ForceDownload, out string forceDownload))
+        {
+            ForceDownload = bool.Parse(forceDownload);
+        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
