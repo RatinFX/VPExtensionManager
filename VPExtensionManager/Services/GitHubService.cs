@@ -12,9 +12,9 @@ public class GitHubService : IGitHubService
 {
     private readonly GitHubClient _client = new(new ProductHeaderValue("VPExtensionManager_" + DateTimeHelper.GetCurrentUnixTime()));
 
-    public Release GetLatestRelease(string extensionName)
+    public Release GetLatestRelease(string repositoryName)
     {
-        return _client.Repository.Release.GetLatest(RFXStrings.RatinFX, extensionName)?.Result;
+        return _client.Repository.Release.GetLatest(RFXStrings.RatinFX, repositoryName)?.Result;
     }
 
     public int GetRemainingCalls()

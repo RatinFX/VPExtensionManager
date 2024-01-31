@@ -4,7 +4,7 @@ namespace VPExtensionManager.Interfaces.Services;
 
 public interface IGitHubService
 {
-    Release GetLatestRelease(string extensionName);
+    Release GetLatestRelease(string repositoryName);
     int GetRemainingCalls();
     string GetRateLimitResetTime();
     string GetRateLimitExceptionErrorMessage(Exception ex);
