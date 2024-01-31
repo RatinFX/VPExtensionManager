@@ -52,15 +52,18 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Menu Grid.Row="0" Focusable="False">
-                        <MenuItem Header="{x:Static properties:Resources.ShellMenuFileHeader}" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}">
-                            <MenuItem Header="{x:Static properties:Resources.ShellMenuItemFileSettingsPageHeader}" Click="OnMenuFileSettings" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
-                            <Separator />
-                            <MenuItem Header="{x:Static properties:Resources.ShellMenuItemFileExitHeader}" Click="OnMenuFileExit" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                        <MenuItem 
+                            Header="{x:Static properties:Resources.ShellMenuFileHeader}"
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}">
+                            <MenuItem 
+                                Header="{x:Static properties:Resources.ShellMenuItemFileExitHeader}" 
+                                Click="OnMenuFileExit" 
+                                AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
                         </MenuItem>
-                        <MenuItem Header="{x:Static properties:Resources.ShellMenuViewsHeader}" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}">
-                            <!--TODO: Review the MenuItem headers in Resources.resx file for all of your views and place '_' before the letter that you want to use for menu keyboard usage-->
-                            <MenuItem Header="{x:Static properties:Resources.ShellMenuItemViewsMainPageHeader}" Click="OnMenuViewsMain" AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
-                        </MenuItem>
+                        <MenuItem 
+                            Header="{x:Static properties:Resources.ShellMenuItemSettingsPageHeader}" 
+                            Click="OnMenuSettings"
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
                     </Menu>
                     <Frame
                         Grid.Row="1"

@@ -180,9 +180,9 @@ namespace VPExtensionManager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to _Settings.
         /// </summary>
-        public static string ShellMenuItemFileSettingsPageHeader {
+        public static string ShellMenuItemSettingsPageHeader {
             get {
-                return ResourceManager.GetString("ShellMenuItemFileSettingsPageHeader", resourceCulture);
+                return ResourceManager.GetString("ShellMenuItemSettingsPageHeader", resourceCulture);
             }
         }
         

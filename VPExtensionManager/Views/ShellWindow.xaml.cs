@@ -16,8 +16,8 @@ public partial class ShellWindow : MetroWindow, IShellWindow, INotifyPropertyCha
 
     public bool CanGoBack
     {
-        get { return _canGoBack; }
-        set { Set(ref _canGoBack, value); }
+        get => _canGoBack;
+        set => Set(ref _canGoBack, value);
     }
 
     public ShellWindow(INavigationService navigationService, IRightPaneService rightPaneService)
@@ -69,7 +69,7 @@ public partial class ShellWindow : MetroWindow, IShellWindow, INotifyPropertyCha
     private void OnMenuViewsMain(object sender, RoutedEventArgs e)
         => _navigationService.NavigateTo(typeof(MainPage), null, true);
 
-    private void OnMenuFileSettings(object sender, RoutedEventArgs e)
+    private void OnMenuSettings(object sender, RoutedEventArgs e)
         => _rightPaneService.OpenInRightPane(typeof(SettingsPage));
 
     public event PropertyChangedEventHandler PropertyChanged;
