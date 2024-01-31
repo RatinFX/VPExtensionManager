@@ -18,6 +18,18 @@ public class AppProperties
     /// The folder where the GitHub releases should be downloaded to
     /// </summary>
     public const string DownloadsFolder = "DownloadsFolder";
+    /// <summary>
+    /// The last time the app's latest version was checked
+    /// </summary>
+    public const string LastChecked = "LastChecked";
+    /// <summary>
+    /// Whether the app should check for updates on Start
+    /// </summary>
+    public const string CheckForUpdate = "CheckForUpdate";
+    /// <summary>
+    /// The latest version from GitHub
+    /// </summary>
+    public const string LatestVersion = "LatestVersion";
 
     public static bool Contains(string key)
     {

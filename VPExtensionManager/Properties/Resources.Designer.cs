@@ -97,6 +97,15 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for update on Start.
+        /// </summary>
+        public static string SettingsPageCheckForUpdateOnStart {
+            get {
+                return ResourceManager.GetString("SettingsPageCheckForUpdateOnStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Theme.
         /// </summary>
         public static string SettingsPageChooseThemeText {
@@ -228,6 +237,15 @@ namespace VPExtensionManager.Properties {
         public static string TextDownload {
             get {
                 return ResourceManager.GetString("TextDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download update.
+        /// </summary>
+        public static string TextDownloadUpdate {
+            get {
+                return ResourceManager.GetString("TextDownloadUpdate", resourceCulture);
             }
         }
         

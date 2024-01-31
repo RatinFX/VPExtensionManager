@@ -195,4 +195,10 @@
   <data name="SettingsPageAboutText" xml:space="preserve">
     <value>Visit the GitHub page for more information.</value>
   </data>
+  <data name="SettingsPageCheckForUpdateOnStart" xml:space="preserve">
+    <value>Check for update on Start</value>
+  </data>
+  <data name="TextDownloadUpdate" xml:space="preserve">
+    <value>Download update</value>
+  </data>
 </root>

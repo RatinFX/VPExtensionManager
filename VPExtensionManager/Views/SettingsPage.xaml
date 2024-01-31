@@ -31,6 +31,40 @@
                 x:Name="ContentArea"
                 Grid.Row="1"
                 Margin="{StaticResource MediumLeftRightMargin}" >
+
+                <StackPanel Margin="{StaticResource SmallBottomMargin}">
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        Margin="{StaticResource SmallBottomMargin}">
+                        <Button
+                            Padding="8,6"
+                            Margin="{StaticResource SmallRightMargin}"
+                            IsEnabled="{Binding CheckForUpdateEnabled}"
+                            Click="btnCheckForUpdate_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource RefreshIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextCheckForUpdate}" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Padding="8,6"
+                            Margin="{StaticResource SmallRightMargin}"
+                            IsEnabled="{Binding GetUpdateEnabled}"
+                            Click="btnDownloadUpdate_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextDownloadUpdate}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <CheckBox 
+                        Margin="{StaticResource SmallRightMargin}"
+                        IsChecked="{Binding CheckForUpdate}"
+                        Content="{x:Static properties:Resources.SettingsPageCheckForUpdateOnStart}"
+                        Checked="OnCheckForUpdateCheckBoxChecked"
+                        Unchecked="OnCheckForUpdateCheckBoxChecked" />
+                </StackPanel>
+                
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"

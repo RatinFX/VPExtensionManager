@@ -13,7 +13,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 {
     private readonly IExtensionService _extensionService;
     private readonly INotificationService _notificationService;
-
+    private readonly IApplicationUpdateService _applicationUpdateService;
     private VPExtension _selected;
     public VPExtension Selected
     {
@@ -65,12 +65,22 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         set => Set(ref _installPaths, value);
     }
 
-    public MainPage(IExtensionService extensionService, INotificationService notificationService)
+    public MainPage(
+        IExtensionService extensionService,
+        INotificationService notificationService,
+        IApplicationUpdateService applicationUpdateService)
     {
         _extensionService = extensionService;
         _notificationService = notificationService;
+        _applicationUpdateService = applicationUpdateService;
+
         InitializeComponent();
         DataContext = this;
+
+        if (applicationUpdateService.ShouldCheckForUpdate())
+        {
+            _applicationUpdateService.SendUpdateNotification();
+        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

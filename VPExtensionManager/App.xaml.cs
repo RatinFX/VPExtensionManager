@@ -74,6 +74,7 @@ public partial class App : Application
         services.AddSingleton<IFolderService, FolderService>();
         services.AddSingleton<INotificationService, NotificationService>();
         services.AddSingleton<IGitHubService, GitHubService>();
+        services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
 
         // Views
         services.AddTransient<IShellWindow, ShellWindow>();

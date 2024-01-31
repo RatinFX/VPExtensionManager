@@ -20,7 +20,17 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private readonly IFolderService _folderService;
     private readonly IExtensionService _extensionService;
     private readonly INotificationService _notificationService;
+    private readonly IApplicationUpdateService _applicationUpdateService;
     private bool _isInitialized;
+
+    public bool CheckForUpdateEnabled { get; set; } = true;
+
+    private bool _checkForUpdate = true;
+    public bool CheckForUpdate
+    {
+        get => _checkForUpdate;
+        set => Set(ref _checkForUpdate, value);
+    }
 
     private AppTheme _theme;
     public AppTheme Theme
@@ -52,7 +62,8 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         IApplicationInfoService applicationInfoService,
         IFolderService folderService,
         IExtensionService extensionService,
-        INotificationService notificationService)
+        INotificationService notificationService,
+        IApplicationUpdateService applicationUpdateService)
     {
         _appConfig = appConfig.Value;
         _themeSelectorService = themeSelectorService;
@@ -62,9 +73,12 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _folderService = folderService;
         _extensionService = extensionService;
         _notificationService = notificationService;
+        _applicationUpdateService = applicationUpdateService;
 
         InitializeComponent();
         DataContext = this;
+
+        CheckForUpdate = _applicationUpdateService.ShouldCheckForUpdate();
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -100,6 +114,22 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     }
 
     public void OnNavigatedFrom() { }
+
+    private void btnCheckForUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        _applicationUpdateService.SendUpdateNotification(forceUpdate: true);
+    }
+
+    private void btnDownloadUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        _notificationService.Information($"The application will open a link to the latest version");
+        _systemService.OpenInWebBrowser("https://github.com/RatinFX/VPExtensionManager/releases/latest");
+    }
+
+    private void OnCheckForUpdateCheckBoxChecked(object sender, RoutedEventArgs e)
+    {
+        AppProperties.Set(AppProperties.CheckForUpdate, CheckForUpdate.ToString());
+    }
 
     private void OnLightChecked(object sender, RoutedEventArgs e)
     {
