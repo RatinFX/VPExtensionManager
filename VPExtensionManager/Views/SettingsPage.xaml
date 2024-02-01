@@ -11,7 +11,7 @@
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     xmlns:styles="clr-namespace:VPExtensionManager.Styles"
     mc:Ignorable="d"
-    d:DesignHeight="450" 
+    d:DesignHeight="500" 
     d:DesignWidth="500"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     >
@@ -39,7 +39,6 @@
                         <Button
                             Padding="8,6"
                             Margin="{StaticResource SmallRightMargin}"
-                            IsEnabled="{Binding CheckForUpdateEnabled}"
                             Click="btnCheckForUpdate_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource RefreshIcon}" Margin="{StaticResource XSmallRightMargin}" />
@@ -49,7 +48,6 @@
                         <Button
                             Padding="8,6"
                             Margin="{StaticResource SmallRightMargin}"
-                            IsEnabled="{Binding GetUpdateEnabled}"
                             Click="btnDownloadUpdate_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
