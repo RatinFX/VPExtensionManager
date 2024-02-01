@@ -23,8 +23,6 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private readonly IApplicationUpdateService _applicationUpdateService;
     private bool _isInitialized;
 
-    public bool CheckForUpdateEnabled { get; set; } = true;
-
     private bool _checkForUpdate = true;
     public bool CheckForUpdate
     {
@@ -75,10 +73,10 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _notificationService = notificationService;
         _applicationUpdateService = applicationUpdateService;
 
+        CheckForUpdate = _applicationUpdateService.ShouldCheckForUpdate();
+
         InitializeComponent();
         DataContext = this;
-
-        CheckForUpdate = _applicationUpdateService.ShouldCheckForUpdate();
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

@@ -349,7 +349,7 @@ public class ExtensionService : IExtensionService
     {
         ex = ex.GetBaseException();
 
-        var msg = details + "\n\n" + "- " + _gitHubService.GetRateLimitExceptionErrorMessage(ex);
+        var msg = details + "\n" + "- " + _gitHubService.GetRateLimitExceptionErrorMessage(ex);
 
         Debug.WriteLine(msg);
         _notificationService.Error(msg);

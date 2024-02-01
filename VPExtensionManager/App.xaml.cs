@@ -29,9 +29,7 @@ public partial class App : Application
         where T : class
         => _host.Services.GetService(typeof(T)) as T;
 
-    public App()
-    {
-    }
+    public App() { }
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
