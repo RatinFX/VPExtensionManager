@@ -1,4 +1,5 @@
-﻿using VPExtensionManager.Helpers;
+﻿using System.Diagnostics;
+using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
 
@@ -53,21 +54,34 @@ public class ApplicationUpdateService : IApplicationUpdateService
 
     public void SendUpdateNotification(bool forceUpdate = false)
     {
-        var latestVersion = GetLatestVersion();
-
-        if (forceUpdate ||
-            string.IsNullOrEmpty(latestVersion) || (
-            AppProperties.Get(AppProperties.LastChecked, out string lastChecked)
-            && DateTimeHelper.ShouldCheckForUpdate(long.Parse(lastChecked))
-        ))
+        try
         {
-            SetLocalLatestVersion();
+            var latestVersion = GetLatestVersion();
+
+            if (forceUpdate ||
+                string.IsNullOrEmpty(latestVersion) || (
+                AppProperties.Get(AppProperties.LastChecked, out string lastChecked)
+                && DateTimeHelper.ShouldCheckForUpdate(long.Parse(lastChecked))
+            ))
+            {
+                SetLocalLatestVersion();
+            }
+
+            var msg = _applicationInfoService.GetVersionShort() == latestVersion
+                ? $"You're using the latest version"
+                : $"New version available:\n" + latestVersion;
+
+            _notificationService.Information(msg);
         }
+        catch (Exception ex)
+        {
+            ex = ex.GetBaseException();
 
-        var msg = _applicationInfoService.GetVersionShort() == latestVersion
-            ? $"You're using the latest version"
-            : $"New version available:\n\n" + latestVersion;
+            var msg = "Error while checking the latest version for this app:\n"
+                + "- " + _gitHubService.GetRateLimitExceptionErrorMessage(ex);
 
-        _notificationService.Information(msg);
+            Debug.WriteLine(msg);
+            _notificationService.Error(msg);
+        }
     }
 }
