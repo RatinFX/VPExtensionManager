@@ -20,7 +20,8 @@ public class RFXStrings
     public const string VegasProData = "VegasProData";
     public const string RatinFXVP = "RatinFX.VP";
     public const string NewtonsoftJson = "Newtonsoft.Json";
+    public const string Octokit = "Octokit";
 
-    public static readonly List<string> VPConsoleRefs = [VegasProData, RatinFXVP, NewtonsoftJson];
-    public static readonly List<string> VegasProFlowRefs = [VegasProData, RatinFXVP, NewtonsoftJson];
+    public static readonly List<string> VPConsoleRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson];
+    public static readonly List<string> VegasProFlowRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson];
 }
