@@ -4,7 +4,7 @@ public class DateTimeHelper
 {
     public static bool ShouldCheckForUpdate(long lastChecked)
     {
-        return lastChecked - GetCurrentUnixTime() >= 100_000
+        return lastChecked - GetCurrentUnixTime() >= 3_600
             || lastChecked < 0;
     }
 
