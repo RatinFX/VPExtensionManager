@@ -105,11 +105,6 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
     {
         VPVersion = VPVersionsSource.FirstOrDefault();
         InstallPath = InstallPathsSource.FirstOrDefault();
-
-        if (AppProperties.Get(AppProperties.ForceDownload, out string forceDownload))
-        {
-            ForceDownload = bool.Parse(forceDownload);
-        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -140,8 +135,6 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
 
     private void CloseWindow(bool result)
     {
-        App.Current.Properties["ForceDownload"] = ForceDownload.ToString();
-
         DialogResult = result;
         Close();
     }
