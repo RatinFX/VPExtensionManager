@@ -12,6 +12,7 @@ public partial class ShellWindow : MetroWindow, IShellWindow, INotifyPropertyCha
 {
     private readonly INavigationService _navigationService;
     private readonly IRightPaneService _rightPaneService;
+    private readonly IApplicationInfoService _applicationInfoService;
     private bool _canGoBack;
 
     public bool CanGoBack
@@ -20,13 +21,19 @@ public partial class ShellWindow : MetroWindow, IShellWindow, INotifyPropertyCha
         set => Set(ref _canGoBack, value);
     }
 
-    public ShellWindow(INavigationService navigationService, IRightPaneService rightPaneService)
+    public ShellWindow(INavigationService navigationService, IRightPaneService rightPaneService, IApplicationInfoService applicationInfoService)
     {
         _navigationService = navigationService;
         _navigationService.Navigated += OnNavigated;
+
         _rightPaneService = rightPaneService;
+        _applicationInfoService = applicationInfoService;
+
         InitializeComponent();
         DataContext = this;
+
+        Title = $"{Properties.Resources.AppDisplayName} - {_applicationInfoService.GetVersionShort()}";
+        OnPropertyChanged(nameof(Title));
     }
 
     public Frame GetNavigationFrame()
