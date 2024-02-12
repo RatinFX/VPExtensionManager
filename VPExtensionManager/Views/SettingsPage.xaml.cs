@@ -120,7 +120,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
 
     private void btnDownloadUpdate_Click(object sender, RoutedEventArgs e)
     {
-        _notificationService.Information($"The application will open a link to the latest version");
+        _notificationService.Information(Properties.Resources.NotificationOpenVersion);
         _systemService.OpenInWebBrowser("https://github.com/RatinFX/VPExtensionManager/releases/latest");
     }
 
@@ -196,7 +196,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         tbxVPVersions.Text = string.Join(", ", sb);
 
         if (string.IsNullOrEmpty(tbxVPVersions.Text))
-            tbxVPVersions.Text = "Select your installed VP versions...";
+            tbxVPVersions.Text = Properties.Resources.SettingsPageSelectInstalledVPVersions;
 
         if (!IsInitialized)
             return;
@@ -216,7 +216,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _folderService.SaveDownloadsFolder(DownloadsFolder);
         _extensionService.SetDownloadsPath(DownloadsFolder);
 
-        _notificationService.Success($"Downloads folder was changed");
+        _notificationService.Success(Properties.Resources.NotificationInfoDownloadsChanged);
     }
 
     private void OnResetDownloadsFolderClick(object sender, RoutedEventArgs e)
@@ -225,9 +225,11 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
 
         _extensionService.SetDownloadsPath(DownloadsFolder);
 
-        _notificationService.Success(
-            $"Downloads folder was reset to:\n" +
+        var msg = string.Format(
+            Properties.Resources.NotificationInfoDownloadsReset,
             DownloadsFolder
         );
+
+        _notificationService.Success(msg);
     }
 }

@@ -70,6 +70,231 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while locating &quot;{0}&quot; at:
+        ///{1}.
+        /// </summary>
+        public static string DebugTextErrorDirectoryNotFound {
+            get {
+                return ResourceManager.GetString("DebugTextErrorDirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download link not found.
+        /// </summary>
+        public static string ErrorDownloadLinkNotFound {
+            get {
+                return ResourceManager.GetString("ErrorDownloadLinkNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall {0} ({1}).
+        /// </summary>
+        public static string MessageBoxTitleUninstall {
+            get {
+                return ResourceManager.GetString("MessageBoxTitleUninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove {0} from the following path?
+        ///- {1}.
+        /// </summary>
+        public static string MessageBoxUninstallContent {
+            get {
+                return ResourceManager.GetString("MessageBoxUninstallContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///
+        ///This might also remove the following items:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxUninstallDependencyText {
+            get {
+                return ResourceManager.GetString("MessageBoxUninstallDependencyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while checking the latest version for this app:
+        ///- {0}.
+        /// </summary>
+        public static string NotificationErrorCheckingForLatestVersion {
+            get {
+                return ResourceManager.GetString("NotificationErrorCheckingForLatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Did not find a download link for {0} for version {1}.
+        /// </summary>
+        public static string NotificationErrorDownloadNotFoundForVP {
+            get {
+                return ResourceManager.GetString("NotificationErrorDownloadNotFoundForVP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while installing &quot;{0} ({1})&quot;:.
+        /// </summary>
+        public static string NotificationErrorDuringInstall {
+            get {
+                return ResourceManager.GetString("NotificationErrorDuringInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while uninstalling &quot;{0} ({1})&quot; from:
+        ///{2}.
+        /// </summary>
+        public static string NotificationErrorDuringUninstall {
+            get {
+                return ResourceManager.GetString("NotificationErrorDuringUninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while updating &quot;{0} ({1})&quot;:.
+        /// </summary>
+        public static string NotificationErrorDuringUpdate {
+            get {
+                return ResourceManager.GetString("NotificationErrorDuringUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while looking up &quot;{0}&quot; on GitHub:.
+        /// </summary>
+        public static string NotificationErrorGitHubLookup {
+            get {
+                return ResourceManager.GetString("NotificationErrorGitHubLookup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub API rate limit exceeded, remaining minutes until reset: {0:0.00}.
+        /// </summary>
+        public static string NotificationErrorGitHubRateLimited {
+            get {
+                return ResourceManager.GetString("NotificationErrorGitHubRateLimited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while searching for &quot;{0}&quot;:.
+        /// </summary>
+        public static string NotificationErrorSearchingInstall {
+            get {
+                return ResourceManager.GetString("NotificationErrorSearchingInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while searching in &quot;{0}&quot; at:
+        ///{1}.
+        /// </summary>
+        public static string NotificationErrorSearchingInstallAtPath {
+            get {
+                return ResourceManager.GetString("NotificationErrorSearchingInstallAtPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads folder was changed.
+        /// </summary>
+        public static string NotificationInfoDownloadsChanged {
+            get {
+                return ResourceManager.GetString("NotificationInfoDownloadsChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads folder was reset to:
+        ///{0}.
+        /// </summary>
+        public static string NotificationInfoDownloadsReset {
+            get {
+                return ResourceManager.GetString("NotificationInfoDownloadsReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New version available: {0}.
+        /// </summary>
+        public static string NotificationInfoNewVersionAvailable {
+            get {
+                return ResourceManager.GetString("NotificationInfoNewVersionAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using the latest version.
+        /// </summary>
+        public static string NotificationInfoUsingLatestVersion {
+            get {
+                return ResourceManager.GetString("NotificationInfoUsingLatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application will open a link to the latest version.
+        /// </summary>
+        public static string NotificationOpenVersion {
+            get {
+                return ResourceManager.GetString("NotificationOpenVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {0}x {1}.
+        /// </summary>
+        public static string NotificationSuccessFoundInstall {
+            get {
+                return ResourceManager.GetString("NotificationSuccessFoundInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed {0} ({1}).
+        /// </summary>
+        public static string NotificationSuccessInstalled {
+            get {
+                return ResourceManager.GetString("NotificationSuccessInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstalled {0} from the selected path.
+        /// </summary>
+        public static string NotificationSuccessUninstalled {
+            get {
+                return ResourceManager.GetString("NotificationSuccessUninstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest version for {0}: {1}.
+        /// </summary>
+        public static string NotificationSuccessUpdateAvailable {
+            get {
+                return ResourceManager.GetString("NotificationSuccessUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated {0} to {1}.
+        /// </summary>
+        public static string NotificationSuccessUpdated {
+            get {
+                return ResourceManager.GetString("NotificationSuccessUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VP Extension Manager by RatinFX..
         /// </summary>
         public static string SettingsPageAboutCreatorText {
@@ -151,6 +376,15 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select your installed VP versions....
+        /// </summary>
+        public static string SettingsPageSelectInstalledVPVersions {
+            get {
+                return ResourceManager.GetString("SettingsPageSelectInstalledVPVersions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsPageTitle {
@@ -196,24 +430,6 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extensions.
-        /// </summary>
-        public static string ShellMenuItemViewsMainPageHeader {
-            get {
-                return ResourceManager.GetString("ShellMenuItemViewsMainPageHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string ShellMenuItemViewsSettingsPageHeader {
-            get {
-                return ResourceManager.GetString("ShellMenuItemViewsSettingsPageHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to _Views.
         /// </summary>
         public static string ShellMenuViewsHeader {
@@ -250,11 +466,65 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For VP13 and below.
+        /// </summary>
+        public static string TextForVP13AndBelow {
+            get {
+                return ResourceManager.GetString("TextForVP13AndBelow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For VP14 and above.
+        /// </summary>
+        public static string TextForVP14AndAbove {
+            get {
+                return ResourceManager.GetString("TextForVP14AndAbove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub error.
+        /// </summary>
+        public static string TextGitHubError {
+            get {
+                return ResourceManager.GetString("TextGitHubError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install.
         /// </summary>
         public static string TextInstall {
             get {
                 return ResourceManager.GetString("TextInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest version not found.
+        /// </summary>
+        public static string TextLatestVersionNotFound {
+            get {
+                return ResourceManager.GetString("TextLatestVersionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple installs.
+        /// </summary>
+        public static string TextMultipleInstalls {
+            get {
+                return ResourceManager.GetString("TextMultipleInstalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not installed.
+        /// </summary>
+        public static string TextNotInstalled {
+            get {
+                return ResourceManager.GetString("TextNotInstalled", resourceCulture);
             }
         }
         
@@ -304,11 +574,38 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown error.
+        /// </summary>
+        public static string TextUnknownError {
+            get {
+                return ResourceManager.GetString("TextUnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string TextUpdate {
             get {
                 return ResourceManager.GetString("TextUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install {0}.
+        /// </summary>
+        public static string WindowTitleInstall {
+            get {
+                return ResourceManager.GetString("WindowTitleInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update {0}.
+        /// </summary>
+        public static string WindowTitleUpdate {
+            get {
+                return ResourceManager.GetString("WindowTitleUpdate", resourceCulture);
             }
         }
     }

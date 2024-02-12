@@ -105,9 +105,9 @@ public class ExtensionService : IExtensionService
         catch (Exception ex)
         {
             extension.RepositoryWasFound = false;
-            extension.LatestVersion = "GitHub error";
+            extension.LatestVersion = Properties.Resources.TextGitHubError;
 
-            var msg = $"Error while looking up \"{extension.ExtensionName}\" on GitHub:";
+            var msg = string.Format(Properties.Resources.NotificationErrorGitHubLookup, extension.ExtensionName);
             HandleExceptions(msg, ex);
 
             success = false;
@@ -133,7 +133,7 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while searching for \"{extension.ExtensionName}\":";
+            var msg = string.Format(Properties.Resources.NotificationErrorSearchingInstall, extension.ExtensionName);
             HandleExceptions(msg, ex);
         }
     }
@@ -180,13 +180,20 @@ public class ExtensionService : IExtensionService
             }
             catch (DirectoryNotFoundException ex)
             {
-                Debug.WriteLine($"Error while locating \"{extension.ExtensionName}\" at:\n" +
-                    $"{path}\n\n" +
-                    $"{ex.Message}");
+                var msg = string.Format(Properties.Resources.DebugTextErrorDirectoryNotFound,
+                    extension.ExtensionName,
+                    path
+                );
+
+                Debug.WriteLine(msg + "\n\n" + ex.Message);
             }
             catch (Exception ex)
             {
-                var msg = $"Error while searching in \"{extension.ExtensionName}\" at:\n" + path;
+                var msg = string.Format(Properties.Resources.NotificationErrorSearchingInstallAtPath,
+                    extension.ExtensionName,
+                    path
+                );
+
                 HandleExceptions(msg, ex);
             }
         }
@@ -206,7 +213,12 @@ public class ExtensionService : IExtensionService
         var downloadLink = extension.GetDownloadLink(vp);
         if (downloadLink == null)
         {
-            _notificationService.Error($"Did not find a download link for {extension.ExtensionName} for version {vp}");
+            var msg = string.Format(Properties.Resources.NotificationErrorDownloadNotFoundForVP,
+                extension.ExtensionName,
+                vp
+            );
+
+            _notificationService.Error(msg);
             return false;
         }
 
@@ -270,7 +282,11 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while installing \"{extension.ExtensionName} ({extension.LatestVersion})\":";
+            var msg = string.Format(Properties.Resources.NotificationErrorDuringInstall,
+                extension.ExtensionName,
+                extension.LatestVersion
+            );
+
             HandleExceptions(msg, ex);
         }
 
@@ -284,7 +300,7 @@ public class ExtensionService : IExtensionService
     {
         Debug.WriteLine($">>> Before Update - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
 
-        bool success = false;
+        bool success;
 
         try
         {
@@ -292,7 +308,11 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while updating \"{extension.ExtensionName} ({extension.LatestVersion})\":";
+            var msg = string.Format(Properties.Resources.NotificationErrorDuringUpdate,
+                extension.ExtensionName,
+                extension.LatestVersion
+            );
+
             HandleExceptions(msg, ex);
 
             success = false;
@@ -340,7 +360,12 @@ public class ExtensionService : IExtensionService
         }
         catch (Exception ex)
         {
-            var msg = $"Error while uninstalling \"{extension.ExtensionName} ({selectedInstall.Version})\" from:\n" + selectedInstall.InstallPath;
+            var msg = string.Format(Properties.Resources.NotificationErrorDuringUninstall,
+                extension.ExtensionName,
+                selectedInstall.Version,
+                selectedInstall.InstallPath
+            );
+
             HandleExceptions(msg, ex);
         }
     }
@@ -349,7 +374,8 @@ public class ExtensionService : IExtensionService
     {
         ex = ex.GetBaseException();
 
-        var msg = details + "\n" + "- " + _gitHubService.GetRateLimitExceptionErrorMessage(ex);
+        var msg = $"{details}\n"
+            + $"- {_gitHubService.GetRateLimitExceptionErrorMessage(ex)}";
 
         Debug.WriteLine(msg);
         _notificationService.Error(msg);

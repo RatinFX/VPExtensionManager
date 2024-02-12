@@ -16,7 +16,7 @@ public class VPExtension : INotifyPropertyChanged
     public bool RepositoryWasFound { get; set; } = true;
 
     [JsonIgnore]
-    private string _installedVersion = "Not installed";
+    private string _installedVersion = Properties.Resources.TextNotInstalled;
     public string InstalledVersion
     {
         get => _installedVersion;
@@ -77,10 +77,10 @@ public class VPExtension : INotifyPropertyChanged
     public void SetInstalledVersion()
     {
         InstalledVersion =
-            !Installs.Any() ? "Not installed"
-            : Installs.Count > 1 ? "Multiple installs"
+            !Installs.Any() ? Properties.Resources.TextNotInstalled
+            : Installs.Count > 1 ? Properties.Resources.TextMultipleInstalls
             : Installs.FirstOrDefault()?.Version
-            ?? "Awkward error";
+            ?? Properties.Resources.TextUnknownError;
     }
 
     public bool ShouldCheckForUpdate()
@@ -97,7 +97,7 @@ public class VPExtension : INotifyPropertyChanged
 
         var result = ReleaseAssets.FirstOrDefault(x => x.VP == vp && x.Name.EndsWith(Type.DownloadFileExtension))
             ?.BrowserDownloadUrl
-            ?? "Download link not found";
+            ?? Properties.Resources.ErrorDownloadLinkNotFound;
 
         return result;
     }

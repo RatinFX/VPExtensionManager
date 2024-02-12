@@ -123,7 +123,12 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         if (!success)
             return;
 
-        _notificationService.Success($"Latest version for {Selected.ExtensionName}: {Selected.LatestVersion}");
+        var msg = string.Format(Properties.Resources.NotificationSuccessUpdateAvailable,
+            Selected.ExtensionName,
+            Selected.LatestVersion
+        );
+
+        _notificationService.Success(msg);
     }
 
     private void btnFindInstalls_Click(object sender, RoutedEventArgs e)
@@ -131,7 +136,12 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         _extensionService.RefreshInstallFolders(Selected);
         ResetInstallPaths();
 
-        _notificationService.Success($"Found {Selected.Installs.Count}x {Selected.ExtensionName}");
+        var msg = string.Format(Properties.Resources.NotificationSuccessFoundInstall,
+            Selected.Installs.Count,
+            Selected.ExtensionName
+        );
+
+        _notificationService.Success(msg);
     }
 
     private void btnInstall_Click(object sender, RoutedEventArgs e)
@@ -154,7 +164,12 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         Selected.SetInstalledVersion();
         ResetInstallPaths();
 
-        _notificationService.Success($"Installed {Selected.ExtensionName} ({Selected.LatestVersion})");
+        var msg = string.Format(Properties.Resources.NotificationSuccessInstalled,
+            Selected.ExtensionName,
+            Selected.LatestVersion
+        );
+
+        _notificationService.Success(msg);
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -178,7 +193,12 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         Selected.SetInstalledVersion();
         ResetInstallPaths();
 
-        _notificationService.Success($"Updated {Selected.ExtensionName} to {Selected.LatestVersion}");
+        var msg = string.Format(Properties.Resources.NotificationSuccessUpdated,
+            Selected.ExtensionName,
+            Selected.LatestVersion
+        );
+
+        _notificationService.Success(msg);
     }
 
     private void btnUninstall_Click(object sender, RoutedEventArgs e)
@@ -186,14 +206,24 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         // TODO: Create a custom window and make them toggleable
         // in case someone knows X.dll is used for another Extension
         var dependencies = string.Join("\n", Selected.Dependencies.Select(x => $"- {x}{RFXStrings.Dll}"));
+
         var dependencyText = string.IsNullOrEmpty(dependencies)
-            ? ""
-            : $"\n\nThis might also remove the following items:\n{dependencies}";
+            ? string.Empty
+            : string.Format(Properties.Resources.MessageBoxUninstallDependencyText, dependencies);
+
+        var content = string.Format(Properties.Resources.MessageBoxUninstallContent,
+            Selected.ExtensionName,
+            SelectedInstall.InstallPath)
+            + dependencyText;
+
+        var title = string.Format(Properties.Resources.MessageBoxTitleUninstall,
+            Selected.ExtensionName,
+            SelectedInstall.Version
+        );
 
         var result = MessageBox.Show(
-            $"Are you sure you want to remove {Selected.ExtensionName} from the following path?\n\n"
-            + $"{SelectedInstall.InstallPath}" + dependencyText,
-            $"Uninstall {Selected.ExtensionName} {SelectedInstall.Version}",
+            content,
+            title,
             MessageBoxButton.YesNo,
             MessageBoxImage.Warning,
             MessageBoxResult.No
@@ -207,7 +237,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
             _extensionService.Uninstall(Selected, SelectedInstall);
             ResetInstallPaths();
 
-            _notificationService.Success($"Uninstalled {Selected.ExtensionName} from the selected path");
+            var msg = string.Format(Properties.Resources.NotificationSuccessUninstalled, Selected.ExtensionName);
+            _notificationService.Success(msg);
         }
     }
 }

@@ -60,7 +60,9 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
 
     public InstallWindow(VPExtension extension, VPInstall selectedInstall)
     {
-        Init($"Update {extension.ExtensionName}", extension);
+        var title = string.Format(Properties.Resources.WindowTitleUpdate, extension.ExtensionName);
+        
+        Init(title, extension);
 
         InstallPathsSource.Add(selectedInstall.InstallPath);
 
@@ -71,7 +73,9 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
 
     public InstallWindow(VPExtension extension, List<string> availableFolders)
     {
-        Init($"Install {extension.ExtensionName}", extension);
+        var title = string.Format(Properties.Resources.WindowTitleInstall, extension.ExtensionName);
+
+        Init(title, extension);
 
         foreach (var folder in availableFolders)
         {

@@ -120,9 +120,6 @@
   <data name="ShellMenuItemSettingsPageHeader" xml:space="preserve">
     <value>_Settings</value>
   </data>
-  <data name="ShellMenuItemViewsSettingsPageHeader" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="SettingsPageTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -146,9 +143,6 @@
   </data>
   <data name="SettingsPageRadioButtonWindowsDefaultTheme" xml:space="preserve">
     <value>Default</value>
-  </data>
-  <data name="ShellMenuItemViewsMainPageHeader" xml:space="preserve">
-    <value>Extensions</value>
   </data>
   <data name="ShellGoBackButton" xml:space="preserve">
     <value>Go back</value>
@@ -200,5 +194,116 @@
   </data>
   <data name="TextDownloadUpdate" xml:space="preserve">
     <value>Download update</value>
+  </data>
+  <data name="NotificationInfoDownloadsChanged" xml:space="preserve">
+    <value>Downloads folder was changed</value>
+  </data>
+  <data name="NotificationInfoDownloadsReset" xml:space="preserve">
+    <value>Downloads folder was reset to:
+{0}</value>
+  </data>
+  <data name="NotificationOpenVersion" xml:space="preserve">
+    <value>The application will open a link to the latest version</value>
+  </data>
+  <data name="SettingsPageSelectInstalledVPVersions" xml:space="preserve">
+    <value>Select your installed VP versions...</value>
+  </data>
+  <data name="DebugTextErrorDirectoryNotFound" xml:space="preserve">
+    <value>Error while locating "{0}" at:
+{1}</value>
+  </data>
+  <data name="ErrorDownloadLinkNotFound" xml:space="preserve">
+    <value>Download link not found</value>
+  </data>
+  <data name="MessageBoxTitleUninstall" xml:space="preserve">
+    <value>Uninstall {0} ({1})</value>
+  </data>
+  <data name="MessageBoxUninstallContent" xml:space="preserve">
+    <value>Are you sure you want to remove {0} from the following path?
+- {1}</value>
+  </data>
+  <data name="MessageBoxUninstallDependencyText" xml:space="preserve">
+    <value>
+
+This might also remove the following items:
+{0}</value>
+  </data>
+  <data name="NotificationErrorCheckingForLatestVersion" xml:space="preserve">
+    <value>Error while checking the latest version for this app:
+- {0}</value>
+  </data>
+  <data name="NotificationErrorDownloadNotFoundForVP" xml:space="preserve">
+    <value>Did not find a download link for {0} for version {1}</value>
+  </data>
+  <data name="NotificationErrorDuringInstall" xml:space="preserve">
+    <value>Error while installing "{0} ({1})":</value>
+  </data>
+  <data name="NotificationErrorDuringUninstall" xml:space="preserve">
+    <value>Error while uninstalling "{0} ({1})" from:
+{2}</value>
+  </data>
+  <data name="NotificationErrorDuringUpdate" xml:space="preserve">
+    <value>Error while updating "{0} ({1})":</value>
+  </data>
+  <data name="NotificationErrorGitHubLookup" xml:space="preserve">
+    <value>Error while looking up "{0}" on GitHub:</value>
+  </data>
+  <data name="NotificationErrorGitHubRateLimited" xml:space="preserve">
+    <value>GitHub API rate limit exceeded, remaining minutes until reset: {0:0.00}</value>
+  </data>
+  <data name="NotificationErrorSearchingInstall" xml:space="preserve">
+    <value>Error while searching for "{0}":</value>
+  </data>
+  <data name="NotificationErrorSearchingInstallAtPath" xml:space="preserve">
+    <value>Error while searching in "{0}" at:
+{1}</value>
+  </data>
+  <data name="NotificationInfoNewVersionAvailable" xml:space="preserve">
+    <value>New version available: {0}</value>
+  </data>
+  <data name="NotificationInfoUsingLatestVersion" xml:space="preserve">
+    <value>You are using the latest version</value>
+  </data>
+  <data name="NotificationSuccessFoundInstall" xml:space="preserve">
+    <value>Found {0}x {1}</value>
+  </data>
+  <data name="NotificationSuccessInstalled" xml:space="preserve">
+    <value>Installed {0} ({1})</value>
+  </data>
+  <data name="NotificationSuccessUninstalled" xml:space="preserve">
+    <value>Uninstalled {0} from the selected path</value>
+  </data>
+  <data name="NotificationSuccessUpdateAvailable" xml:space="preserve">
+    <value>Latest version for {0}: {1}</value>
+  </data>
+  <data name="NotificationSuccessUpdated" xml:space="preserve">
+    <value>Updated {0} to {1}</value>
+  </data>
+  <data name="TextForVP13AndBelow" xml:space="preserve">
+    <value>For VP13 and below</value>
+  </data>
+  <data name="TextForVP14AndAbove" xml:space="preserve">
+    <value>For VP14 and above</value>
+  </data>
+  <data name="TextGitHubError" xml:space="preserve">
+    <value>GitHub error</value>
+  </data>
+  <data name="TextLatestVersionNotFound" xml:space="preserve">
+    <value>Latest version not found</value>
+  </data>
+  <data name="TextMultipleInstalls" xml:space="preserve">
+    <value>Multiple installs</value>
+  </data>
+  <data name="TextNotInstalled" xml:space="preserve">
+    <value>Not installed</value>
+  </data>
+  <data name="TextUnknownError" xml:space="preserve">
+    <value>Unknown error</value>
+  </data>
+  <data name="WindowTitleInstall" xml:space="preserve">
+    <value>Install {0}</value>
+  </data>
+  <data name="WindowTitleUpdate" xml:space="preserve">
+    <value>Update {0}</value>
   </data>
 </root>

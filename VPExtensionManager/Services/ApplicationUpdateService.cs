@@ -49,7 +49,7 @@ public class ApplicationUpdateService : IApplicationUpdateService
             return latestVersion;
         }
 
-        return "Latest version not found";
+        return Properties.Resources.TextLatestVersionNotFound;
     }
 
     public void SendUpdateNotification(bool forceUpdate = false)
@@ -68,8 +68,8 @@ public class ApplicationUpdateService : IApplicationUpdateService
             }
 
             var msg = _applicationInfoService.GetVersionShort() == latestVersion
-                ? $"You're using the latest version"
-                : $"New version available:\n" + latestVersion;
+                ? Properties.Resources.NotificationInfoUsingLatestVersion
+                : string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion);
 
             _notificationService.Information(msg);
         }
@@ -77,8 +77,10 @@ public class ApplicationUpdateService : IApplicationUpdateService
         {
             ex = ex.GetBaseException();
 
-            var msg = "Error while checking the latest version for this app:\n"
-                + "- " + _gitHubService.GetRateLimitExceptionErrorMessage(ex);
+            var msg = string.Format(
+                Properties.Resources.NotificationErrorCheckingForLatestVersion,
+                _gitHubService.GetRateLimitExceptionErrorMessage(ex)
+            );
 
             Debug.WriteLine(msg);
             _notificationService.Error(msg);
