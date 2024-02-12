@@ -2,7 +2,10 @@
 
 public interface IFolderService
 {
+    string LocalAppData { get; }
+    string DefaultDownloadsFolder { get; }
+    string DefaultConfigurationFolder { get; }
     string GetDownloadsFolder();
     void SaveDownloadsFolder(string path);
-    void ResetDownloadsFolder();
+    string ResetDownloadsFolder();
 }

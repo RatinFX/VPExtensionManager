@@ -7,14 +7,17 @@ namespace VPExtensionManager.Services;
 
 public class FolderService : IFolderService
 {
-    private readonly string _localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    private readonly string _defaultDownloadsFolder;
     private readonly AppConfig _appConfig;
+    public string LocalAppData { get; }
+    public string DefaultDownloadsFolder { get; }
+    public string DefaultConfigurationFolder { get; }
 
     public FolderService(IOptions<AppConfig> appConfig)
     {
         _appConfig = appConfig.Value;
-        _defaultDownloadsFolder = Path.Combine(_localAppData, _appConfig.MainFolder, _appConfig.DownloadsFolder);
+        LocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        DefaultDownloadsFolder = Path.Combine(LocalAppData, _appConfig.MainFolder, _appConfig.DownloadsFolder);
+        DefaultConfigurationFolder = Path.Combine(LocalAppData, _appConfig.MainFolder, _appConfig.ConfigurationsFolder);
     }
 
     public string GetDownloadsFolder()
@@ -25,7 +28,7 @@ public class FolderService : IFolderService
         }
 
         ResetDownloadsFolder();
-        return _defaultDownloadsFolder;
+        return DefaultDownloadsFolder;
     }
 
     public void SaveDownloadsFolder(string path)
@@ -33,8 +36,9 @@ public class FolderService : IFolderService
         AppProperties.Set(AppProperties.DownloadsFolder, path);
     }
 
-    public void ResetDownloadsFolder()
+    public string ResetDownloadsFolder()
     {
-        SaveDownloadsFolder(_defaultDownloadsFolder);
+        SaveDownloadsFolder(DefaultDownloadsFolder);
+        return DefaultDownloadsFolder;
     }
 }

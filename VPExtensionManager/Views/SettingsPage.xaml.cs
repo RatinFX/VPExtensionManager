@@ -221,13 +221,13 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
 
     private void OnResetDownloadsFolderClick(object sender, RoutedEventArgs e)
     {
-        _folderService.ResetDownloadsFolder();
-        DownloadsFolder = _folderService.GetDownloadsFolder();
+        DownloadsFolder = _folderService.ResetDownloadsFolder();
+
         _extensionService.SetDownloadsPath(DownloadsFolder);
 
         _notificationService.Success(
             $"Downloads folder was reset to:\n" +
-            $"%localappdata%\\{_appConfig.MainFolder}\\{_appConfig.DownloadsFolder}"
+            DownloadsFolder
         );
     }
 }

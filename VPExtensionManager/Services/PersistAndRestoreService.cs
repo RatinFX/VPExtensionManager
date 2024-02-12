@@ -12,36 +12,34 @@ public class PersistAndRestoreService : IPersistAndRestoreService
 {
     private readonly IFileService _fileService;
     private readonly AppConfig _appConfig;
-    private readonly string _localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    private readonly IFolderService _folderService;
 
-    public PersistAndRestoreService(IFileService fileService, IOptions<AppConfig> appConfig)
+    public PersistAndRestoreService(IFileService fileService, IOptions<AppConfig> appConfig, IFolderService folderService)
     {
         _fileService = fileService;
         _appConfig = appConfig.Value;
+        _folderService = folderService;
     }
 
     public void PersistData()
     {
-        var folderPath = Path.Combine(_localAppData, _appConfig.MainFolder, _appConfig.ConfigurationsFolder);
-
         if (App.Current.Properties != null)
         {
             var fileName = _appConfig.AppPropertiesFileName;
-            _fileService.Save(folderPath, fileName, App.Current.Properties);
+            _fileService.Save(_folderService.DefaultConfigurationFolder, fileName, App.Current.Properties);
         }
 
         if (ExtensionService.Extensions != null)
         {
             var fileName = _appConfig.ExtensionsFileName;
-            _fileService.Save(folderPath, fileName, ExtensionService.Extensions);
+            _fileService.Save(_folderService.DefaultConfigurationFolder, fileName, ExtensionService.Extensions);
         }
     }
 
     public void RestoreData()
     {
-        var folderPath = Path.Combine(_localAppData, _appConfig.MainFolder, _appConfig.ConfigurationsFolder);
         var appPropertiesName = _appConfig.AppPropertiesFileName;
-        var properties = _fileService.Read<IDictionary>(folderPath, appPropertiesName);
+        var properties = _fileService.Read<IDictionary>(_folderService.DefaultConfigurationFolder, appPropertiesName);
         if (properties != null)
         {
             foreach (DictionaryEntry property in properties)
@@ -51,7 +49,7 @@ public class PersistAndRestoreService : IPersistAndRestoreService
         }
 
         var extensionsName = _appConfig.ExtensionsFileName;
-        var extensions = _fileService.Read<List<VPExtension>>(folderPath, extensionsName);
+        var extensions = _fileService.Read<List<VPExtension>>(_folderService.DefaultConfigurationFolder, extensionsName);
         if (extensions != null)
         {
             foreach (VPExtension ext in extensions)
