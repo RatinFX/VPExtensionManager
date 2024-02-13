@@ -206,7 +206,7 @@
     <value>The application will open a link to the latest version</value>
   </data>
   <data name="SettingsPageSelectInstalledVPVersions" xml:space="preserve">
-    <value>Select your installed VP versions...</value>
+    <value>Select versions...</value>
   </data>
   <data name="DebugTextErrorDirectoryNotFound" xml:space="preserve">
     <value>Error while locating "{0}" at:

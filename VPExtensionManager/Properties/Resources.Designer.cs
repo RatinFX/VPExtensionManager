@@ -376,7 +376,7 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select your installed VP versions....
+        ///   Looks up a localized string similar to Select versions....
         /// </summary>
         public static string SettingsPageSelectInstalledVPVersions {
             get {
