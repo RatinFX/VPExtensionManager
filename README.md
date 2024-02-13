@@ -12,15 +12,18 @@
 </div>
 
 # VP Extension Manager
+![vpem_preview1](https://github.com/RatinFX/VPExtensionManager/assets/38523955/768a29cd-17a7-40e1-a282-9b35331adf12)
 
-Vegas Pro Extension Manager (currently) for my Extensions and Scripts.
+## Overview
+VEGAS Pro Extension Manager for my Extensions and Scripts.
 
-# Overview
+- **Find** existing VEGAS Pro extensions and Scripts **on your PC**
+- Quickly **Install, Update, or Delete** already downloaded ones
 
-- Find existing installs
-- Quickly Download and install Extension/Scripts
+## Setup
+- **Download and Extract** the [Release](https://github.com/RatinFX/VPExtensionManager/releases/latest) into a folder and run **VPExtensionManager.exe**
+- Set your installed VEGAS Pro versions in **Settings -> "Installed VP versions"**
 
-# Optional setup
-
-- Set your installed VEGAS Pro versions in File -> Settings -> "Select your installed VP versions..."
-- Set the default "Downloads" folder where the application downloads the Extensions to
+### Optional
+- Toggle **Check for update on Start** or press **Check for update** to use the latest version of this application
+- **Change the Downloads folder** where the application saves the Extensions release files in **Settings -> "Downloads"** by **clicking the first (path) button**
