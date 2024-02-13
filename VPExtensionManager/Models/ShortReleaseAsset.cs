@@ -16,6 +16,10 @@ public class ShortReleaseAsset
         VP = vp;
     }
 
+    /// <summary>
+    /// Checks for the following naming scheme: "ExtensionName + VP version"
+    /// - for example: VPConsole14, VegasProFlow13
+    /// </summary>
     public static VPVersion GetVersion(string name, string tag)
         => name.Replace(tag, "").Contains(VPVersion.Sony.ToString("D")) ? VPVersion.Sony : VPVersion.Magix;
 }
