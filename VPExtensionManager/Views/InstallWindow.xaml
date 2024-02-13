@@ -15,7 +15,7 @@
     WindowStartupLocation="CenterScreen"
     ResizeMode="NoResize"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
-    >
+    Icon="../in_app_icon.ico">
     <controls:MetroWindow.Resources>
         <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     </controls:MetroWindow.Resources>

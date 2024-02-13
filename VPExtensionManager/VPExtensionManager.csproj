@@ -12,7 +12,19 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Content Include="icon.ico" />
+    <None Remove="in_app_icon.ico" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="in_app_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
   <ItemGroup>
