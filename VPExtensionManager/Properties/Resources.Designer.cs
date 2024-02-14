@@ -120,7 +120,7 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while checking the latest version for this app:
+        ///   Looks up a localized string similar to Error while looking up this app on GitHub:
         ///- {0}.
         /// </summary>
         public static string NotificationErrorCheckingForLatestVersion {

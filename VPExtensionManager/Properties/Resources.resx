@@ -229,7 +229,7 @@ This might also remove the following items:
 {0}</value>
   </data>
   <data name="NotificationErrorCheckingForLatestVersion" xml:space="preserve">
-    <value>Error while checking the latest version for this app:
+    <value>Error while looking up this app on GitHub:
 - {0}</value>
   </data>
   <data name="NotificationErrorDownloadNotFoundForVP" xml:space="preserve">

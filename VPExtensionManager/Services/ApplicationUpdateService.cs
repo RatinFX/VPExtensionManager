@@ -58,6 +58,16 @@ public class ApplicationUpdateService : IApplicationUpdateService
         {
             var latestVersion = GetLatestVersion();
 
+            if (latestVersion == Properties.Resources.TextLatestVersionNotFound)
+            {
+                var err = string.Format(Properties.Resources.NotificationErrorCheckingForLatestVersion,
+                    latestVersion
+                );
+
+                _notificationService.Error(err);
+                return;
+            }
+
             if (forceUpdate ||
                 string.IsNullOrEmpty(latestVersion) || (
                 AppProperties.Get(AppProperties.LastChecked, out string lastChecked)
