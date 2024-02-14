@@ -333,10 +333,13 @@ public class ExtensionService : IExtensionService
                 .Select(Path.GetFileName)
                 .FirstOrDefault(x => x.StartsWith(extension.ExtensionName, StringComparison.OrdinalIgnoreCase));
 
-            var filePath = Path.Combine(selectedInstall.InstallPath, foundFile);
+            if (!string.IsNullOrEmpty(foundFile))
+            {
+                var filePath = Path.Combine(selectedInstall.InstallPath, foundFile);
 
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+            }
 
             // Remaining Dependencies
             var hasNoConflictingInstalls = Extensions
@@ -344,7 +347,7 @@ public class ExtensionService : IExtensionService
                 .All(x => x.Installs.All(y => y.InstallPath != selectedInstall.InstallPath)
             );
 
-            if (hasNoConflictingInstalls)
+            if (hasNoConflictingInstalls && extension.Dependencies.Any())
             {
                 foreach (var dependency in extension.Dependencies)
                 {
