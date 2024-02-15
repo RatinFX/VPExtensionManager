@@ -168,7 +168,7 @@
   <data name="TextInstall" xml:space="preserve">
     <value>Install</value>
   </data>
-  <data name="TextOpenFolder" xml:space="preserve">
+  <data name="TextOpen" xml:space="preserve">
     <value>Open</value>
   </data>
   <data name="TextRefresh" xml:space="preserve">
@@ -189,7 +189,7 @@
   <data name="SettingsPageAboutText" xml:space="preserve">
     <value>Visit the GitHub page for more information.</value>
   </data>
-  <data name="SettingsPageCheckForUpdateOnStart" xml:space="preserve">
+  <data name="SettingsPageCheckForUpdateOnStartText" xml:space="preserve">
     <value>Check for update on Start</value>
   </data>
   <data name="TextDownloadUpdate" xml:space="preserve">
@@ -202,11 +202,8 @@
     <value>Downloads folder was reset to:
 {0}</value>
   </data>
-  <data name="NotificationOpenVersion" xml:space="preserve">
+  <data name="NotificationInfoOpenVersion" xml:space="preserve">
     <value>The application will open a link to the latest version</value>
-  </data>
-  <data name="SettingsPageSelectInstalledVPVersions" xml:space="preserve">
-    <value>Select versions...</value>
   </data>
   <data name="DebugTextErrorDirectoryNotFound" xml:space="preserve">
     <value>Error while locating "{0}" at:
@@ -305,5 +302,32 @@ This might also remove the following items:
   </data>
   <data name="WindowTitleUpdate" xml:space="preserve">
     <value>Update {0}</value>
+  </data>
+  <data name="SettingsPageDownloadsText" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="SettingsPageInstalledVPVersionsEmptySelectText" xml:space="preserve">
+    <value>Select versions...</value>
+  </data>
+  <data name="SettingsPageInstalledVPVersionsText" xml:space="preserve">
+    <value>Installed VP versions</value>
+  </data>
+  <data name="InstallWindowCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="InstallWindowForceReDownloadText" xml:space="preserve">
+    <value>Force re-download the latest version</value>
+  </data>
+  <data name="InstallWindowInstallPathText" xml:space="preserve">
+    <value>Install path</value>
+  </data>
+  <data name="InstallWindowOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InstallWindowVPVersionText" xml:space="preserve">
+    <value>VP version</value>
+  </data>
+  <data name="MainPageInstallPathsText" xml:space="preserve">
+    <value>Install Paths</value>
   </data>
 </root>

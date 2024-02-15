@@ -58,7 +58,7 @@
                     <CheckBox 
                         Margin="{StaticResource SmallRightMargin}"
                         IsChecked="{Binding CheckForUpdate}"
-                        Content="{x:Static properties:Resources.SettingsPageCheckForUpdateOnStart}"
+                        Content="{x:Static properties:Resources.SettingsPageCheckForUpdateOnStartText}"
                         Checked="OnCheckForUpdateCheckBoxChecked"
                         Unchecked="OnCheckForUpdateCheckBoxChecked" />
                 </StackPanel>
@@ -105,9 +105,8 @@
                         Grid.Column="0"
                         Margin="{StaticResource SmallRightMargin}"
                         Style="{StaticResource BodyTextStyle}"
-                        VerticalAlignment="Center">
-                        Installed VP versions
-                    </TextBlock>
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.SettingsPageInstalledVPVersionsText}" />
                     <ComboBox 
                         Grid.Column="1"
                         Name="cbxVPVersions" 
@@ -124,7 +123,7 @@
                                         Unchecked="OnVPVersionCheckBoxChecked"
                                         Checked="OnVPVersionCheckBoxChecked" />
                                     <TextBlock
-                                        Text="{Binding Data, StringFormat=Version {0}.0}" 
+                                        Text="{Binding Data, StringFormat=VEGAS Pro {0}.0}" 
                                         VerticalAlignment="Center" />
                                 </StackPanel>
                             </DataTemplate>
@@ -134,7 +133,7 @@
                         Grid.Column="1"
                         IsHitTestVisible="False"
                         Name="tbxVPVersions" 
-                        Text="Select..." 
+                        Text="{x:Static properties:Resources.SettingsPageInstalledVPVersionsEmptySelectText}" 
                         VerticalAlignment="Center" 
                         Margin="6,0,6,0" />
                 </Grid>
@@ -151,9 +150,8 @@
                         Grid.Column="0"
                         Margin="{StaticResource SmallRightMargin}"
                         Style="{StaticResource BodyTextStyle}"
-                        VerticalAlignment="Center">
-                        Downloads
-                    </TextBlock>
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.SettingsPageDownloadsText}" />
                     <Button 
                         Grid.Column="1"
                         Margin="{StaticResource SmallRightMargin}"
@@ -179,7 +177,7 @@
                         Folder="{Binding DownloadsFolder}" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                            <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpenFolder}" />
+                            <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpen}" />
                         </StackPanel>
                     </styles:OpenFolderButton>
                 </Grid>

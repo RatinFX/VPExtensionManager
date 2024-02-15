@@ -120,7 +120,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
 
     private void btnDownloadUpdate_Click(object sender, RoutedEventArgs e)
     {
-        _notificationService.Information(Properties.Resources.NotificationOpenVersion);
+        _notificationService.Information(Properties.Resources.NotificationInfoOpenVersion);
         _systemService.OpenInWebBrowser("https://github.com/RatinFX/VPExtensionManager/releases/latest");
     }
 
@@ -196,7 +196,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         tbxVPVersions.Text = string.Join(", ", sb);
 
         if (string.IsNullOrEmpty(tbxVPVersions.Text))
-            tbxVPVersions.Text = Properties.Resources.SettingsPageSelectInstalledVPVersions;
+            tbxVPVersions.Text = Properties.Resources.SettingsPageInstalledVPVersionsEmptySelectText;
 
         if (!IsInitialized)
             return;

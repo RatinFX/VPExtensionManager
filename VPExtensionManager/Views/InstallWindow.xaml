@@ -44,9 +44,8 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource ListSubTitleStyle}"
                     MouseUp="tbxForceDownload_MouseUp"
-                    Margin="{StaticResource SmallLeftTopMargin}" >
-                    VP Version
-                </TextBlock>
+                    Margin="{StaticResource SmallLeftTopMargin}"
+                    Text="{x:Static properties:Resources.InstallWindowVPVersionText}" />
 
                 <ComboBox
                     Grid.Row="0"
@@ -68,9 +67,8 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource ListSubTitleStyle}"
                     MouseUp="tbxForceDownload_MouseUp"
-                    Margin="{StaticResource SmallLeftTopMargin}" >
-                    Install path
-                </TextBlock>
+                    Margin="{StaticResource SmallLeftTopMargin}" 
+                    Text="{x:Static properties:Resources.InstallWindowInstallPathText}" />
 
                 <ComboBox
                     Grid.Row="1"
@@ -92,7 +90,7 @@
                     IsEnabled="{Binding OpenFolderEnabled}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                        <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpenFolder}" />
+                        <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpen}" />
                     </StackPanel>
                 </styles:OpenFolderButton>
             </Grid>
@@ -108,9 +106,8 @@
                     x:Name="tbxForceDownload"
                     VerticalAlignment="Center"
                     Style="{StaticResource ListSubTitleStyle}"
-                    MouseUp="tbxForceDownload_MouseUp" >
-                    Force re-download the latest version
-                </TextBlock>
+                    MouseUp="tbxForceDownload_MouseUp" 
+                    Text="{x:Static properties:Resources.InstallWindowForceReDownloadText}" />
             </StackPanel>
 
             <StackPanel 
@@ -120,14 +117,12 @@
                 <Button
                     Style="{StaticResource BaseButton}"
                     Margin="{StaticResource SmallRightMargin}"
-                    Click="btnOK_Click">
-                    OK
-                </Button>
+                    Click="btnOK_Click"
+                    Content="{x:Static properties:Resources.InstallWindowOKButton}" />
                 <Button
                     Style="{StaticResource BaseButton}"
-                    Click="btnCancel_Click">
-                    Cancel
-                </Button>
+                    Click="btnCancel_Click"
+                    Content="{x:Static properties:Resources.InstallWindowCancelButton}" />
             </StackPanel>
         </Grid>
     </controls:MetroWindow.Content>

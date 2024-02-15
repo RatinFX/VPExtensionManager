@@ -114,7 +114,7 @@
                         <TextBlock
                             Margin="{StaticResource SmallTopMargin}"
                             Style="{StaticResource SubtitleTextStyle}"
-                            Text="Install Paths" />
+                            Text="{x:Static properties:Resources.MainPageInstallPathsText}" />
 
                         <StackPanel
                             Orientation="Horizontal"
@@ -127,7 +127,7 @@
                                 IsEnabled="{Binding DataContext.OpenFolderEnabled, ElementName=mainPage}" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource OpenFolderIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpenFolder}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextOpen}" />
                                 </StackPanel>
                             </styles:OpenFolderButton>
                             <Button

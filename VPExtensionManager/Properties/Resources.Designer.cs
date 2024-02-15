@@ -89,6 +89,60 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string InstallWindowCancelButton {
+            get {
+                return ResourceManager.GetString("InstallWindowCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force re-download the latest version.
+        /// </summary>
+        public static string InstallWindowForceReDownloadText {
+            get {
+                return ResourceManager.GetString("InstallWindowForceReDownloadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install path.
+        /// </summary>
+        public static string InstallWindowInstallPathText {
+            get {
+                return ResourceManager.GetString("InstallWindowInstallPathText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string InstallWindowOKButton {
+            get {
+                return ResourceManager.GetString("InstallWindowOKButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VP version.
+        /// </summary>
+        public static string InstallWindowVPVersionText {
+            get {
+                return ResourceManager.GetString("InstallWindowVPVersionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Paths.
+        /// </summary>
+        public static string MainPageInstallPathsText {
+            get {
+                return ResourceManager.GetString("MainPageInstallPathsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall {0} ({1}).
         /// </summary>
         public static string MessageBoxTitleUninstall {
@@ -232,20 +286,20 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The application will open a link to the latest version.
+        /// </summary>
+        public static string NotificationInfoOpenVersion {
+            get {
+                return ResourceManager.GetString("NotificationInfoOpenVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are using the latest version.
         /// </summary>
         public static string NotificationInfoUsingLatestVersion {
             get {
                 return ResourceManager.GetString("NotificationInfoUsingLatestVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The application will open a link to the latest version.
-        /// </summary>
-        public static string NotificationOpenVersion {
-            get {
-                return ResourceManager.GetString("NotificationOpenVersion", resourceCulture);
             }
         }
         
@@ -324,9 +378,9 @@ namespace VPExtensionManager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Check for update on Start.
         /// </summary>
-        public static string SettingsPageCheckForUpdateOnStart {
+        public static string SettingsPageCheckForUpdateOnStartText {
             get {
-                return ResourceManager.GetString("SettingsPageCheckForUpdateOnStart", resourceCulture);
+                return ResourceManager.GetString("SettingsPageCheckForUpdateOnStartText", resourceCulture);
             }
         }
         
@@ -336,6 +390,33 @@ namespace VPExtensionManager.Properties {
         public static string SettingsPageChooseThemeText {
             get {
                 return ResourceManager.GetString("SettingsPageChooseThemeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads.
+        /// </summary>
+        public static string SettingsPageDownloadsText {
+            get {
+                return ResourceManager.GetString("SettingsPageDownloadsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select versions....
+        /// </summary>
+        public static string SettingsPageInstalledVPVersionsEmptySelectText {
+            get {
+                return ResourceManager.GetString("SettingsPageInstalledVPVersionsEmptySelectText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed VP versions.
+        /// </summary>
+        public static string SettingsPageInstalledVPVersionsText {
+            get {
+                return ResourceManager.GetString("SettingsPageInstalledVPVersionsText", resourceCulture);
             }
         }
         
@@ -372,15 +453,6 @@ namespace VPExtensionManager.Properties {
         public static string SettingsPageRadioButtonWindowsDefaultTheme {
             get {
                 return ResourceManager.GetString("SettingsPageRadioButtonWindowsDefaultTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select versions....
-        /// </summary>
-        public static string SettingsPageSelectInstalledVPVersions {
-            get {
-                return ResourceManager.GetString("SettingsPageSelectInstalledVPVersions", resourceCulture);
             }
         }
         
@@ -531,9 +603,9 @@ namespace VPExtensionManager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
-        public static string TextOpenFolder {
+        public static string TextOpen {
             get {
-                return ResourceManager.GetString("TextOpenFolder", resourceCulture);
+                return ResourceManager.GetString("TextOpen", resourceCulture);
             }
         }
         
