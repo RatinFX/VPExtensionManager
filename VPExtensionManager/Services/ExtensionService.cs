@@ -172,10 +172,16 @@ public class ExtensionService : IExtensionService
                     // if (files.Count() != extension.Dependencies.Count()) { }
 
                     var vInfo = FileVersionInfo.GetVersionInfo(filePath);
+
                     var version = $"{vInfo.ProductMajorPart}.{vInfo.ProductMinorPart}.{vInfo.ProductBuildPart}";
+
+                    var vp = vInfo.FileDescription.Contains(VPVersion.Magix.ToString("G")) ? VPVersion.Magix
+                        : vInfo.FileDescription.Contains(VPVersion.Sony.ToString("G")) ? VPVersion.Sony
+                        : VPVersion.Unknown;
+
                     var installPath = Directory.GetParent(filePath).FullName;
 
-                    installs.Add(new VPInstall(version, installPath));
+                    installs.Add(new VPInstall(version, installPath, vp));
                 }
             }
             catch (DirectoryNotFoundException ex)
@@ -278,7 +284,7 @@ public class ExtensionService : IExtensionService
             var success = PerformInstall(extension, vp, installPath, forceDownload);
 
             if (success)
-                newInstall = new VPInstall(extension.LatestVersion, installPath);
+                newInstall = new VPInstall(extension.LatestVersion, installPath, vp);
         }
         catch (Exception ex)
         {
