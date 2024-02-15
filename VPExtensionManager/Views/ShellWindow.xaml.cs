@@ -13,8 +13,8 @@ public partial class ShellWindow : MetroWindow, IShellWindow, INotifyPropertyCha
     private readonly INavigationService _navigationService;
     private readonly IRightPaneService _rightPaneService;
     private readonly IApplicationInfoService _applicationInfoService;
-    private bool _canGoBack;
 
+    private bool _canGoBack;
     public bool CanGoBack
     {
         get => _canGoBack;

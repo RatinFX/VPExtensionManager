@@ -15,7 +15,7 @@
     MinHeight="500"
     d:Title="{x:Static properties:Resources.AppDisplayName}"
     Icon="../in_app_icon.ico">
-    <controls:MetroWindow.LeftWindowCommands>
+    <!--<controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <Button
                 AutomationProperties.Name="{x:Static properties:Resources.ShellGoBackButton}"
@@ -29,7 +29,7 @@
                     AutomationProperties.Name="{x:Static properties:Resources.ShellGoBackButton}" />
             </Button>
         </controls:WindowCommands>
-    </controls:MetroWindow.LeftWindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>-->
     <controls:MetroWindow.Content>
         <controls:SplitView
             x:Name="splitView"
