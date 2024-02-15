@@ -17,13 +17,19 @@ public class EnumDescriptionConverter : IValueConverter
         if (field == null)
             return value;
 
+        // Check Description attribute
         var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
 
-        var result = attribute != null
-            ? $"{attribute.Description} ({value})"
-            : value.ToString();
+        if (attribute == null)
+            return value;
 
-        return result;
+        // Check in Resources
+        var text = Properties.Resources.ResourceManager.GetString(attribute.Description, CultureInfo.InvariantCulture);
+
+        if (text == null)
+            return value;
+
+        return $"{text} ({value})";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

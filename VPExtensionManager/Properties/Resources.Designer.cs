@@ -80,6 +80,33 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For VP14 and later.
+        /// </summary>
+        public static string EnumDescriptionVPVersionMagix {
+            get {
+                return ResourceManager.GetString("EnumDescriptionVPVersionMagix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For VP13 and earlier.
+        /// </summary>
+        public static string EnumDescriptionVPVersionSony {
+            get {
+                return ResourceManager.GetString("EnumDescriptionVPVersionSony", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown VP version.
+        /// </summary>
+        public static string EnumDescriptionVPVersionUnknown {
+            get {
+                return ResourceManager.GetString("EnumDescriptionVPVersionUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download link not found.
         /// </summary>
         public static string ErrorDownloadLinkNotFound {

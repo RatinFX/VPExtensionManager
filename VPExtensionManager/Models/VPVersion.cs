@@ -4,10 +4,10 @@ namespace VPExtensionManager.Models;
 
 public enum VPVersion
 {
-    [Description("Unknown version")]
+    [Description("EnumDescriptionVPVersionUnknown")]
     Unknown = 0,
-    [Description("For VP13 and earlier")]
+    [Description("EnumDescriptionVPVersionSony")]
     Sony = 13,
-    [Description("For VP14 and later")]
+    [Description("EnumDescriptionVPVersionMagix")]
     Magix = 14
 }

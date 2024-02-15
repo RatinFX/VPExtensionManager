@@ -330,4 +330,13 @@ This might also remove the following items:
   <data name="MainPageInstallPathsText" xml:space="preserve">
     <value>Install Paths</value>
   </data>
+  <data name="EnumDescriptionVPVersionMagix" xml:space="preserve">
+    <value>For VP14 and later</value>
+  </data>
+  <data name="EnumDescriptionVPVersionUnknown" xml:space="preserve">
+    <value>Unknown VP version</value>
+  </data>
+  <data name="EnumDescriptionVPVersionSony" xml:space="preserve">
+    <value>For VP13 and earlier</value>
+  </data>
 </root>
