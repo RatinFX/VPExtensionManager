@@ -63,20 +63,22 @@
                                 Style="{StaticResource PageTitleStyle}"
                                 FontWeight="Bold"
                                 Text="{Binding ExtensionName}" />
-
                             <TextBlock
                                 Margin="0"
-                                Style="{StaticResource PageTitleStyle}"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource SubtitleTextStyle}"
                                 Text="{Binding Type.Name, StringFormat=({0})}" />
                         </StackPanel>
 
                         <TextBlock
-                            Style="{StaticResource BodyTextStyle}"
-                            Text="{Binding VersionDisplay}" />
+                           Margin="{StaticResource XXSmallTopMargin}"
+                           Style="{StaticResource BodyTextStyle}"
+                           Text="{Binding VersionDisplay}" />
 
                         <TextBlock
+                           Margin="{StaticResource XXSmallTopMargin}"
                             Style="{StaticResource BodyTextStyle}"
-                            Text="{Binding Creator, StringFormat=by {0}}" />
+                            Text="{Binding Creator}" />
 
                         <StackPanel
                             Orientation="Horizontal"

@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     Loaded="OnLoaded"
     Unloaded="OnUnloaded"
     Style="{StaticResource CustomMetroWindow}"

@@ -123,6 +123,7 @@
                                         Unchecked="OnVPVersionCheckBoxChecked"
                                         Checked="OnVPVersionCheckBoxChecked" />
                                     <TextBlock
+                                        Margin="{StaticResource XXSmallLeftMargin}"
                                         Text="{Binding Data, StringFormat=VEGAS Pro {0}.0}" 
                                         VerticalAlignment="Center" />
                                 </StackPanel>
