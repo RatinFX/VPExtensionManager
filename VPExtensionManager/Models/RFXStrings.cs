@@ -4,7 +4,7 @@ public class RFXStrings
 {
     // General
     public const string RatinFX = "RatinFX";
-    public const string VegasPro = "Vegas Pro";
+    public const string VegasPro = "VEGAS Pro";
     public const string VPExtensionManager = "VPExtensionManager";
 
     public const string Zip = ".zip";
