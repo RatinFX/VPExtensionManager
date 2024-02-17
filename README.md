@@ -12,7 +12,7 @@
 </div>
 
 # VP Extension Manager
-![vpem_preview1](https://github.com/RatinFX/VPExtensionManager/assets/38523955/768a29cd-17a7-40e1-a282-9b35331adf12)
+![vpem-preview](https://github.com/RatinFX/VPExtensionManager/assets/38523955/cc487b88-a3e4-416a-bdbd-3ab3625735dc)
 
 ## Overview
 VEGAS Pro Extension Manager for my Extensions and Scripts.
