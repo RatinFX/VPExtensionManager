@@ -21,7 +21,7 @@ VEGAS Pro Extension Manager for my Extensions and Scripts.
 - Quickly **Install, Update, or Delete** already downloaded ones
 
 ## Setup
-- **Download and Extract** the [Release](https://github.com/RatinFX/VPExtensionManager/releases/latest) into a folder and run **VPExtensionManager.exe**
+- **Download and Extract** the [Latest Version](https://github.com/RatinFX/VPExtensionManager/releases/latest) into a folder and run **VPExtensionManager.exe**
 - Set your installed VEGAS Pro versions in **Settings -> "Installed VP versions"**
 
 ### Optional
