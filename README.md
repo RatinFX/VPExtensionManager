@@ -20,10 +20,10 @@ VEGAS Pro Extension Manager for my Extensions and Scripts.
 - **Find** existing VEGAS Pro extensions and Scripts **on your PC**
 - Quickly **Install, Update, or Delete** already downloaded ones
 
+## Optional settings
+- Toggle **Check for update on Start** or press **Check for update** to use the latest version of this application
+- **Change the Downloads folder** where the application saves the Extensions release files in **Settings -> "Downloads"** by **clicking the first (path) button**
+
 ## Setup
 - **Download and Extract** the [Latest Version](https://github.com/RatinFX/VPExtensionManager/releases/latest) into a folder and run **VPExtensionManager.exe**
 - Set your installed VEGAS Pro versions in **Settings -> "Installed VP versions"**
-
-### Optional
-- Toggle **Check for update on Start** or press **Check for update** to use the latest version of this application
-- **Change the Downloads folder** where the application saves the Extensions release files in **Settings -> "Downloads"** by **clicking the first (path) button**
