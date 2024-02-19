@@ -14,5 +14,5 @@ public interface IExtensionService
 
     VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
     bool Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
-    void Uninstall(VPExtension extension, VPInstall selectedInstall);
+    bool Uninstall(VPExtension extension, VPInstall selectedInstall);
 }

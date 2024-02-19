@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -119,7 +119,6 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void btnCheckForUpdate_Click(object sender, RoutedEventArgs e)
     {
         var success = _extensionService.RefreshLatestRelease(Selected);
-
         if (!success)
             return;
 
@@ -176,7 +175,6 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     {
         var window = new InstallWindow(Selected, SelectedInstall);
         var res = window.ShowDialog();
-
         if (res is null or false)
             return;
 
@@ -185,7 +183,6 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
             return;
 
         var success = _extensionService.Update(Selected, vpver, installPath, forceDownload);
-
         if (!success)
             return;
 
@@ -234,7 +231,10 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 
         if (result == MessageBoxResult.Yes)
         {
-            _extensionService.Uninstall(Selected, SelectedInstall);
+            var success = _extensionService.Uninstall(Selected, SelectedInstall);
+            if (!success)
+                return;
+
             ResetInstallPaths();
 
             var msg = string.Format(Properties.Resources.NotificationSuccessUninstalled, Selected.ExtensionName);

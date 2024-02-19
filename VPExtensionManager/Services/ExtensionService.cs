@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
@@ -330,7 +330,7 @@ public class ExtensionService : IExtensionService
         return success;
     }
 
-    public void Uninstall(VPExtension extension, VPInstall selectedInstall)
+    public bool Uninstall(VPExtension extension, VPInstall selectedInstall)
     {
         try
         {
@@ -366,6 +366,8 @@ public class ExtensionService : IExtensionService
 
             extension.Installs.Remove(selectedInstall);
             extension.SetInstalledVersion();
+
+            return true;
         }
         catch (Exception ex)
         {
@@ -376,6 +378,8 @@ public class ExtensionService : IExtensionService
             );
 
             HandleExceptions(msg, ex);
+
+            return false;
         }
     }
 
