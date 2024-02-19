@@ -189,9 +189,7 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///
-        ///This might also remove the following items:
+        ///   Looks up a localized string similar to This might also remove the following items:
         ///{0}.
         /// </summary>
         public static string MessageBoxUninstallDependencyText {
@@ -229,8 +227,8 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while uninstalling &quot;{0} ({1})&quot; from:
-        ///{2}.
+        ///   Looks up a localized string similar to Error while uninstalling &quot;{0} ({1})&quot;:
+        ///&gt; close VEGAS Pro if it&apos;s open.
         /// </summary>
         public static string NotificationErrorDuringUninstall {
             get {

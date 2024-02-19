@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
@@ -373,8 +373,7 @@ public class ExtensionService : IExtensionService
         {
             var msg = string.Format(Properties.Resources.NotificationErrorDuringUninstall,
                 extension.ExtensionName,
-                selectedInstall.Version,
-                selectedInstall.InstallPath
+                selectedInstall.Version
             );
 
             HandleExceptions(msg, ex);

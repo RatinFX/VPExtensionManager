@@ -220,9 +220,7 @@
 - {1}</value>
   </data>
   <data name="MessageBoxUninstallDependencyText" xml:space="preserve">
-    <value>
-
-This might also remove the following items:
+    <value>This might also remove the following items:
 {0}</value>
   </data>
   <data name="NotificationErrorCheckingForLatestVersion" xml:space="preserve">
@@ -236,8 +234,8 @@ This might also remove the following items:
     <value>Error while installing "{0} ({1})":</value>
   </data>
   <data name="NotificationErrorDuringUninstall" xml:space="preserve">
-    <value>Error while uninstalling "{0} ({1})" from:
-{2}</value>
+    <value>Error while uninstalling "{0} ({1})":
+&gt; close VEGAS Pro if it's open</value>
   </data>
   <data name="NotificationErrorDuringUpdate" xml:space="preserve">
     <value>Error while updating "{0} ({1})":</value>

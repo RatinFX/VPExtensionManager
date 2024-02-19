@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -211,7 +211,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         var content = string.Format(Properties.Resources.MessageBoxUninstallContent,
             Selected.ExtensionName,
             SelectedInstall.InstallPath)
-            + dependencyText;
+            + $"\n\n{dependencyText}";
 
         var title = string.Format(Properties.Resources.MessageBoxTitleUninstall,
             Selected.ExtensionName,
