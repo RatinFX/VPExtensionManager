@@ -7,13 +7,14 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:properties="clr-namespace:VPExtensionManager.Properties"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    mc:Ignorable="d"
+    d:Title="{x:Static properties:Resources.AppDisplayName}"
+    WindowStartupLocation="CenterScreen"
+    Style="{StaticResource CustomMetroWindow}"
     Loaded="OnLoaded"
     Unloaded="OnUnloaded"
-    Style="{StaticResource CustomMetroWindow}"
-    mc:Ignorable="d"
     MinWidth="500"
     MinHeight="500"
-    d:Title="{x:Static properties:Resources.AppDisplayName}"
     Icon="../in_app_icon.ico">
     <!--<controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
