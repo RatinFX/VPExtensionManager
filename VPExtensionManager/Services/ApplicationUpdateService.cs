@@ -54,6 +54,8 @@ public class ApplicationUpdateService : IApplicationUpdateService
 
     public void SendUpdateNotification(bool forceUpdate = false)
     {
+        Debug.WriteLine($">>> Before App CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+
         try
         {
             var latestVersion = GetLatestVersion();
@@ -102,5 +104,8 @@ public class ApplicationUpdateService : IApplicationUpdateService
             Debug.WriteLine(msg);
             _notificationService.Error(msg);
         }
+
+        Debug.WriteLine($">>> >>> After App CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
+        Debug.WriteLine($">>> >>> >>> Time until Rate Limit reset: {_gitHubService.GetRateLimitResetTime()}");
     }
 }
