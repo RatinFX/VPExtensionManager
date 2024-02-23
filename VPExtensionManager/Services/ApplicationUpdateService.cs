@@ -58,6 +58,18 @@ public class ApplicationUpdateService : IApplicationUpdateService
         {
             var latestVersion = GetLatestVersion();
 
+            // Locally saved LatestVersion requires update
+            if (forceUpdate ||
+                string.IsNullOrEmpty(latestVersion) || (
+                AppProperties.Get(AppProperties.LastChecked, out string lastChecked)
+                && DateTimeHelper.ShouldCheckForUpdate(long.Parse(lastChecked))
+            ))
+            {
+                SetLocalLatestVersion();
+                latestVersion = GetLatestVersion();
+            }
+
+            // Latest not found
             if (latestVersion == Properties.Resources.TextLatestVersionNotFound)
             {
                 var err = string.Format(Properties.Resources.NotificationErrorCheckingForLatestVersion,
@@ -68,20 +80,15 @@ public class ApplicationUpdateService : IApplicationUpdateService
                 return;
             }
 
-            if (forceUpdate ||
-                string.IsNullOrEmpty(latestVersion) || (
-                AppProperties.Get(AppProperties.LastChecked, out string lastChecked)
-                && DateTimeHelper.ShouldCheckForUpdate(long.Parse(lastChecked))
-            ))
+            // Update available
+            if (_applicationInfoService.GetVersionShort() != latestVersion)
             {
-                SetLocalLatestVersion();
+                _notificationService.Warning(string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion));
+                return;
             }
 
-            var msg = _applicationInfoService.GetVersionShort() == latestVersion
-                ? Properties.Resources.NotificationInfoUsingLatestVersion
-                : string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion);
-
-            _notificationService.Information(msg);
+            // Using latest version
+            _notificationService.Information(Properties.Resources.NotificationInfoUsingLatestVersion);
         }
         catch (Exception ex)
         {
