@@ -2,8 +2,8 @@
 
 public interface INotificationService
 {
-    void Information(string message);
-    void Success(string message);
-    void Warning(string message);
-    void Error(string message);
+    void Information(string message, Action click = null);
+    void Success(string message, Action click = null);
+    void Warning(string message, Action click = null);
+    void Error(string message, Action click = null);
 }
