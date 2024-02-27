@@ -302,7 +302,8 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New version available: {0}.
+        ///   Looks up a localized string similar to New version available: {0}
+        ///Click here to download from GitHub.
         /// </summary>
         public static string NotificationInfoNewVersionAvailable {
             get {
@@ -316,15 +317,6 @@ namespace VPExtensionManager.Properties {
         public static string NotificationInfoOpenVersion {
             get {
                 return ResourceManager.GetString("NotificationInfoOpenVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You are using the latest version.
-        /// </summary>
-        public static string NotificationInfoUsingLatestVersion {
-            get {
-                return ResourceManager.GetString("NotificationInfoUsingLatestVersion", resourceCulture);
             }
         }
         
@@ -374,7 +366,16 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VP Extension Manager by RatinFX..
+        ///   Looks up a localized string similar to You are using the latest version.
+        /// </summary>
+        public static string NotificationSuccessUsingLatestVersion {
+            get {
+                return ResourceManager.GetString("NotificationSuccessUsingLatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VP Extension Manager by RatinFX.
         /// </summary>
         public static string SettingsPageAboutCreatorText {
             get {

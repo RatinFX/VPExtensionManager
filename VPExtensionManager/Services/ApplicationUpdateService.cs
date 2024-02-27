@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Extensions.Options;
+using System.Diagnostics;
 using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
@@ -10,15 +11,21 @@ public class ApplicationUpdateService : IApplicationUpdateService
     private readonly IGitHubService _gitHubService;
     private readonly IApplicationInfoService _applicationInfoService;
     private readonly INotificationService _notificationService;
+    private readonly ISystemService _systemService;
+    private readonly AppConfig _appConfig;
 
     public ApplicationUpdateService(
         IGitHubService gitHubService,
         IApplicationInfoService applicationInfoService,
-        INotificationService notificationService)
+        INotificationService notificationService,
+        ISystemService systemService,
+        IOptions<AppConfig> appConfig)
     {
         _gitHubService = gitHubService;
         _applicationInfoService = applicationInfoService;
         _notificationService = notificationService;
+        _systemService = systemService;
+        _appConfig = appConfig.Value;
     }
 
     public bool ShouldCheckForUpdate()
@@ -85,12 +92,15 @@ public class ApplicationUpdateService : IApplicationUpdateService
             // Update available
             if (_applicationInfoService.GetVersionShort() != latestVersion)
             {
-                _notificationService.Warning(string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion));
+                _notificationService.Information(
+                    string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion),
+                    () => _systemService.OpenInWebBrowser(_appConfig.GitHubPage + "/releases/latest")
+                );
                 return;
             }
 
             // Using latest version
-            _notificationService.Information(Properties.Resources.NotificationInfoUsingLatestVersion);
+            _notificationService.Success(Properties.Resources.NotificationSuccessUsingLatestVersion);
         }
         catch (Exception ex)
         {

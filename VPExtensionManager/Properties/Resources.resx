@@ -124,7 +124,7 @@
     <value>Settings</value>
   </data>
   <data name="SettingsPageAboutCreatorText" xml:space="preserve">
-    <value>VP Extension Manager by RatinFX.</value>
+    <value>VP Extension Manager by RatinFX</value>
   </data>
   <data name="SettingsPageAboutTitle" xml:space="preserve">
     <value>About this application</value>
@@ -254,9 +254,10 @@
 {1}</value>
   </data>
   <data name="NotificationInfoNewVersionAvailable" xml:space="preserve">
-    <value>New version available: {0}</value>
+    <value>New version available: {0}
+Click here to download from GitHub</value>
   </data>
-  <data name="NotificationInfoUsingLatestVersion" xml:space="preserve">
+  <data name="NotificationSuccessUsingLatestVersion" xml:space="preserve">
     <value>You are using the latest version</value>
   </data>
   <data name="NotificationSuccessFoundInstall" xml:space="preserve">

@@ -121,7 +121,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private void btnDownloadUpdate_Click(object sender, RoutedEventArgs e)
     {
         _notificationService.Information(Properties.Resources.NotificationInfoOpenVersion);
-        _systemService.OpenInWebBrowser("https://github.com/RatinFX/VPExtensionManager/releases/latest");
+        _systemService.OpenInWebBrowser(_appConfig.GitHubPage + "/releases/latest");
     }
 
     private void OnCheckForUpdateCheckBoxChecked(object sender, RoutedEventArgs e)
