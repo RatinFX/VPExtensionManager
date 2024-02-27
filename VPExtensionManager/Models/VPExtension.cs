@@ -10,6 +10,8 @@ public class VPExtension : INotifyPropertyChanged
     // General
     public string Creator { get; set; } = "creator";
     public string ExtensionName { get; set; } = "name";
+    public string LatestHtmlUrl { get; set; } = string.Empty;
+    public string LatestReleaseNotes { get; set; } = string.Empty;
     public VPExtensionType Type { get; set; }
 
     // GitHub / latest Release

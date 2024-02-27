@@ -689,6 +689,15 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Notes.
+        /// </summary>
+        public static string TextUpdateNotes {
+            get {
+                return ResourceManager.GetString("TextUpdateNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install {0}.
         /// </summary>
         public static string WindowTitleInstall {

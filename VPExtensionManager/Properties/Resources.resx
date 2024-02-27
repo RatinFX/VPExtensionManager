@@ -337,4 +337,7 @@
   <data name="EnumDescriptionVPVersionSony" xml:space="preserve">
     <value>For VP13 and earlier</value>
   </data>
+  <data name="TextUpdateNotes" xml:space="preserve">
+    <value>Update Notes</value>
+  </data>
 </root>

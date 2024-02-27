@@ -1,0 +1,49 @@
+﻿<controls:MetroWindow
+    x:Class="VPExtensionManager.Views.UpdateNotesWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    mc:Ignorable="d"
+    MaxHeight="300"
+    SizeToContent="Height"
+    Width="400"
+    Style="{StaticResource CustomMetroWindow}"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    Icon="../in_app_icon.ico">
+    <controls:MetroWindow.Content>
+        <Grid Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer 
+                VerticalScrollBarVisibility="Auto"
+                Margin="{StaticResource SmallBottomMargin}">
+                <TextBlock
+                    Grid.Row="0"
+                    TextWrapping="Wrap"
+                    Text="{Binding UpdateNotes}" />
+            </ScrollViewer>
+
+            <StackPanel 
+                Grid.Row="1" 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <Button
+                    Style="{StaticResource BaseButton}"
+                    Margin="{StaticResource SmallRightMargin}"
+                    Click="btnVisitGitHub_Click"
+                    Content="Check on GitHub" />
+                <Button
+                    Style="{StaticResource BaseButton}"
+                    Click="btnClose_Click"
+                    Content="Close" />
+            </StackPanel>
+        </Grid>
+    </controls:MetroWindow.Content>
+</controls:MetroWindow>

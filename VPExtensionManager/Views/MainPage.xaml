@@ -104,11 +104,21 @@
                             </Button>
                             <Button
                                 Padding="8,6"
+                                Margin="{StaticResource SmallRightMargin}"
                                 IsEnabled="{Binding DataContext.InstallEnabled, ElementName=mainPage}"
                                 Click="btnInstall_Click" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
                                     <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextDownload}" />
+                                </StackPanel>
+                            </Button>
+                            <Button
+                                Padding="8,6"
+                                IsEnabled="{Binding DataContext.UpdateNotesEnabled, ElementName=mainPage}"
+                                Click="btnUpdateNotes_Click" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource NotesIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextUpdateNotes}" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>

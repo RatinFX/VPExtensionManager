@@ -11,6 +11,7 @@ namespace VPExtensionManager.Views;
 
 public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 {
+    private readonly ISystemService _systemService;
     private readonly IExtensionService _extensionService;
     private readonly INotificationService _notificationService;
     private readonly IApplicationUpdateService _applicationUpdateService;
@@ -24,11 +25,13 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
             ResetInstallPaths();
             OnPropertyChanged(nameof(CheckForUpdateEnabled));
             OnPropertyChanged(nameof(InstallEnabled));
+            OnPropertyChanged(nameof(UpdateNotesEnabled));
         }
     }
 
     public bool CheckForUpdateEnabled => Selected != null;
     public bool InstallEnabled => Selected != null && (Selected.RepositoryWasFound || Selected.UpdateAvailable);
+    public bool UpdateNotesEnabled => Selected != null && Selected.RepositoryWasFound && !string.IsNullOrEmpty(Selected.LatestReleaseNotes);
 
     private VPInstall _selectedInstall;
     public VPInstall SelectedInstall
@@ -66,10 +69,12 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     }
 
     public MainPage(
+        ISystemService systemService,
         IExtensionService extensionService,
         INotificationService notificationService,
         IApplicationUpdateService applicationUpdateService)
     {
+        _systemService = systemService;
         _extensionService = extensionService;
         _notificationService = notificationService;
         _applicationUpdateService = applicationUpdateService;
@@ -169,6 +174,15 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         );
 
         _notificationService.Success(msg);
+    }
+
+    private void btnUpdateNotes_Click(object sender, RoutedEventArgs e)
+    {
+        if (Selected == null)
+            return;
+
+        var window = new UpdateNotesWindow(_systemService, Selected);
+        window.ShowDialog();
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)

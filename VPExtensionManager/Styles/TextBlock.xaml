@@ -98,4 +98,9 @@
     <Style x:Key="RemoveIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
         <Setter Property="Text" Value="&#xE894;" />
     </Style>
+
+    <!--E7C3	Page-->
+    <Style x:Key="NotesIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE7C3;" />
+    </Style>
 </ResourceDictionary>

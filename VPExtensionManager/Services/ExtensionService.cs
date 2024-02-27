@@ -93,6 +93,8 @@ public class ExtensionService : IExtensionService
             var release = _gitHubService.GetLatestRelease(extension.ExtensionName);
 
             extension.LatestVersion = release.TagName;
+            extension.LatestHtmlUrl = release.HtmlUrl;
+            extension.LatestReleaseNotes = release.Body;
 
             extension.ReleaseAssets = release.Assets.Where(x =>
                 x.BrowserDownloadUrl.EndsWith(VPExtensionType.Extension.DownloadFileExtension)
