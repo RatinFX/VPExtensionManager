@@ -36,9 +36,20 @@ public class ExtensionService : IExtensionService
         ExtensionFolders = VPFolders.ExtensionFolders([.. localVersions]);
     }
 
+    private bool DependenciesAreOK()
+    {
+        return Extensions.All(ext =>
+        {
+            var def = VPExtension.DefaultExtensions.FirstOrDefault(d => ext.ExtensionName == d.ExtensionName);
+            return def != null
+                && def.Dependencies.Count == ext.Dependencies.Count
+                && Enumerable.SequenceEqual(def.Dependencies.OrderBy(d => d), ext.Dependencies.OrderBy(d => d));
+        });
+    }
+
     public IEnumerable<VPExtension> InitializeExtensions()
     {
-        if (Extensions.Any())
+        if (Extensions.Any() && DependenciesAreOK())
         {
             var shouldLocateInstalls = Extensions.All(x => !x.Installs.Any());
 
@@ -53,13 +64,7 @@ public class ExtensionService : IExtensionService
             return Extensions;
         }
 
-        Extensions =
-        [
-            new(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Extension, RFXStrings.VPConsoleRefs),
-            new(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Extension, RFXStrings.VegasProFlowRefs),
-            new(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Script, []),
-            new(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Script, []),
-        ];
+        Extensions = VPExtension.DefaultExtensions;
 
         foreach (var extension in Extensions)
         {
@@ -254,7 +259,7 @@ public class ExtensionService : IExtensionService
         {
             foreach (var item in filesToOverwrite)
             {
-                var file = Path.Combine(installPath, $"{item}{RFXStrings.Dll}");
+                var file = Path.Combine(installPath, item);
 
                 if (File.Exists(file))
                     File.Delete(file);
@@ -359,7 +364,7 @@ public class ExtensionService : IExtensionService
             {
                 foreach (var dependency in extension.Dependencies)
                 {
-                    var path = Path.Combine(selectedInstall.InstallPath, $"{dependency}{RFXStrings.Dll}");
+                    var path = Path.Combine(selectedInstall.InstallPath, dependency);
 
                     if (File.Exists(path))
                         File.Delete(path);

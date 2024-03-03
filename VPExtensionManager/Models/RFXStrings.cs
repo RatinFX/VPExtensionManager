@@ -17,11 +17,15 @@ public class RFXStrings
     public const string CustomFades = "CustomFades";
 
     // Dependencies
-    public const string VegasProData = "VegasProData";
-    public const string RatinFXVP = "RatinFX.VP";
-    public const string NewtonsoftJson = "Newtonsoft.Json";
-    public const string Octokit = "Octokit";
+    public const string VegasProData = "VegasProData.dll";
+    public const string RatinFXVP = "RatinFX.VP.dll";
+    public const string NewtonsoftJson = "Newtonsoft.Json.dll";
+    public const string Octokit = "Octokit.dll";
 
-    public static readonly List<string> VPConsoleRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson];
-    public static readonly List<string> VegasProFlowRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson];
+    // Icons
+    public const string VPFlowIcon = "VPFlow.png";
+    public const string VPConsoleIcon = "VPConsole.png";
+
+    public static readonly List<string> VegasProFlowRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson, VPFlowIcon];
+    public static readonly List<string> VPConsoleRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson, VPConsoleIcon];
 }

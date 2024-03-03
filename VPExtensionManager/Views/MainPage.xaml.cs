@@ -214,9 +214,10 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
 
     private void btnUninstall_Click(object sender, RoutedEventArgs e)
     {
-        // TODO: Create a custom window and make them toggleable
-        // in case someone knows X.dll is used for another Extension
-        var dependencies = string.Join("\n", Selected.Dependencies.Select(x => $"- {x}{RFXStrings.Dll}"));
+        // (?) TODO:
+        // Create a custom window and make them toggleable
+        // in case someone knows XYZ is used for another Extension
+        var dependencies = string.Join("\n", Selected.Dependencies.Select(d => $"- {d}"));
 
         var dependencyText = string.IsNullOrEmpty(dependencies)
             ? string.Empty

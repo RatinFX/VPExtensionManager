@@ -114,4 +114,11 @@ public class VPExtension : INotifyPropertyChanged
         storage = value;
         OnPropertyChanged(propertyName);
     }
+
+    public static VPExtension VPConsole { get; } = new(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Extension, RFXStrings.VPConsoleRefs);
+    public static VPExtension VPFlow { get; } = new(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Extension, RFXStrings.VegasProFlowRefs);
+    public static VPExtension ShortenExtendMedia { get; } = new(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Script, []);
+    public static VPExtension CustomFades { get; } = new(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Script, []);
+
+    public static List<VPExtension> DefaultExtensions = [VPConsole, VPFlow, ShortenExtendMedia, CustomFades];
 }
