@@ -56,8 +56,6 @@ public partial class App : Application
 
     private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
-        // TODO: Register your services, viewmodels and pages here
-
         // App Host
         services.AddHostedService<ApplicationHostService>();
 
@@ -97,6 +95,9 @@ public partial class App : Application
     private async void OnExit(object sender, ExitEventArgs e)
     {
         AppSessionHandler.StopPipeServer();
+
+        if (_host is null)
+            return;
 
         await _host.StopAsync();
         _host.Dispose();
