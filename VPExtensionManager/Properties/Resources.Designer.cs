@@ -170,6 +170,75 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while creating Registry Key:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxErrorCreatingRegistryKey {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorCreatingRegistryKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while handling Pipe server:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxErrorPipeServer {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorPipeServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while handling running instance notification:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxErrorRunningInstanceNotification {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorRunningInstanceNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while handling the Session:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxErrorSession {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured.
+        /// </summary>
+        public static string MessageBoxErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while handling URL:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxErrorURLHandler {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorURLHandler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while handling WaitForConnectionCallback:
+        ///{0}.
+        /// </summary>
+        public static string MessageBoxErrorWaitForConnection {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorWaitForConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall {0} ({1}).
         /// </summary>
         public static string MessageBoxTitleUninstall {
@@ -195,6 +264,25 @@ namespace VPExtensionManager.Properties {
         public static string MessageBoxUninstallDependencyText {
             get {
                 return ResourceManager.GetString("MessageBoxUninstallDependencyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press YES if you want the &quot;Open in VPEM&quot; Buttons to work.
+        ///This will create a &quot;RegisterURLHandler.reg&quot; file in the VPEM folder and run it..
+        /// </summary>
+        public static string MessageBoxURLHandlerContent {
+            get {
+                return ResourceManager.GetString("MessageBoxURLHandlerContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add URL handler for vpem://.
+        /// </summary>
+        public static string MessageBoxURLHandlerTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxURLHandlerTitle", resourceCulture);
             }
         }
         

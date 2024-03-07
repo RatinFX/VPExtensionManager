@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Interfaces.Views;
 using VPExtensionManager.Models;
@@ -68,6 +69,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         set => Set(ref _installPaths, value);
     }
 
+    private string _toBeSelected;
+
     public MainPage(
         ISystemService systemService,
         IExtensionService extensionService,
@@ -85,6 +88,34 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         if (applicationUpdateService.ShouldCheckForUpdate())
         {
             _applicationUpdateService.SendUpdateNotification();
+        }
+
+        AppLinkHandler.NavigateToExtensionHandler += NavigateToExtension;
+    }
+
+    private VPExtension GetExtensionByName(string extension)
+    {
+        return ExtensionItems?.FirstOrDefault(x =>
+        {
+            var lower = x.ExtensionName.ToLower();
+            return lower.Equals(extension)
+                || lower.StartsWith(extension) || lower.EndsWith(extension)
+                || extension.StartsWith(lower) || extension.EndsWith(lower);
+        });
+    }
+
+    private void NavigateToExtension(string extension)
+    {
+        _toBeSelected = extension;
+
+        // Application was already initialized
+        if (Selected != null)
+        {
+            var ext = GetExtensionByName(extension);
+            if (ext == null)
+                return;
+
+            Selected = ext;
         }
     }
 
@@ -112,7 +143,11 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
             ExtensionItems.Add(item);
         }
 
-        Selected = ExtensionItems.First();
+        Selected = _toBeSelected != null
+            ? GetExtensionByName(_toBeSelected)
+            : ExtensionItems.First();
+
+        Selected ??= ExtensionItems.First();
     }
 
     private void ResetInstallPaths()

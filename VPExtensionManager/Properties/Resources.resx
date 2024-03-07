@@ -341,4 +341,38 @@ Click here to download from GitHub</value>
   <data name="TextUpdateNotes" xml:space="preserve">
     <value>Update Notes</value>
   </data>
+  <data name="MessageBoxErrorCreatingRegistryKey" xml:space="preserve">
+    <value>Error while creating Registry Key:
+{0}</value>
+  </data>
+  <data name="MessageBoxErrorPipeServer" xml:space="preserve">
+    <value>Error while handling Pipe server:
+{0}</value>
+  </data>
+  <data name="MessageBoxErrorRunningInstanceNotification" xml:space="preserve">
+    <value>Error while handling running instance notification:
+{0}</value>
+  </data>
+  <data name="MessageBoxErrorSession" xml:space="preserve">
+    <value>Error while handling the Session:
+{0}</value>
+  </data>
+  <data name="MessageBoxErrorTitle" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="MessageBoxErrorURLHandler" xml:space="preserve">
+    <value>Error while handling URL:
+{0}</value>
+  </data>
+  <data name="MessageBoxErrorWaitForConnection" xml:space="preserve">
+    <value>Error while handling WaitForConnectionCallback:
+{0}</value>
+  </data>
+  <data name="MessageBoxURLHandlerContent" xml:space="preserve">
+    <value>Press YES if you want the "Open in VPEM" Buttons to work.
+This will create a "RegisterURLHandler.reg" file in the VPEM folder and run it.</value>
+  </data>
+  <data name="MessageBoxURLHandlerTitle" xml:space="preserve">
+    <value>Add URL handler for vpem://</value>
+  </data>
 </root>

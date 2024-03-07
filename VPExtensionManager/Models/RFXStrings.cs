@@ -7,6 +7,9 @@ public class RFXStrings
     public const string VegasPro = "VEGAS Pro";
     public const string VPExtensionManager = "VPExtensionManager";
 
+    public const string VPEM = "vpem";
+    public const string VPEM_PROTOCOL = $"{VPEM}://";
+
     public const string Zip = ".zip";
     public const string Dll = ".dll";
 

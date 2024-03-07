@@ -32,6 +32,11 @@ public class AppProperties
     /// </summary>
     public const string LatestVersion = "LatestVersion";
 
+    /// <summary>
+    /// Whether the URL Handler registry creation was asked on Start
+    /// </summary>
+    public const string AskedRegistryQuestion = "AskedRegistryQuestion";
+
     public static bool Contains(string key)
     {
         return App.Current.Properties.Contains(key);

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 using VPExtensionManager.Core.Interfaces;
 using VPExtensionManager.Core.Services;
+using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Interfaces.Views;
 using VPExtensionManager.Models;
@@ -29,7 +30,10 @@ public partial class App : Application
         where T : class
         => _host.Services.GetService(typeof(T)) as T;
 
-    public App() { }
+    public App()
+    {
+        AppSessionHandler.HandleAppSession();
+    }
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
@@ -45,6 +49,9 @@ public partial class App : Application
                 .Build();
 
         await _host.StartAsync();
+
+        AppLinkHandler.HandleRegistryEntry();
+        AppLinkHandler.HandleURL(e.Args);
     }
 
     private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
@@ -89,6 +96,8 @@ public partial class App : Application
 
     private async void OnExit(object sender, ExitEventArgs e)
     {
+        AppSessionHandler.StopPipeServer();
+
         await _host.StopAsync();
         _host.Dispose();
         _host = null;
