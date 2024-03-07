@@ -9,6 +9,17 @@ namespace VPExtensionManager.Helpers;
 
 internal class MessageBoxes
 {
+    public static MessageBoxResult YesNo(string content, string title)
+    {
+        return MessageBox.Show(
+            content,
+            title,
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Information,
+            MessageBoxResult.No
+        );
+    }
+
     public static MessageBoxResult Error(Exception ex, string content = null, string title = null)
     {
         title ??= Properties.Resources.MessageBoxErrorTitle;
@@ -17,6 +28,11 @@ internal class MessageBoxes
             ? ex.Message
             : string.Format(content, ex.Message);
 
-        return MessageBox.Show(content, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        return MessageBox.Show(
+            content,
+            title,
+            MessageBoxButton.OK,
+            MessageBoxImage.Error
+        );
     }
 }

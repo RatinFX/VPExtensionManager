@@ -35,12 +35,9 @@ internal class AppLinkHandler
             if (key != null && AskedRegistryQuestion() && false)
                 return;
 
-            var res = MessageBox.Show(
+            var res = MessageBoxes.YesNo(
                 Properties.Resources.MessageBoxURLHandlerContent,
-                Properties.Resources.MessageBoxURLHandlerTitle,
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Information,
-                MessageBoxResult.No
+                Properties.Resources.MessageBoxURLHandlerTitle
             );
 
             if (res == MessageBoxResult.Yes)
