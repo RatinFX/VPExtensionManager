@@ -24,7 +24,8 @@ public class ApplicationHostService : IHostedService
     private IShellWindow _shellWindow;
     private bool _isInitialized;
 
-    public ApplicationHostService(IOptions<AppConfig> appConfig,
+    public ApplicationHostService(
+        IOptions<AppConfig> appConfig,
         IServiceProvider serviceProvider,
         IEnumerable<IActivationHandler> activationHandlers,
         INavigationService navigationService,

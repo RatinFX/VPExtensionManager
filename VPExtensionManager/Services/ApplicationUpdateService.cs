@@ -32,7 +32,7 @@ public class ApplicationUpdateService : IApplicationUpdateService
     {
         if (AppProperties.Get(AppProperties.CheckForUpdate, out string checkForUpdate))
         {
-            return bool.Parse(checkForUpdate);
+            return bool.TryParse(checkForUpdate, out bool res) && res;
         }
 
         return true;

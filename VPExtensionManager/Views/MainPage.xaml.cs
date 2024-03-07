@@ -276,19 +276,16 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
             MessageBoxResult.No
         );
 
-        if (result == MessageBoxResult.No)
+        if (result != MessageBoxResult.Yes)
             return;
 
-        if (result == MessageBoxResult.Yes)
-        {
-            var success = _extensionService.Uninstall(Selected, SelectedInstall);
-            if (!success)
-                return;
+        var success = _extensionService.Uninstall(Selected, SelectedInstall);
+        if (!success)
+            return;
 
-            ResetInstallPaths();
+        ResetInstallPaths();
 
-            var msg = string.Format(Properties.Resources.NotificationSuccessUninstalled, Selected.ExtensionName);
-            _notificationService.Success(msg);
-        }
+        var msg = string.Format(Properties.Resources.NotificationSuccessUninstalled, Selected.ExtensionName);
+        _notificationService.Success(msg);
     }
 }
