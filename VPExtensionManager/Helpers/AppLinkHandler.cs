@@ -32,7 +32,7 @@ internal class AppLinkHandler
 
             using var key = Registry.ClassesRoot.OpenSubKey(RFXStrings.VPEM);
 
-            if (key != null && AskedRegistryQuestion() && false)
+            if (key != null && AskedRegistryQuestion())
                 return;
 
             var res = MessageBoxes.YesNo(
