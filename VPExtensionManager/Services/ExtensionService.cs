@@ -252,7 +252,7 @@ public class ExtensionService : IExtensionService
         // Extract
         Directory.CreateDirectory(installPath);
 
-        List<string> filesToOverwrite = [extension.ExtensionName, .. extension.Dependencies];
+        List<string> filesToOverwrite = [extension.ExtensionName + RFXStrings.Dll, .. extension.Dependencies];
 
         // - delete existing files as `ZipFile.ExtractToDirectory` cannot overwrite them
         if (extension.Type.DownloadFileExtension == RFXStrings.Zip)
