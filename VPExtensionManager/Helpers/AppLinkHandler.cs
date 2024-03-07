@@ -49,17 +49,6 @@ internal class AppLinkHandler
             }
 
             AppProperties.Set(AppProperties.AskedRegistryQuestion, true.ToString());
-
-            // using var key = Registry.ClassesRoot.CreateSubKey(VPEM);
-            // 
-            // key.SetValue("", "VPExtensionManager url handler");
-            // key.SetValue("URL Protocol", "");
-            // 
-            // using (var iconKey = key.CreateSubKey("DefaultIcon"))
-            //     iconKey.SetValue("", processPath + ",1");
-            // 
-            // using (var commandKey = key.CreateSubKey(@"shell\open\command"))
-            //     commandKey.SetValue("", "\"" + processPath + "\" \"%1\"");
         }
         catch (Exception ex)
         {
