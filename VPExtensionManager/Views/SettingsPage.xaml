@@ -56,13 +56,22 @@
                         </Button>
                     </StackPanel>
                     <CheckBox 
-                        Margin="{StaticResource SmallRightMargin}"
+                        Margin="{StaticResource SmallRightBottomMargin}"
                         IsChecked="{Binding CheckForUpdate}"
                         Content="{x:Static properties:Resources.SettingsPageCheckForUpdateOnStartText}"
                         Checked="OnCheckForUpdateCheckBoxChecked"
                         Unchecked="OnCheckForUpdateCheckBoxChecked" />
+                    <Button
+                        Padding="8,6"
+                        HorizontalAlignment="Left"
+                        Click="btnAddURLHandler_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource RegistryIcon}" Margin="{StaticResource XSmallRightMargin}" />
+                            <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextAddURLHandler}" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
-                
+
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"

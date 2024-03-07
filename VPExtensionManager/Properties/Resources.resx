@@ -375,4 +375,10 @@ This will create a "RegisterURLHandler.reg" file in the VPEM folder and run it.<
   <data name="MessageBoxURLHandlerTitle" xml:space="preserve">
     <value>Add URL handler for vpem://</value>
   </data>
+  <data name="NotificationSuccessAddedURLHandler" xml:space="preserve">
+    <value>Added VPEM URL Handler</value>
+  </data>
+  <data name="TextAddURLHandler" xml:space="preserve">
+    <value>Add VPEM URL Handler</value>
+  </data>
 </root>

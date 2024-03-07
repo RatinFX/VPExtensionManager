@@ -103,4 +103,9 @@
     <Style x:Key="NotesIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
         <Setter Property="Text" Value="&#xE7C3;" />
     </Style>
+
+    <!--E71B	Link-->
+    <Style x:Key="RegistryIcon" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseIconStyle}">
+        <Setter Property="Text" Value="&#xE71B;" />
+    </Style>
 </ResourceDictionary>

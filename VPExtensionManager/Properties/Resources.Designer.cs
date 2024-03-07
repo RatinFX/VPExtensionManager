@@ -409,6 +409,15 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Added VPEM URL Handler.
+        /// </summary>
+        public static string NotificationSuccessAddedURLHandler {
+            get {
+                return ResourceManager.GetString("NotificationSuccessAddedURLHandler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found {0}x {1}.
         /// </summary>
         public static string NotificationSuccessFoundInstall {
@@ -621,6 +630,15 @@ namespace VPExtensionManager.Properties {
         public static string ShellMenuViewsHeader {
             get {
                 return ResourceManager.GetString("ShellMenuViewsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add VPEM URL Handler.
+        /// </summary>
+        public static string TextAddURLHandler {
+            get {
+                return ResourceManager.GetString("TextAddURLHandler", resourceCulture);
             }
         }
         

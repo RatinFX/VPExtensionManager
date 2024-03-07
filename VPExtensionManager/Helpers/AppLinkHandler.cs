@@ -42,7 +42,7 @@ internal class AppLinkHandler
 
             if (res == MessageBoxResult.Yes)
             {
-                GenerateRunRegistryURLHandler();
+                AddURLHandlerRegistry();
             }
 
             AppProperties.Set(AppProperties.AskedRegistryQuestion, true.ToString());
@@ -54,8 +54,7 @@ internal class AppLinkHandler
         }
     }
 
-    // TODO: Add Button to Settings for force updating the URL handler
-    public static void GenerateRunRegistryURLHandler()
+    public static void AddURLHandlerRegistry()
     {
         var processPath = Environment.ProcessPath;
         var doubleBackslashPath = processPath.Replace("\\", "\\\\");

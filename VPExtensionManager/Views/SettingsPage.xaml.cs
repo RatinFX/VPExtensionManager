@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Interfaces.Views;
 using VPExtensionManager.Models;
@@ -127,6 +128,19 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private void OnCheckForUpdateCheckBoxChecked(object sender, RoutedEventArgs e)
     {
         AppProperties.Set(AppProperties.CheckForUpdate, CheckForUpdate.ToString());
+    }
+
+    private void btnAddURLHandler_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            AppLinkHandler.AddURLHandlerRegistry();
+            _notificationService.Success(Properties.Resources.NotificationSuccessAddedURLHandler);
+        }
+        catch (Exception ex)
+        {
+            MessageBoxes.Error(ex, Properties.Resources.MessageBoxErrorCreatingRegistryKey);
+        }
     }
 
     private void OnLightChecked(object sender, RoutedEventArgs e)
