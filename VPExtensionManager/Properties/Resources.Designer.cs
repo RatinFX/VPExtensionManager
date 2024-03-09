@@ -286,25 +286,6 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press YES if you want the &quot;Open in VPEM&quot; Buttons to work.
-        ///This will create a &quot;RegisterURLHandler.reg&quot; file in the VPEM folder and run it..
-        /// </summary>
-        public static string MessageBoxURLHandlerContent {
-            get {
-                return ResourceManager.GetString("MessageBoxURLHandlerContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add URL handler for vpem://.
-        /// </summary>
-        public static string MessageBoxURLHandlerTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxURLHandlerTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The current VPEM will close, update?.
         /// </summary>
         public static string MessageBoxYesNoUpdateVPEMContent {
@@ -319,6 +300,25 @@ namespace VPExtensionManager.Properties {
         public static string MessageBoxYesNoUpdateVPEMTitle {
             get {
                 return ResourceManager.GetString("MessageBoxYesNoUpdateVPEMTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press YES if you want the &quot;Open in VPEM&quot; Buttons to work.
+        ///This will create a &quot;RegisterURLHandler.reg&quot; file in the VPEM folder and run it..
+        /// </summary>
+        public static string MessageBoxYesNoURLHandlerContent {
+            get {
+                return ResourceManager.GetString("MessageBoxYesNoURLHandlerContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add URL handler for vpem://.
+        /// </summary>
+        public static string MessageBoxYesNoURLHandlerTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxYesNoURLHandlerTitle", resourceCulture);
             }
         }
         

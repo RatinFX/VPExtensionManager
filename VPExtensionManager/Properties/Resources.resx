@@ -365,11 +365,11 @@ Click here to download from GitHub</value>
     <value>Error while handling WaitForConnectionCallback:
 {0}</value>
   </data>
-  <data name="MessageBoxURLHandlerContent" xml:space="preserve">
+  <data name="MessageBoxYesNoURLHandlerContent" xml:space="preserve">
     <value>Press YES if you want the "Open in VPEM" Buttons to work.
 This will create a "RegisterURLHandler.reg" file in the VPEM folder and run it.</value>
   </data>
-  <data name="MessageBoxURLHandlerTitle" xml:space="preserve">
+  <data name="MessageBoxYesNoURLHandlerTitle" xml:space="preserve">
     <value>Add URL handler for vpem://</value>
   </data>
   <data name="NotificationSuccessAddedURLHandler" xml:space="preserve">
