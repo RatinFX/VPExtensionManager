@@ -358,7 +358,7 @@ Click here to download from GitHub</value>
 {0}</value>
   </data>
   <data name="MessageBoxErrorTitle" xml:space="preserve">
-    <value>An error occured</value>
+    <value>An error occurred</value>
   </data>
   <data name="MessageBoxErrorURLHandler" xml:space="preserve">
     <value>Error while handling URL:

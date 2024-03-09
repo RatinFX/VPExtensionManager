@@ -210,7 +210,7 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured.
+        ///   Looks up a localized string similar to An error occurred.
         /// </summary>
         public static string MessageBoxErrorTitle {
             get {
