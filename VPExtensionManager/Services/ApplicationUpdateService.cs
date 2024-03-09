@@ -40,8 +40,18 @@ public class ApplicationUpdateService : IApplicationUpdateService
 
     public void SetLocalLatestVersion()
     {
+        var latestVersion = _gitHubService.GetLatestRelease(RFXStrings.VPExtensionManager);
+
+        if (latestVersion.Assets.Count != 0)
+        {
+            var first = latestVersion.Assets.FirstOrDefault(x => x.Name == $"{RFXStrings.VPExtensionManager}{RFXStrings.Zip}");
+            AppProperties.Set(AppProperties.LatestVersionURL,
+                latestVersion.Assets[0].BrowserDownloadUrl
+            );
+        }
+
         AppProperties.Set(AppProperties.LatestVersion,
-            _gitHubService.GetLatestRelease(RFXStrings.VPExtensionManager).TagName
+            latestVersion.TagName
         );
 
         AppProperties.Set(AppProperties.LastChecked,

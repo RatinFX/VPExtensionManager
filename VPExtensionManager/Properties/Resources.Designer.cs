@@ -116,6 +116,15 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to find the Latest Version URL, press &quot;Check for update&quot; and retry..
+        /// </summary>
+        public static string ErrorLatestVersionURLNotFound {
+            get {
+                return ResourceManager.GetString("ErrorLatestVersionURLNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string InstallWindowCancelButton {
@@ -296,6 +305,24 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current VPEM will close, update?.
+        /// </summary>
+        public static string MessageBoxYesNoUpdateVPEMContent {
+            get {
+                return ResourceManager.GetString("MessageBoxYesNoUpdateVPEMContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update VPEM.
+        /// </summary>
+        public static string MessageBoxYesNoUpdateVPEMTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxYesNoUpdateVPEMTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while looking up this app on GitHub:
         ///- {0}.
         /// </summary>
@@ -405,15 +432,6 @@ namespace VPExtensionManager.Properties {
         public static string NotificationInfoNewVersionAvailable {
             get {
                 return ResourceManager.GetString("NotificationInfoNewVersionAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The application will open a link to the latest version.
-        /// </summary>
-        public static string NotificationInfoOpenVersion {
-            get {
-                return ResourceManager.GetString("NotificationInfoOpenVersion", resourceCulture);
             }
         }
         

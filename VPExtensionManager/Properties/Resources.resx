@@ -202,9 +202,6 @@
     <value>Downloads folder was reset to:
 {0}</value>
   </data>
-  <data name="NotificationInfoOpenVersion" xml:space="preserve">
-    <value>The application will open a link to the latest version</value>
-  </data>
   <data name="DebugTextErrorDirectoryNotFound" xml:space="preserve">
     <value>Error while locating "{0}" at:
 {1}</value>
@@ -381,7 +378,16 @@ This will create a "RegisterURLHandler.reg" file in the VPEM folder and run it.<
   <data name="TextAddURLHandler" xml:space="preserve">
     <value>Add VPEM URL Handler</value>
   </data>
+  <data name="ErrorLatestVersionURLNotFound" xml:space="preserve">
+    <value>Failed to find the Latest Version URL, press "Check for update" and retry.</value>
+  </data>
   <data name="MessageBoxErrorUnknownException" xml:space="preserve">
     <value>Unknown exception</value>
+  </data>
+  <data name="MessageBoxYesNoUpdateVPEMContent" xml:space="preserve">
+    <value>The current VPEM will close, update?</value>
+  </data>
+  <data name="MessageBoxYesNoUpdateVPEMTitle" xml:space="preserve">
+    <value>Update VPEM</value>
   </data>
 </root>

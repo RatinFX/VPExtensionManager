@@ -28,6 +28,11 @@ public class AppProperties
     public const string CheckForUpdate = "CheckForUpdate";
 
     /// <summary>
+    /// Link to the latest version from GitHub
+    /// </summary>
+    public const string LatestVersionURL = "LatestVersionURL";
+
+    /// <summary>
     /// The latest version from GitHub
     /// </summary>
     public const string LatestVersion = "LatestVersion";
