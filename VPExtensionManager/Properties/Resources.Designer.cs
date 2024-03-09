@@ -219,6 +219,15 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown exception.
+        /// </summary>
+        public static string MessageBoxErrorUnknownException {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorUnknownException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while handling URL:
         ///{0}.
         /// </summary>

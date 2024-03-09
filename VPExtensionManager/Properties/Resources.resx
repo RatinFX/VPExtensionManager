@@ -381,4 +381,7 @@ This will create a "RegisterURLHandler.reg" file in the VPEM folder and run it.<
   <data name="TextAddURLHandler" xml:space="preserve">
     <value>Add VPEM URL Handler</value>
   </data>
+  <data name="MessageBoxErrorUnknownException" xml:space="preserve">
+    <value>Unknown exception</value>
+  </data>
 </root>

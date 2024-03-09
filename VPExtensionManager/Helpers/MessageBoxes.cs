@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace VPExtensionManager.Helpers;
 
@@ -20,13 +15,17 @@ internal class MessageBoxes
         );
     }
 
-    public static MessageBoxResult Error(Exception ex, string content = null, string title = null)
+    public static MessageBoxResult Error(Exception ex = null, string content = null, string title = null)
     {
         title ??= Properties.Resources.MessageBoxErrorTitle;
 
-        content = content == null
+        var exMessage = ex != null
             ? ex.Message
-            : string.Format(content, ex.Message);
+            : Properties.Resources.MessageBoxErrorUnknownException;
+
+        content = content == null
+            ? exMessage
+            : string.Format(content, exMessage);
 
         return MessageBox.Show(
             content,
