@@ -254,18 +254,9 @@ public class ExtensionService : IExtensionService
 
         List<string> filesToOverwrite = [extension.ExtensionName + RFXStrings.Dll, .. extension.Dependencies];
 
-        // - delete existing files as `ZipFile.ExtractToDirectory` cannot overwrite them
         if (extension.Type.DownloadFileExtension == RFXStrings.Zip)
         {
-            foreach (var item in filesToOverwrite)
-            {
-                var file = Path.Combine(installPath, item);
-
-                if (File.Exists(file))
-                    File.Delete(file);
-            }
-
-            ZipFile.ExtractToDirectory(downloadPath, installPath);
+            ZipFile.ExtractToDirectory(downloadPath, installPath, true);
         }
         else
         {
