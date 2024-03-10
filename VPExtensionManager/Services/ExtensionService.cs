@@ -193,7 +193,7 @@ public class ExtensionService : IExtensionService
             }
             catch (DirectoryNotFoundException ex)
             {
-                var msg = string.Format(Properties.Resources.DebugTextErrorDirectoryNotFound,
+                var msg = string.Format("Error while locating \"{0}\" at:\r\n{1}",
                     extension.ExtensionName,
                     path
                 );

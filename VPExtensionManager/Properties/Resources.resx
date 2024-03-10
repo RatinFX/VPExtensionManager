@@ -192,8 +192,8 @@
   <data name="SettingsPageCheckForUpdateOnStartText" xml:space="preserve">
     <value>Check for update on Start</value>
   </data>
-  <data name="TextDownloadUpdate" xml:space="preserve">
-    <value>Download update</value>
+  <data name="TextInstallUpdate" xml:space="preserve">
+    <value>Install update</value>
   </data>
   <data name="NotificationInfoDownloadsChanged" xml:space="preserve">
     <value>Downloads folder was changed</value>
@@ -201,10 +201,6 @@
   <data name="NotificationInfoDownloadsReset" xml:space="preserve">
     <value>Downloads folder was reset to:
 {0}</value>
-  </data>
-  <data name="DebugTextErrorDirectoryNotFound" xml:space="preserve">
-    <value>Error while locating "{0}" at:
-{1}</value>
   </data>
   <data name="ErrorDownloadLinkNotFound" xml:space="preserve">
     <value>Download link not found</value>
@@ -252,7 +248,7 @@
   </data>
   <data name="NotificationInfoNewVersionAvailable" xml:space="preserve">
     <value>New version available: {0}
-Click here to download from GitHub</value>
+Click here to open Settings then press "Install update"</value>
   </data>
   <data name="NotificationSuccessUsingLatestVersion" xml:space="preserve">
     <value>You are using the latest version</value>

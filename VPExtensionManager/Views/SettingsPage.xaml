@@ -48,10 +48,10 @@
                         <Button
                             Padding="8,6"
                             Margin="{StaticResource SmallRightMargin}"
-                            Click="btnDownloadUpdate_Click" >
+                            Click="btnInstallUpdate_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextDownloadUpdate}" />
+                                <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextInstallUpdate}" />
                             </StackPanel>
                         </Button>
                     </StackPanel>

@@ -119,7 +119,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _applicationUpdateService.SendUpdateNotification(forceUpdate: true);
     }
 
-    private void btnDownloadUpdate_Click(object sender, RoutedEventArgs e)
+    private void btnInstallUpdate_Click(object sender, RoutedEventArgs e)
     {
         UpdateHandler.StartUpdate(_downloadsFolder);
     }

@@ -70,16 +70,6 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while locating &quot;{0}&quot; at:
-        ///{1}.
-        /// </summary>
-        public static string DebugTextErrorDirectoryNotFound {
-            get {
-                return ResourceManager.GetString("DebugTextErrorDirectoryNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to For VP14 and later.
         /// </summary>
         public static string EnumDescriptionVPVersionMagix {
@@ -427,7 +417,7 @@ namespace VPExtensionManager.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to New version available: {0}
-        ///Click here to download from GitHub.
+        ///Click here to open Settings then press &quot;Install update&quot;.
         /// </summary>
         public static string NotificationInfoNewVersionAvailable {
             get {
@@ -688,15 +678,6 @@ namespace VPExtensionManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download update.
-        /// </summary>
-        public static string TextDownloadUpdate {
-            get {
-                return ResourceManager.GetString("TextDownloadUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to For VP13 and below.
         /// </summary>
         public static string TextForVP13AndBelow {
@@ -729,6 +710,15 @@ namespace VPExtensionManager.Properties {
         public static string TextInstall {
             get {
                 return ResourceManager.GetString("TextInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install update.
+        /// </summary>
+        public static string TextInstallUpdate {
+            get {
+                return ResourceManager.GetString("TextInstallUpdate", resourceCulture);
             }
         }
         

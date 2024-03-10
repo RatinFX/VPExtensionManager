@@ -3,6 +3,7 @@ using System.Diagnostics;
 using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
+using VPExtensionManager.Views;
 
 namespace VPExtensionManager.Services;
 
@@ -11,20 +12,20 @@ public class ApplicationUpdateService : IApplicationUpdateService
     private readonly IGitHubService _gitHubService;
     private readonly IApplicationInfoService _applicationInfoService;
     private readonly INotificationService _notificationService;
-    private readonly ISystemService _systemService;
+    private readonly IRightPaneService _rightPaneService;
     private readonly AppConfig _appConfig;
 
     public ApplicationUpdateService(
         IGitHubService gitHubService,
         IApplicationInfoService applicationInfoService,
         INotificationService notificationService,
-        ISystemService systemService,
+        IRightPaneService rightPaneService,
         IOptions<AppConfig> appConfig)
     {
         _gitHubService = gitHubService;
         _applicationInfoService = applicationInfoService;
         _notificationService = notificationService;
-        _systemService = systemService;
+        _rightPaneService = rightPaneService;
         _appConfig = appConfig.Value;
     }
 
@@ -104,7 +105,7 @@ public class ApplicationUpdateService : IApplicationUpdateService
             {
                 _notificationService.Information(
                     string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion),
-                    () => _systemService.OpenInWebBrowser(_appConfig.GitHubPage + "/releases/latest")
+                    () => _rightPaneService.OpenInRightPane(typeof(SettingsPage))
                 );
                 return;
             }
