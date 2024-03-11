@@ -36,6 +36,6 @@ internal class UpdateHandler
 
         Process.Start(psi);
 
-        Environment.Exit(0);
+        App.Current.Shutdown(0);
     }
 }

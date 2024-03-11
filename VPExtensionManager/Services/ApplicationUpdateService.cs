@@ -13,20 +13,17 @@ public class ApplicationUpdateService : IApplicationUpdateService
     private readonly IApplicationInfoService _applicationInfoService;
     private readonly INotificationService _notificationService;
     private readonly IRightPaneService _rightPaneService;
-    private readonly AppConfig _appConfig;
 
     public ApplicationUpdateService(
         IGitHubService gitHubService,
         IApplicationInfoService applicationInfoService,
         INotificationService notificationService,
-        IRightPaneService rightPaneService,
-        IOptions<AppConfig> appConfig)
+        IRightPaneService rightPaneService)
     {
         _gitHubService = gitHubService;
         _applicationInfoService = applicationInfoService;
         _notificationService = notificationService;
         _rightPaneService = rightPaneService;
-        _appConfig = appConfig.Value;
     }
 
     public bool ShouldCheckForUpdate()
@@ -45,7 +42,10 @@ public class ApplicationUpdateService : IApplicationUpdateService
 
         if (latestVersion.Assets.Count != 0)
         {
-            var first = latestVersion.Assets.FirstOrDefault(x => x.Name == $"{RFXStrings.VPExtensionManager}{RFXStrings.Zip}");
+            var first = latestVersion.Assets.FirstOrDefault(x =>
+                x.Name == $"{RFXStrings.VPExtensionManager}{RFXStrings.Zip}"
+            );
+
             AppProperties.Set(AppProperties.LatestVersionURL,
                 latestVersion.Assets[0].BrowserDownloadUrl
             );
@@ -70,6 +70,19 @@ public class ApplicationUpdateService : IApplicationUpdateService
         return Properties.Resources.TextLatestVersionNotFound;
     }
 
+    private static bool ShouldCheckForUpdate(string latestVersion)
+    {
+        if (string.IsNullOrEmpty(latestVersion) || latestVersion.Equals(Properties.Resources.TextLatestVersionNotFound))
+            return true;
+
+        var propExists = AppProperties.Get(AppProperties.LastChecked, out string lastChecked);
+
+        var shouldCheck = string.IsNullOrEmpty(lastChecked)
+            || DateTimeHelper.ShouldCheckForUpdate(long.Parse(lastChecked));
+
+        return propExists && shouldCheck;
+    }
+
     public void SendUpdateNotification(bool forceUpdate = false)
     {
         Debug.WriteLine($">>> Before App CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
@@ -79,11 +92,7 @@ public class ApplicationUpdateService : IApplicationUpdateService
             var latestVersion = GetLatestVersion();
 
             // Locally saved LatestVersion requires update
-            if (forceUpdate ||
-                string.IsNullOrEmpty(latestVersion) || (
-                AppProperties.Get(AppProperties.LastChecked, out string lastChecked)
-                && DateTimeHelper.ShouldCheckForUpdate(long.Parse(lastChecked))
-            ))
+            if (forceUpdate || ShouldCheckForUpdate(latestVersion))
             {
                 SetLocalLatestVersion();
                 latestVersion = GetLatestVersion();
