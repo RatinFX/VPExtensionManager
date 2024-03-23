@@ -43,7 +43,6 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     Style="{StaticResource ListSubTitleStyle}"
-                    MouseUp="tbxForceDownload_MouseUp"
                     Margin="{StaticResource SmallLeftTopMargin}"
                     Text="{x:Static properties:Resources.InstallWindowVPVersionText}" />
 
@@ -66,7 +65,6 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     Style="{StaticResource ListSubTitleStyle}"
-                    MouseUp="tbxForceDownload_MouseUp"
                     Margin="{StaticResource SmallLeftTopMargin}" 
                     Text="{x:Static properties:Resources.InstallWindowInstallPathText}" />
 
