@@ -109,7 +109,7 @@
                                 Click="btnInstall_Click" >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource DownloadIcon}" Margin="{StaticResource XSmallRightMargin}" />
-                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextDownload}" />
+                                    <TextBlock Style="{StaticResource BaseIconTextStyle}" Text="{x:Static properties:Resources.TextInstall}" />
                                 </StackPanel>
                             </Button>
                             <Button
