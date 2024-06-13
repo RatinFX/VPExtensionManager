@@ -73,7 +73,9 @@ public class ApplicationUpdateService : IApplicationUpdateService
     private static bool ShouldCheckForUpdate(string latestVersion)
     {
         if (string.IsNullOrEmpty(latestVersion) || latestVersion.Equals(Properties.Resources.TextLatestVersionNotFound))
+        {
             return true;
+        }
 
         var propExists = AppProperties.Get(AppProperties.LastChecked, out string lastChecked);
 

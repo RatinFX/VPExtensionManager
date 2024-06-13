@@ -40,13 +40,14 @@ public partial class App : Application
         var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         // For more information about .NET generic host see  https://docs.microsoft.com/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0
-        _host = Host.CreateDefaultBuilder(e.Args)
-                .ConfigureAppConfiguration(c =>
-                {
-                    c.SetBasePath(appLocation);
-                })
-                .ConfigureServices(ConfigureServices)
-                .Build();
+        _host = Host
+            .CreateDefaultBuilder(e.Args)
+            .ConfigureAppConfiguration(c =>
+            {
+                c.SetBasePath(appLocation);
+            })
+            .ConfigureServices(ConfigureServices)
+            .Build();
 
         await _host.StartAsync();
 
@@ -97,7 +98,9 @@ public partial class App : Application
         AppSessionHandler.StopPipeServer();
 
         if (_host is null)
+        {
             return;
+        }
 
         await _host.StopAsync();
         _host.Dispose();

@@ -31,7 +31,9 @@ public class GitHubService : IGitHubService
     public string GetRateLimitExceptionErrorMessage(Exception ex)
     {
         if (ex is not RateLimitExceededException)
+        {
             return ex.Message;
+        }
 
         // Let's not show the IP of the user for now...
         var rateLimited = ex as RateLimitExceededException;

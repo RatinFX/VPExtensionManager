@@ -35,7 +35,9 @@ public class SelectableObject<T> : INotifyPropertyChanged
     private void Set<TT>(ref TT storage, TT value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(storage, value))
+        {
             return;
+        }
 
         storage = value;
         OnPropertyChanged(propertyName);

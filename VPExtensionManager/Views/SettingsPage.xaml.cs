@@ -85,7 +85,9 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(storage, value))
+        {
             return;
+        }
 
         storage = value;
         OnPropertyChanged(propertyName);
@@ -177,7 +179,9 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         var selected = (SelectableObject<int>)comboBox.SelectedItem;
 
         if (selected == null)
+        {
             return;
+        }
 
         foreach (SelectableObject<int> v in VPVersionsSource)
         {
@@ -203,16 +207,22 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         foreach (var v in VPVersionsSource)
         {
             if (v.IsSelected)
+            {
                 sb.Add(v.Data);
+            }
         }
 
         tbxVPVersions.Text = string.Join(", ", sb);
 
         if (string.IsNullOrEmpty(tbxVPVersions.Text))
+        {
             tbxVPVersions.Text = Properties.Resources.SettingsPageInstalledVPVersionsEmptySelectText;
+        }
 
         if (!IsInitialized)
+        {
             return;
+        }
 
         _localVPVersionService.SetLocalVersions(sb);
     }
@@ -223,9 +233,12 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         var result = dialog.ShowDialog() ?? false;
 
         if (!result || string.IsNullOrEmpty(dialog.SelectedPath))
+        {
             return;
+        }
 
         DownloadsFolder = dialog.SelectedPath;
+
         _folderService.SaveDownloadsFolder(DownloadsFolder);
         _extensionService.SetDownloadsPath(DownloadsFolder);
 

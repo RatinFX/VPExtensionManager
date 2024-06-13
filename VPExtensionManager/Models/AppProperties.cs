@@ -52,7 +52,9 @@ public class AppProperties
         value = null;
 
         if (!Contains(key))
+        {
             return false;
+        }
 
         value = App.Current.Properties[key].ToString();
         return true;

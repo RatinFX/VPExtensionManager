@@ -15,8 +15,14 @@ public class NotificationService : INotificationService
             UnfreezeOnMouseLeave = true,
             NotificationClickAction = notif =>
             {
-                if (click == null) notif.Close();
-                else click.Invoke();
+                if (click == null)
+                {
+                    notif.Close();
+                }
+                else
+                {
+                    click.Invoke();
+                }
             }
         };
 

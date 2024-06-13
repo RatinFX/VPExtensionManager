@@ -95,7 +95,9 @@ internal class AppSessionHandler
     public static void StopPipeServer()
     {
         if (!createdNewMutex || _pipeServer is null)
+        {
             return;
+        }
 
         if (_pipeServer.IsConnected)
         {

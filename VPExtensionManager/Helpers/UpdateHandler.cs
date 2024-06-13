@@ -14,7 +14,9 @@ internal class UpdateHandler
         );
 
         if (res != System.Windows.MessageBoxResult.Yes)
+        {
             return;
+        }
 
         var success = AppProperties.Get(AppProperties.LatestVersionURL, out string releaseLink);
         if (!success)

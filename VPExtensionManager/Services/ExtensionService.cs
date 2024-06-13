@@ -56,7 +56,9 @@ public class ExtensionService : IExtensionService
             foreach (var extension in Extensions)
             {
                 if (extension.ShouldCheckForUpdate())
+                {
                     SetLatestRelease(extension);
+                }
 
                 SetInstallFolders(extension, shouldLocateInstalls);
             }
@@ -80,7 +82,7 @@ public class ExtensionService : IExtensionService
         return SetLatestRelease(extension);
     }
 
-    public void RefreshInstallFolders(VPExtension extension)
+    // TODO: move into Extension(?)
     {
         SetInstallFolders(extension, true);
     }
@@ -164,12 +166,6 @@ public class ExtensionService : IExtensionService
 
                 foreach (var filePath in filePaths)
                 {
-                    /// TODO: Find/Create a reliable way to check the VEGAS version of and Extension
-                    /// (hint: there is none yet)
-                    /// - this only matters when the user wants to Update:
-                    //   > extension.GetDownloadLink(VPVersion..)
-                    /// - could add "for Sony/Magix" or "13/14" in the Dll File's Description
-
                     /// TODO: We could also check if Dependencies are present in the given folder
                     /// and present information to the user when something is missing
                     // var files = Directory.GetFiles(Directory.GetParent(filePath))
@@ -182,6 +178,11 @@ public class ExtensionService : IExtensionService
 
                     var version = $"{vInfo.ProductMajorPart}.{vInfo.ProductMinorPart}.{vInfo.ProductBuildPart}";
 
+                    /// TODO: Find/Create a reliable way to check the VEGAS version of and Extension
+                    /// (hint: there is none yet)
+                    /// - this only matters when the user wants to Update:
+                    //   > extension.GetDownloadLink(VPVersion..)
+                    /// - could add "for Sony/Magix" or "13/14" in the Dll File's Description
                     var vp = vInfo.FileDescription.Contains(VPVersion.Magix.ToString("G")) ? VPVersion.Magix
                         : vInfo.FileDescription.Contains(VPVersion.Sony.ToString("G")) ? VPVersion.Sony
                         : VPVersion.Unknown;
@@ -282,7 +283,9 @@ public class ExtensionService : IExtensionService
             var success = PerformInstall(extension, vp, installPath, forceDownload);
 
             if (success)
+            {
                 newInstall = new VPInstall(extension.LatestVersion, installPath, vp);
+        }
         }
         catch (Exception ex)
         {
@@ -342,7 +345,9 @@ public class ExtensionService : IExtensionService
                 var filePath = Path.Combine(selectedInstall.InstallPath, foundFile);
 
                 if (File.Exists(filePath))
+                {
                     File.Delete(filePath);
+            }
             }
 
             // Remaining Dependencies
@@ -358,8 +363,10 @@ public class ExtensionService : IExtensionService
                     var path = Path.Combine(selectedInstall.InstallPath, dependency);
 
                     if (File.Exists(path))
+                    {
                         File.Delete(path);
                 }
+            }
             }
 
             extension.Installs.Remove(selectedInstall);

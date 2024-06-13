@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -28,12 +27,16 @@ internal class AppLinkHandler
         {
             var processPath = Environment.ProcessPath;
             if (processPath == null)
+            {
                 return;
+            }
 
             using var key = Registry.ClassesRoot.OpenSubKey(RFXStrings.VPEM);
 
             if (key != null && AskedRegistryQuestion())
+            {
                 return;
+            }
 
             var res = MessageBoxes.YesNo(
                 Properties.Resources.MessageBoxYesNoURLHandlerContent,
@@ -95,13 +98,17 @@ $@"Windows Registry Editor Version 5.00
         try
         {
             if (args.Length == 0)
+            {
                 return;
+            }
 
             var link = args[0].Trim().ToLower()
                 .Replace(RFXStrings.VPEM_PROTOCOL, "");
 
             if (string.IsNullOrEmpty(link))
+            {
                 return;
+            }
 
             if (link.EndsWith("/"))
                 link = link.Replace("/", "");

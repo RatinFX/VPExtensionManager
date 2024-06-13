@@ -113,7 +113,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         {
             var ext = GetExtensionByName(extension);
             if (ext == null)
+            {
                 return;
+            }
 
             Selected = ext;
         }
@@ -124,7 +126,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(storage, value))
+        {
             return;
+        }
 
         storage = value;
         OnPropertyChanged(propertyName);
@@ -160,7 +164,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     {
         var success = _extensionService.RefreshLatestRelease(Selected);
         if (!success)
+        {
             return;
+        }
 
         var msg = string.Format(Properties.Resources.NotificationSuccessUpdateAvailable,
             Selected.ExtensionName,
@@ -187,17 +193,22 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     {
         var window = new InstallWindow(Selected, _extensionService.GetAvailableFolders(Selected));
         var res = window.ShowDialog();
-
         if (res is null or false)
+        {
             return;
+        }
 
         var (vpver, installPath, forceDownload) = window.GetSelectedValues();
         if (vpver is VPVersion.Unknown || installPath is null)
+        {
             return;
+        }
 
         var newInstall = _extensionService.Install(Selected, vpver, installPath, forceDownload);
         if (newInstall == null)
+        {
             return;
+        }
 
         Selected.Installs.Add(newInstall);
         Selected.SetInstalledVersion();
@@ -214,7 +225,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void btnUpdateNotes_Click(object sender, RoutedEventArgs e)
     {
         if (Selected == null)
+        {
             return;
+        }
 
         var window = new UpdateNotesWindow(_systemService, Selected);
         window.ShowDialog();
@@ -225,15 +238,21 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         var window = new InstallWindow(Selected, SelectedInstall);
         var res = window.ShowDialog();
         if (res is null or false)
+        {
             return;
+        }
 
         var (vpver, installPath, forceDownload) = window.GetSelectedValues();
         if (vpver is VPVersion.Unknown || installPath is null)
+        {
             return;
+        }
 
         var success = _extensionService.Update(Selected, vpver, installPath, forceDownload);
         if (!success)
+        {
             return;
+        }
 
         _extensionService.RefreshInstallFolders(Selected);
         Selected.SetInstalledVersion();
@@ -277,11 +296,15 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         );
 
         if (result != MessageBoxResult.Yes)
+        {
             return;
+        }
 
         var success = _extensionService.Uninstall(Selected, SelectedInstall);
         if (!success)
+        {
             return;
+        }
 
         ResetInstallPaths();
 

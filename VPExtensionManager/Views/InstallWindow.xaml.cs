@@ -83,7 +83,9 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
             // one would probably not want to install 2 different
             // versions of the same extension in the same folder
             if (extension.Installs.Any(x => x.InstallPath == folder))
+            {
                 continue;
+            }
 
             InstallPathsSource.Add(folder);
         }
@@ -99,10 +101,14 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         Title = title;
 
         if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Magix))
+        {
             VPVersionsSource.Add(VPVersion.Magix);
+        }
 
         if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Sony))
+        {
             VPVersionsSource.Add(VPVersion.Sony);
+    }
     }
 
     private void SetDefaults()
@@ -116,7 +122,9 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
     private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(storage, value))
+        {
             return;
+        }
 
         storage = value;
         OnPropertyChanged(propertyName);

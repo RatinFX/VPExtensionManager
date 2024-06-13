@@ -32,6 +32,7 @@ public class WindowManagerService : IWindowManagerService
                 Title = Properties.Resources.AppDisplayName,
                 Style = Application.Current.FindResource("CustomMetroWindow") as Style
             };
+
             var frame = new Frame()
             {
                 Focusable = false,
@@ -51,10 +52,13 @@ public class WindowManagerService : IWindowManagerService
     {
         var shellWindow = _serviceProvider.GetService(typeof(IShellDialogWindow)) as Window;
         var frame = ((IShellDialogWindow)shellWindow).GetDialogFrame();
+
         frame.Navigated += OnNavigated;
         shellWindow.Closed += OnWindowClosed;
+
         var page = _serviceProvider.GetService(pageType);
         var navigated = frame.Navigate(page, parameter);
+
         return shellWindow.ShowDialog();
     }
 
@@ -79,6 +83,7 @@ public class WindowManagerService : IWindowManagerService
         if (sender is Frame frame)
         {
             var page = frame.Content;
+
             if (page is INavigationAware navigationAware)
             {
                 navigationAware.OnNavigatedTo(e.ExtraData);
