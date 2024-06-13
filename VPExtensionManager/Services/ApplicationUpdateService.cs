@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 using VPExtensionManager.Models;
@@ -38,7 +37,7 @@ public class ApplicationUpdateService : IApplicationUpdateService
 
     public void SetLocalLatestVersion()
     {
-        var latestVersion = _gitHubService.GetLatestRelease(RFXStrings.VPExtensionManager);
+        var latestVersion = _gitHubService.GetLatestRelease(RFXStrings.RatinFX, RFXStrings.VPExtensionManager);
 
         if (latestVersion.Assets.Count != 0)
         {

@@ -1,7 +1,6 @@
 ﻿using Octokit;
 using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
-using VPExtensionManager.Models;
 
 namespace VPExtensionManager.Services;
 
@@ -12,9 +11,9 @@ public class GitHubService : IGitHubService
 {
     private readonly GitHubClient _client = new(new ProductHeaderValue("VPExtensionManager_" + DateTimeHelper.GetCurrentUnixTime()));
 
-    public Release GetLatestRelease(string repositoryName)
+    public Release GetLatestRelease(string creator, string repositoryName)
     {
-        return _client.Repository.Release.GetLatest(RFXStrings.RatinFX, repositoryName)?.Result;
+        return _client.Repository.Release.GetLatest(creator, repositoryName)?.Result;
     }
 
     public int GetRemainingCalls()

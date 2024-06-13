@@ -99,7 +99,7 @@ public class ExtensionService : IExtensionService
         {
             extension.LastChecked = DateTimeHelper.GetCurrentUnixTime();
 
-            var release = _gitHubService.GetLatestRelease(extension.ExtensionName);
+            var release = _gitHubService.GetLatestRelease(extension.Creator, extension.ExtensionName);
 
             extension.LatestVersion = release.TagName;
             extension.LatestHtmlUrl = release.HtmlUrl;
