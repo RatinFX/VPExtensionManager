@@ -7,5 +7,4 @@ public interface IGitHubService
     Release GetLatestRelease(string repositoryName);
     int GetRemainingCalls();
     string GetRateLimitResetTime();
-    string GetRateLimitExceptionErrorMessage(Exception ex);
 }

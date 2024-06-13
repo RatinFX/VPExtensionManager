@@ -28,7 +28,7 @@ public class GitHubService : IGitHubService
         return $"{rem:0.00} minutes";
     }
 
-    public string GetRateLimitExceptionErrorMessage(Exception ex)
+    public static string GetRateLimitExceptionErrorMessage(Exception ex)
     {
         if (ex is not RateLimitExceededException)
         {

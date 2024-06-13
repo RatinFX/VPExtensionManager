@@ -394,7 +394,7 @@ public class ExtensionService : IExtensionService
         ex = ex.GetBaseException();
 
         var msg = $"{details}\n"
-            + $"- {_gitHubService.GetRateLimitExceptionErrorMessage(ex)}";
+            + $"- {GitHubService.GetRateLimitExceptionErrorMessage(ex)}";
 
         Debug.WriteLine(msg);
         _notificationService.Error(msg);

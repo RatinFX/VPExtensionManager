@@ -130,7 +130,7 @@ public class ApplicationUpdateService : IApplicationUpdateService
 
             var msg = string.Format(
                 Properties.Resources.NotificationErrorCheckingForLatestVersion,
-                _gitHubService.GetRateLimitExceptionErrorMessage(ex)
+                GitHubService.GetRateLimitExceptionErrorMessage(ex)
             );
 
             Debug.WriteLine(msg);
