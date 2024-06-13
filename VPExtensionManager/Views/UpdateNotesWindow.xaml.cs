@@ -20,7 +20,7 @@ public partial class UpdateNotesWindow : MetroWindow, INotifyPropertyChanged
         set => Set(ref _updateNotes, value);
     }
 
-    public UpdateNotesWindow(ISystemService systemService, VPExtension extension)
+    public UpdateNotesWindow(ISystemService systemService, VPExtensionBase extension)
     {
         _systemService = systemService;
 

@@ -6,13 +6,13 @@ public interface IExtensionService
 {
     void SetDownloadsPath(string downloadsPath);
     void SetPossibleFolders(List<int> localVersions);
-    IEnumerable<VPExtension> InitializeExtensions();
+    IEnumerable<VPExtensionBase> InitializeExtensions();
 
-    bool RefreshLatestRelease(VPExtension extension);
-    void RefreshInstallFolders(VPExtension extension);
-    List<string> GetAvailableFolders(VPExtension extension);
+    bool RefreshLatestRelease(VPExtensionBase extension);
+    void RefreshInstallFolders(VPExtensionBase extension);
+    List<string> GetAvailableFolders(VPExtensionBase extension);
 
-    VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
-    bool Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload);
-    bool Uninstall(VPExtension extension, VPInstall selectedInstall);
+    VPInstall Install(VPExtensionBase extension, VPVersion vp, string installPath, bool forceDownload);
+    bool Update(VPExtensionBase extension, VPVersion vp, string installPath, bool forceDownload);
+    bool Uninstall(VPExtensionBase extension, VPInstall selectedInstall);
 }

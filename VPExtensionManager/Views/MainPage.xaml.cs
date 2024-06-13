@@ -16,8 +16,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private readonly IExtensionService _extensionService;
     private readonly INotificationService _notificationService;
     private readonly IApplicationUpdateService _applicationUpdateService;
-    private VPExtension _selected;
-    public VPExtension Selected
+    private VPExtensionBase _selected;
+    public VPExtensionBase Selected
     {
         get => _selected;
         set
@@ -55,8 +55,8 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         && Selected.LatestVersion != SelectedInstall.Version;
     public bool UninstallEnabled => SelectedInstall != null;
 
-    private ObservableCollection<VPExtension> _extensionItems = new();
-    public ObservableCollection<VPExtension> ExtensionItems
+    private ObservableCollection<VPExtensionBase> _extensionItems = new();
+    public ObservableCollection<VPExtensionBase> ExtensionItems
     {
         get => _extensionItems;
         set => Set(ref _extensionItems, value);
@@ -93,7 +93,7 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         AppLinkHandler.NavigateToExtensionHandler += NavigateToExtension;
     }
 
-    private VPExtension GetExtensionByName(string extension)
+    private VPExtensionBase GetExtensionByName(string extension)
     {
         return ExtensionItems?.FirstOrDefault(x =>
         {

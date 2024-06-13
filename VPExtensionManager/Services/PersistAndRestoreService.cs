@@ -49,10 +49,10 @@ public class PersistAndRestoreService : IPersistAndRestoreService
         }
 
         var extensionsName = _appConfig.ExtensionsFileName;
-        var extensions = _fileService.Read<List<VPExtension>>(_folderService.DefaultConfigurationFolder, extensionsName);
+        var extensions = _fileService.Read<List<VPExtensionBase>>(_folderService.DefaultConfigurationFolder, extensionsName);
         if (extensions != null)
         {
-            foreach (VPExtension ext in extensions)
+            foreach (VPExtensionBase ext in extensions)
             {
                 ExtensionService.Extensions.Add(ext);
             }

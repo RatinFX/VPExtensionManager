@@ -5,14 +5,14 @@ using VPExtensionManager.Helpers;
 
 namespace VPExtensionManager.Models;
 
-public class VPExtension : INotifyPropertyChanged
+public class VPExtensionBase : INotifyPropertyChanged
 {
     // General
-    public string Creator { get; set; } = "creator";
-    public string ExtensionName { get; set; } = "name";
+    public virtual string Creator { get; set; } = "creator";
+    public virtual string ExtensionName { get; set; } = "name";
+    public virtual VPExtensionType Type { get; set; }
     public string LatestHtmlUrl { get; set; } = string.Empty;
     public string LatestReleaseNotes { get; set; } = string.Empty;
-    public VPExtensionType Type { get; set; }
 
     // GitHub / latest Release
     public bool RepositoryWasFound { get; set; } = true;
@@ -48,14 +48,14 @@ public class VPExtension : INotifyPropertyChanged
     public long LastChecked { get; set; } = -1;
 
     [JsonIgnore]
-    public bool UpdateAvailable =>
+    public virtual bool UpdateAvailable =>
         RepositoryWasFound
         && !string.IsNullOrEmpty(LatestVersion)
         && InstalledVersion != LatestVersion
         && (!Installs.Any() || Installs.Any(x => x.Version != LatestVersion));
 
     [JsonIgnore]
-    public string VersionDisplay =>
+    public virtual string VersionDisplay =>
         !RepositoryWasFound ? $"{InstalledVersion} ({LatestVersion})"
         : UpdateAvailable ? $"{InstalledVersion} -> {LatestVersion}"
         : InstalledVersion;
@@ -67,8 +67,8 @@ public class VPExtension : INotifyPropertyChanged
 
     public List<string> Dependencies { get; set; } = [];
 
-    public VPExtension() { }
-    public VPExtension(string creator, string extensionName, VPExtensionType type, List<string> dependencies)
+    public VPExtensionBase() { }
+    public VPExtensionBase(string creator, string extensionName, VPExtensionType type, List<string> dependencies)
     {
         Creator = creator;
         ExtensionName = extensionName;
@@ -76,7 +76,7 @@ public class VPExtension : INotifyPropertyChanged
         Dependencies = dependencies;
     }
 
-    public void SetInstalledVersion()
+    public virtual void SetInstalledVersion()
     {
         InstalledVersion =
             !Installs.Any() ? Properties.Resources.TextNotInstalled
@@ -85,17 +85,19 @@ public class VPExtension : INotifyPropertyChanged
             ?? Properties.Resources.TextUnknownError;
     }
 
-    public bool ShouldCheckForUpdate()
+    public virtual bool ShouldCheckForUpdate()
     {
         return string.IsNullOrEmpty(LatestVersion)
             //|| !ReleaseAssets.Any()
             || DateTimeHelper.ShouldCheckForUpdate(LastChecked);
     }
 
-    public string GetDownloadLink(VPVersion vp)
+    public virtual string GetDownloadLink(VPVersion vp)
     {
         if (string.IsNullOrEmpty(LatestVersion))
+        {
             return string.Empty;
+        }
 
         var result = ReleaseAssets.FirstOrDefault(x => x.VP == vp && x.Name.EndsWith(Type.DownloadFileExtension))
             ?.BrowserDownloadUrl
@@ -104,21 +106,25 @@ public class VPExtension : INotifyPropertyChanged
         return result;
     }
 
+    // TODO: add Install, Update, Uninstall
+
     public event PropertyChangedEventHandler PropertyChanged;
     private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(storage, value))
+        {
             return;
+        }
 
         storage = value;
         OnPropertyChanged(propertyName);
     }
 
-    public static VPExtension VPConsole { get; } = new(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Extension, RFXStrings.VPConsoleRefs);
-    public static VPExtension VPFlow { get; } = new(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Extension, RFXStrings.VegasProFlowRefs);
-    public static VPExtension ShortenExtendMedia { get; } = new(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Script, []);
-    public static VPExtension CustomFades { get; } = new(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Script, []);
+    public static VPExtensionBase VPConsole { get; } = new(RFXStrings.RatinFX, RFXStrings.VPConsole, VPExtensionType.Extension, RFXStrings.VPConsoleRefs);
+    public static VPExtensionBase VPFlow { get; } = new(RFXStrings.RatinFX, RFXStrings.VegasProFlow, VPExtensionType.Extension, RFXStrings.VegasProFlowRefs);
+    public static VPExtensionBase ShortenExtendMedia { get; } = new(RFXStrings.RatinFX, RFXStrings.ShortenExtendMedia, VPExtensionType.Script, []);
+    public static VPExtensionBase CustomFades { get; } = new(RFXStrings.RatinFX, RFXStrings.CustomFades, VPExtensionType.Script, []);
 
-    public static List<VPExtension> DefaultExtensions = [VPConsole, VPFlow, ShortenExtendMedia, CustomFades];
+    public static List<VPExtensionBase> DefaultExtensions = [VPConsole, VPFlow, ShortenExtendMedia, CustomFades];
 }

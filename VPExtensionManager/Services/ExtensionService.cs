@@ -10,7 +10,7 @@ namespace VPExtensionManager.Services;
 
 public class ExtensionService : IExtensionService
 {
-    public static List<VPExtension> Extensions = new();
+    public static List<VPExtensionBase> Extensions = new();
 
     private readonly INotificationService _notificationService;
     private readonly IGitHubService _gitHubService;
@@ -40,14 +40,15 @@ public class ExtensionService : IExtensionService
     {
         return Extensions.All(ext =>
         {
-            var def = VPExtension.DefaultExtensions.FirstOrDefault(d => ext.ExtensionName == d.ExtensionName);
+            var def = VPExtensionBase.DefaultExtensions.FirstOrDefault(d => ext.ExtensionName == d.ExtensionName);
+
             return def != null
                 && def.Dependencies.Count == ext.Dependencies.Count
                 && Enumerable.SequenceEqual(def.Dependencies.OrderBy(d => d), ext.Dependencies.OrderBy(d => d));
         });
     }
 
-    public IEnumerable<VPExtension> InitializeExtensions()
+    public IEnumerable<VPExtensionBase> InitializeExtensions()
     {
         if (Extensions.Any() && DependenciesAreOK())
         {
@@ -66,7 +67,7 @@ public class ExtensionService : IExtensionService
             return Extensions;
         }
 
-        Extensions = VPExtension.DefaultExtensions;
+        Extensions = VPExtensionBase.DefaultExtensions;
 
         foreach (var extension in Extensions)
         {
@@ -77,17 +78,18 @@ public class ExtensionService : IExtensionService
         return Extensions;
     }
 
-    public bool RefreshLatestRelease(VPExtension extension)
+    public bool RefreshLatestRelease(VPExtensionBase extension)
     {
         return SetLatestRelease(extension);
     }
 
     // TODO: move into Extension(?)
+    public void RefreshInstallFolders(VPExtensionBase extension)
     {
         SetInstallFolders(extension, true);
     }
 
-    private bool SetLatestRelease(VPExtension extension)
+    private bool SetLatestRelease(VPExtensionBase extension)
     {
         Debug.WriteLine($">>> Before CheckForUpdate - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
 
@@ -128,7 +130,7 @@ public class ExtensionService : IExtensionService
         return success;
     }
 
-    private void SetInstallFolders(VPExtension extension, bool shouldLocateInstalls)
+    private void SetInstallFolders(VPExtensionBase extension, bool shouldLocateInstalls)
     {
         try
         {
@@ -147,7 +149,7 @@ public class ExtensionService : IExtensionService
         }
     }
 
-    private List<VPInstall> GetInstallPaths(VPExtension extension)
+    private List<VPInstall> GetInstallPaths(VPExtensionBase extension)
     {
         var installs = new List<VPInstall>();
 
@@ -215,14 +217,14 @@ public class ExtensionService : IExtensionService
         return installs;
     }
 
-    public List<string> GetAvailableFolders(VPExtension extension)
+    public List<string> GetAvailableFolders(VPExtensionBase extension)
     {
         return extension.Type.Equals(VPExtensionType.Extension)
             ? ExtensionFolders
             : ScriptFolders;
     }
 
-    private bool PerformInstall(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    public bool PerformInstall(VPExtensionBase extension, VPVersion vp, string installPath, bool forceDownload)
     {
         var downloadLink = extension.GetDownloadLink(vp);
         if (downloadLink == null)
@@ -272,7 +274,7 @@ public class ExtensionService : IExtensionService
     /// and let the Extension handle Install, etc.
     /// This way it could have "Custom" extensions
     /// </summary>
-    public VPInstall Install(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    public VPInstall Install(VPExtensionBase extension, VPVersion vp, string installPath, bool forceDownload)
     {
         Debug.WriteLine($">>> Before Install - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
 
@@ -303,7 +305,7 @@ public class ExtensionService : IExtensionService
         return newInstall;
     }
 
-    public bool Update(VPExtension extension, VPVersion vp, string installPath, bool forceDownload)
+    public bool Update(VPExtensionBase extension, VPVersion vp, string installPath, bool forceDownload)
     {
         Debug.WriteLine($">>> Before Update - Remaining API calls: {_gitHubService.GetRemainingCalls()}");
 
@@ -331,7 +333,7 @@ public class ExtensionService : IExtensionService
         return success;
     }
 
-    public bool Uninstall(VPExtension extension, VPInstall selectedInstall)
+    public bool Uninstall(VPExtensionBase extension, VPInstall selectedInstall)
     {
         try
         {

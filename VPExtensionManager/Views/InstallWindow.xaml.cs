@@ -58,7 +58,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
 
     public bool OpenFolderEnabled => Directory.Exists(InstallPath);
 
-    public InstallWindow(VPExtension extension, VPInstall selectedInstall)
+    public InstallWindow(VPExtensionBase extension, VPInstall selectedInstall)
     {
         var title = string.Format(Properties.Resources.WindowTitleUpdate, extension.ExtensionName);
         
@@ -71,7 +71,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         InstallPathEnabled = false;
     }
 
-    public InstallWindow(VPExtension extension, List<string> availableFolders)
+    public InstallWindow(VPExtensionBase extension, List<string> availableFolders)
     {
         var title = string.Format(Properties.Resources.WindowTitleInstall, extension.ExtensionName);
 
@@ -93,7 +93,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         SetDefaults();
     }
 
-    private void Init(string title, VPExtension extension)
+    private void Init(string title, VPExtensionBase extension)
     {
         InitializeComponent();
         DataContext = this;
@@ -108,7 +108,7 @@ public partial class InstallWindow : MetroWindow, INotifyPropertyChanged
         if (extension.ReleaseAssets.Any(x => x.VP == VPVersion.Sony))
         {
             VPVersionsSource.Add(VPVersion.Sony);
-    }
+        }
     }
 
     private void SetDefaults()
