@@ -26,11 +26,15 @@ internal class UpdateHandler
         }
 
         var installPath = Environment.CurrentDirectory;
-        var fileName = Path.Combine(installPath, "VPExtensionManager.Updater.exe");
+        var updaterToOverwrite = Path.Combine(installPath, "VPExtensionManager.Updater.exe");
+        var updaterToRun = Path.Combine(installPath, "Updater.exe");
+
+        // Copy the current Updater so everything can be overwritten during the update process
+        File.Copy(updaterToOverwrite, updaterToRun, true);
 
         var psi = new ProcessStartInfo
         {
-            FileName = fileName,
+            FileName = updaterToRun,
             Arguments = @$"""{releaseLink}"" ""{downloadPath}"" ""{installPath}""",
             Verb = "runas",
             UseShellExecute = true

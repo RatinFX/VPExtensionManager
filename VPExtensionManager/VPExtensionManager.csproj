@@ -69,4 +69,8 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="cd ..\VPExtensionManager.Updater&#xD;&#xA;dotnet publish /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml" />
+	</Target>
 </Project>

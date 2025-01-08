@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <FileVersion>1.2.0</FileVersion>
     <AssemblyVersion>1.2.0</AssemblyVersion>
+	<DebugType>embedded</DebugType>
+	<PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
 </Project>
