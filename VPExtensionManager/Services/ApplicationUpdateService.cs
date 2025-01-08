@@ -114,8 +114,9 @@ public class ApplicationUpdateService : IApplicationUpdateService
             if (_applicationInfoService.GetVersionShort() != latestVersion)
             {
                 _notificationService.Information(
-                    string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion),
-                    () => _rightPaneService.OpenInRightPane(typeof(SettingsPage))
+                    message: string.Format(Properties.Resources.NotificationInfoNewVersionAvailable, latestVersion),
+                    click: () => _rightPaneService.OpenInRightPane(typeof(SettingsPage)),
+                    close: true
                 );
                 return;
             }

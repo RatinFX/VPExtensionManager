@@ -8,20 +8,18 @@ public class NotificationService : INotificationService
 {
     private readonly ToastViewModel _vm = new();
 
-    private static void Show(Action<string, MessageOptions> show, string message, Action click = null)
+    private static void Show(Action<string, MessageOptions> show, string message, Action click = null, bool close = false)
     {
         var options = new MessageOptions
         {
             UnfreezeOnMouseLeave = true,
             NotificationClickAction = notif =>
             {
-                if (click == null)
+                click?.Invoke();
+
+                if (close)
                 {
                     notif.Close();
-                }
-                else
-                {
-                    click.Invoke();
                 }
             }
         };
@@ -29,8 +27,8 @@ public class NotificationService : INotificationService
         show(message, options);
     }
 
-    public void Information(string message, Action click = null) => Show(_vm.ShowInformation, message, click);
-    public void Success(string message, Action click = null) => Show(_vm.ShowSuccess, message, click);
-    public void Warning(string message, Action click = null) => Show(_vm.ShowWarning, message, click);
-    public void Error(string message, Action click = null) => Show(_vm.ShowError, message, click);
+    public void Information(string message, Action click = null, bool close = false) => Show(_vm.ShowInformation, message, click, close);
+    public void Success(string message, Action click = null, bool close = false) => Show(_vm.ShowSuccess, message, click, close);
+    public void Warning(string message, Action click = null, bool close = false) => Show(_vm.ShowWarning, message, click, close);
+    public void Error(string message, Action click = null, bool close = false) => Show(_vm.ShowError, message, click, close);
 }
