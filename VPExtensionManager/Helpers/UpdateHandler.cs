@@ -18,8 +18,8 @@ internal class UpdateHandler
             return;
         }
 
-        var success = AppProperties.Get(AppProperties.LatestVersionURL, out string releaseLink);
-        if (!success)
+        var gotLatestVersion = AppProperties.Get(AppProperties.LatestVersionURL, out string releaseLink);
+        if (!gotLatestVersion)
         {
             MessageBoxes.Error(content: Properties.Resources.ErrorLatestVersionURLNotFound);
             return;
@@ -32,6 +32,17 @@ internal class UpdateHandler
         // Copy the current Updater so everything can be overwritten during the update process
         File.Copy(updaterToOverwrite, updaterToRun, true);
 
+        // Delete old Updater files from 1.2.1 and earlier versions
+        var oldUpdaterFiles = Directory
+            .GetFiles(installPath, "VPExtensionManager.Updater*")
+            .Where(x => !x.EndsWith("exe"));
+
+        foreach (var item in oldUpdaterFiles)
+        {
+            File.Delete(item);
+        }
+
+        // Start Updater
         var psi = new ProcessStartInfo
         {
             FileName = updaterToRun,
