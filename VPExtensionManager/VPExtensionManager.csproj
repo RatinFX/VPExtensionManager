@@ -40,7 +40,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\VPExtensionManager.Core\VPExtensionManager.Core.csproj" />
-		<!--<ProjectReference Include="..\VPExtensionManager.Updater\VPExtensionManager.Updater.csproj" />-->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,6 +70,10 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="cd ..\VPExtensionManager.Updater&#xD;&#xA;dotnet publish /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml" />
+		<Exec Command="copy ..\Release\VPExtensionManager.Updater.exe ..\VPExtensionManager\$(OutDir)" />
+	</Target>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="dotnet publish ..\VPExtensionManager.Updater /p:PublishProfile=..\VPExtensionManager.Updater\Properties\PublishProfiles\FolderProfile.pubxml" />
 	</Target>
 </Project>
