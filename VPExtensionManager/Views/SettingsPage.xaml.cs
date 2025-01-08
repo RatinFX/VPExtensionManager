@@ -97,10 +97,10 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
     {
         Theme = _themeSelectorService.GetCurrentTheme();
 
-        // Only support VP14 and up to VP21 for now
+        // Only support VP14 and up to VP22 for now
         var versions = _localVPVersionService.GetLocalVersions();
         var minVP = 14;
-        var maxVP = 21 + 1;
+        var maxVP = 22 + 1;
         foreach (var i in Enumerable.Range(minVP, maxVP - minVP))
         {
             var s = new SelectableObject<int>(i, versions.Contains(i));
