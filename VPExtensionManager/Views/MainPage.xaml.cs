@@ -174,6 +174,9 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         );
 
         _notificationService.Success(msg);
+
+        OnPropertyChanged(nameof(InstallEnabled));
+        OnPropertyChanged(nameof(UpdateNotesEnabled));
     }
 
     private void btnFindInstalls_Click(object sender, RoutedEventArgs e)

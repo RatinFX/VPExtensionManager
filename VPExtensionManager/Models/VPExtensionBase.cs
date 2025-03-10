@@ -11,10 +11,10 @@ public class VPExtensionBase : INotifyPropertyChanged
     public virtual string Creator { get; set; } = "creator";
     public virtual string ExtensionName { get; set; } = "name";
     public virtual VPExtensionType Type { get; set; }
-    public string LatestHtmlUrl { get; set; } = string.Empty;
-    public string LatestReleaseNotes { get; set; } = string.Empty;
 
     // GitHub / latest Release
+    public string LatestHtmlUrl { get; set; } = string.Empty;
+    public string LatestReleaseNotes { get; set; } = string.Empty;
     public bool RepositoryWasFound { get; set; } = true;
 
     [JsonIgnore]

@@ -111,12 +111,19 @@ public class ExtensionService : IExtensionService
                 .Select(x => new ShortReleaseAsset(x, ShortReleaseAsset.GetVersion(x.Name, release.TagName)))
                 .ToList();
 
+            extension.RepositoryWasFound = true;
+
             success = true;
         }
         catch (Exception ex)
         {
-            extension.RepositoryWasFound = false;
             extension.LatestVersion = Properties.Resources.TextGitHubError;
+            extension.LatestHtmlUrl = string.Empty;
+            extension.LatestReleaseNotes = string.Empty;
+
+            extension.ReleaseAssets = [];
+
+            extension.RepositoryWasFound = false;
 
             var msg = string.Format(Properties.Resources.NotificationErrorGitHubLookup, extension.ExtensionName);
             HandleExceptions(msg, ex);
@@ -287,7 +294,7 @@ public class ExtensionService : IExtensionService
             if (success)
             {
                 newInstall = new VPInstall(extension.LatestVersion, installPath, vp);
-        }
+            }
         }
         catch (Exception ex)
         {
@@ -349,7 +356,7 @@ public class ExtensionService : IExtensionService
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
-            }
+                }
             }
 
             // Remaining Dependencies
@@ -367,8 +374,8 @@ public class ExtensionService : IExtensionService
                     if (File.Exists(path))
                     {
                         File.Delete(path);
+                    }
                 }
-            }
             }
 
             extension.Installs.Remove(selectedInstall);

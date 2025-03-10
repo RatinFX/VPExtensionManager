@@ -1,4 +1,5 @@
 ﻿using Octokit;
+using System.Diagnostics;
 using VPExtensionManager.Helpers;
 using VPExtensionManager.Interfaces.Services;
 
@@ -18,7 +19,15 @@ public class GitHubService : IGitHubService
 
     public int GetRemainingCalls()
     {
-        return _client.RateLimit.GetRateLimits().Result.Resources.Core.Remaining;
+        try
+        {
+            return _client.RateLimit.GetRateLimits().Result.Resources.Core.Remaining;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            throw;
+        }
     }
 
     public string GetRateLimitResetTime()
