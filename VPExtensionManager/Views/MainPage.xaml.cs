@@ -163,6 +163,10 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
     private void btnCheckForUpdate_Click(object sender, RoutedEventArgs e)
     {
         var success = _extensionService.RefreshLatestRelease(Selected);
+
+        OnPropertyChanged(nameof(InstallEnabled));
+        OnPropertyChanged(nameof(UpdateNotesEnabled));
+
         if (!success)
         {
             return;
@@ -174,9 +178,6 @@ public partial class MainPage : Page, INotifyPropertyChanged, INavigationAware
         );
 
         _notificationService.Success(msg);
-
-        OnPropertyChanged(nameof(InstallEnabled));
-        OnPropertyChanged(nameof(UpdateNotesEnabled));
     }
 
     private void btnFindInstalls_Click(object sender, RoutedEventArgs e)
