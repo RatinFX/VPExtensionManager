@@ -75,6 +75,7 @@ public partial class SettingsPage : Page, INotifyPropertyChanged, INavigationAwa
         _applicationUpdateService = applicationUpdateService;
 
         CheckForUpdate = _applicationUpdateService.ShouldCheckForUpdate();
+        Theme = _themeSelectorService.GetCurrentTheme();
 
         InitializeComponent();
         DataContext = this;
