@@ -24,11 +24,12 @@ public class RFXStrings
     public const string RatinFXVP = "RatinFX.VP.dll";
     public const string NewtonsoftJson = "Newtonsoft.Json.dll";
     public const string Octokit = "Octokit.dll";
+    public const string WindowsInput = "WindowsInput.dll";
 
     // Icons
     public const string VPFlowIcon = "VPFlow.png";
     public const string VPConsoleIcon = "VPConsole.png";
 
     public static readonly List<string> VegasProFlowRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson, VPFlowIcon];
-    public static readonly List<string> VPConsoleRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson, VPConsoleIcon];
+    public static readonly List<string> VPConsoleRefs = [VegasProData, RatinFXVP, Octokit, NewtonsoftJson, WindowsInput, VPConsoleIcon];
 }
