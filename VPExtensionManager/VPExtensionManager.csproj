@@ -9,8 +9,8 @@
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
-		<FileVersion>1.2.9</FileVersion>
-		<AssemblyVersion>1.2.9</AssemblyVersion>
+		<FileVersion>1.2.10</FileVersion>
+		<AssemblyVersion>1.2.10</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
